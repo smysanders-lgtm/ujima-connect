@@ -19,16 +19,16 @@ export default {
                 '9xl': ['6rem', { lineHeight: '1', letterSpacing: '-0.01em', fontWeight: 'bold' }],
             },
             fontFamily: {
-                heading: ['Inter', 'sans-serif'],
-                paragraph: ['Merriweather', 'serif'],
+                heading: "Playfair Display",
+                paragraph: "Roboto"
             },
             colors: {
-                primary: '#0f0fff',
-                'primary-foreground': '#53d409',
-                secondary: '#add8e6',
-                'secondary-foreground': '#f8fafc',
-                foreground: '#000000',
-                background: '#ffffff',
+                primary: '#C9A84C',
+                secondary: '#F3ECD8',
+                accent: '#C9A84C',
+                background: '#FFFFFF',
+                foreground: '#1A4D2E',
+                link: '#1A4D2E'
             },
         },
     },

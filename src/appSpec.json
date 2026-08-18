@@ -1,0 +1,219 @@
+{
+  "id": "869eaf02-07a3-49a4-87b2-6d3c36962230",
+  "initialPrompt": "Create a website inspired by https://motor-drop-24571728.figma.site",
+  "siteName": "motor-drop-24571728.figma.site",
+  "brandBook": {
+    "tones": [
+      "professional",
+      "empowering",
+      "accessible",
+      "supportive",
+      "sophisticated",
+      "calm",
+      "trustworthy"
+    ],
+    "designStyle": {
+      "primaryStyle": [
+        "Elegant"
+      ],
+      "supportingStyles": [
+        "Minimalist",
+        "Professional",
+        "Clean"
+      ]
+    },
+    "toneOfVoice": "Professional, empowering, accessible, supportive, and sophisticated.",
+    "graphicElements": {
+      "icons": "Clean, line-based icons that match the 'Inter' font's modern aesthetic. Use primary or foreground colors.",
+      "stickers": "Not applicable for this brand identity.",
+      "illustrations": "Minimalist, abstract, or softly rendered illustrations that align with the 'Elegant' and 'Empowering' tone. Avoid overly complex or busy graphics."
+    },
+    "designSummary": "**The Refined Narrative: Elegant Simplicity for Ujima**\n\nThe Vision: Ujima Creative Writing Services aims to empower and uplift underserved communities through accessible education and wellness. The brand identity must reflect this mission with a sense of trust, quiet confidence, and sophisticated professionalism. Drawing inspiration from the \"Elegant\" style and the provided Figma reference, the design will prioritize clarity, spaciousness, and a premium feel without being ostentatious. The visual language will be clean, balanced, and inviting, ensuring that the educational content and community focus are always the heroes.\n\n**Execution Blueprint:**\n1. Embrace Generous Whitespace: Every element will have ample breathing room to convey calm and importance, aligning with the \"Elegant\" philosophy and the inspiration's layout.\n2. Typographic Hierarchy as Structure: A clear distinction between headlines (Playfair Display) and body text (Inter) will guide the user, establishing order and readability.\n3. Subtle Color Harmony: The palette will be grounded in the extracted brand colors, used thoughtfully to highlight key actions and elements, maintaining a muted and sophisticated feel.\n4. Balanced Layouts: Prioritize symmetrical or near-symmetrical compositions where appropriate, reinforcing stability and trust. Asymmetrical elements will be used sparingly and intentionally for visual interest, always within a structured grid.\n5. Refined Components: Buttons and interactive elements will be clean, with subtle styling that emphasizes functionality and quality over embellishment.",
+    "layout": {
+      "grid": {
+        "margins": "Generous, often 80px or more for major section breaks, with smaller, consistent margins for internal elements.",
+        "padding": "Consistent padding within containers, typically 24px or 40px, to maintain internal spacing.",
+        "compositionApproach": "A flexible 12-column grid system with a strong emphasis on symmetrical alignment and generous spacing.",
+        "spacing": {
+          "gaps": "Base unit: 8px. Grid gaps are multiples of 8px, e.g., 24px (3x base unit) for standard gutters, 40px (5x base unit) for larger sections.",
+          "rows": "Flexible, determined by content and visual rhythm",
+          "columns": "12-column grid",
+          "compositionApproach": "Not specified"
+        }
+      },
+      "layoutDna": {
+        "contrastSpectrum": "Moderate to high, primarily between text and background, with subtle accents.",
+        "densitySpectrum": "Spacious, with significant negative space.",
+        "textVsImageEmphasis": "Balanced, with clear typography taking precedence for information, and images used to support and enhance the narrative.",
+        "complexitySpectrum": "Low to moderate, focusing on clarity and ease of navigation.",
+        "gridAlignmentSpectrum": "Primarily symmetrical and balanced, with occasional intentional asymmetry for visual interest.",
+        "negativeSpaceUsage": "Extensive, used to create a sense of calm, luxury, and focus."
+      },
+      "heroSectionLayout": "**The Elegant Introduction**\nComposition (Tailwind Spec): Container `h-screen grid place-items-center p-8`. Headline `motion.h1` with text 'Empowering Futures Through Creative Writing' (`text-7xl font-bold text-center leading-tight`). Subtitle `p` with text 'Accessible education, community support, and digital skills for all.' (`text-xl mt-4 text-center`).\nSignature Hook (Framer Motion Spec): Parent `motion.div` with `initial={{ opacity: 0 }}` and `animate={{ opacity: 1 }}` with `transition={{ duration: 1.5 }}`. Headline `motion.h1` uses `variants` with `transition: { staggerChildren: 0.05 }`. Each `motion.span` (for letter-by-letter reveal) has a variant with `initial={{ opacity: 0, y: 20 }}` and `animate={{ opacity: 1, y: 0 }}`."
+    },
+    "components": {
+      "images": "Layout Role: Integrated thoughtfully to complement text, often with ample padding or full-bleed sections. | Gallery Type: Standard image displays with clean borders or no borders, allowing content to breathe. Avoid complex grid layouts for galleries; prefer simple carousels or stacked arrangements.",
+      "buttons": "Primary: background-color: #C9A84C, color: #FFFFFF, border-radius: 4px, padding: 12px 24px, font-weight: 500. Secondary: background-color: transparent, color: #1A4D2E, border: 1px solid #1A4D2E, border-radius: 4px, padding: 12px 24px, font-weight: 500. Ghost buttons with subtle underlines for links.",
+      "containers": "Method: Whitespace, Style: Generous vertical margins (e.g., 80px) between sections. Optional subtle background color (#F3ECD8) for specific content blocks, with internal padding of 40px."
+    },
+    "palette": {
+      "colors": {
+        "customColors": [
+          {
+            "name": "destructive",
+            "value": "#E53E3E"
+          },
+          {
+            "name": "destructiveForeground",
+            "value": "#FFFFFF"
+          },
+          {
+            "name": "accent",
+            "value": "#C9A84C"
+          },
+          {
+            "name": "link",
+            "value": "#1A4D2E"
+          }
+        ],
+        "background": "#FFFFFF",
+        "secondary": "#F3ECD8",
+        "foreground": "#1A4D2E",
+        "secondaryForeground": "#1A4D2E",
+        "primaryForeground": "#FFFFFF",
+        "primary": "#C9A84C"
+      },
+      "paletteUsageGuide": "The primary color (#C9A84C) should be used for key calls-to-action, buttons, and important highlights. The secondary color (#F3ECD8) serves as a subtle background or supporting element. The background is clean white (#FFFFFF), with primary foreground text in a deep, readable tone (#1A4D2E). Accent colors should be used sparingly for emphasis. Ensure high contrast for accessibility.",
+      "paletteAccessibilityNotes": "The primary color (#C9A84C) has sufficient contrast against the white background (#FFFFFF) for primary actions. Text color (#1A4D2E) on white background ensures readability. Ensure all interactive elements have sufficient contrast ratios according to WCAG AA guidelines."
+    },
+    "typography": {
+      "headings": {
+        "font": {
+          "fontFamily": "Playfair Display",
+          "role": "headings",
+          "fontJustification": ""
+        },
+        "headingsAccessibilityNotes": "Ensure sufficient line height and letter spacing for readability, especially for longer headings. Avoid overly decorative or condensed styles for headings that might impair legibility.",
+        "headingsSimilarFonts": [],
+        "headingsUsageGuide": "Playfair Display is reserved for all major headings (H1, H2, H3) to provide a classic, elegant feel. Use it for titles, section headers, and prominent calls to action."
+      },
+      "paragraphs": {
+        "font": {
+          "fontFamily": "Inter",
+          "role": "paragraphs",
+          "fontJustification": ""
+        },
+        "paragraphsUsageGuide": "Inter is the workhorse font for all body text, descriptions, and UI elements. Its clean, modern aesthetic ensures excellent readability across all screen sizes. Use regular weights for body copy and medium/semibold for sub-headings or emphasized text within paragraphs.",
+        "paragraphsSimilarFonts": [],
+        "paragraphsAccessibilityNotes": "Maintain a minimum font size of 16px for body text. Ensure adequate line height (1.5x font size) and letter spacing for comfortable reading. Avoid justified text for body copy to prevent hyphenation issues and improve readability."
+      },
+      "customFontFamilies": {},
+      "fontSizes": [
+        {
+          "name": "xs",
+          "size": "0.75rem",
+          "lineHeight": "1.25",
+          "letterSpacing": "0.02em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "sm",
+          "size": "0.875rem",
+          "lineHeight": "1.3",
+          "letterSpacing": "0.02em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "base",
+          "size": "1rem",
+          "lineHeight": "1.5",
+          "letterSpacing": "0.02em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "lg",
+          "size": "1.125rem",
+          "lineHeight": "1.4",
+          "letterSpacing": "0.02em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "xl",
+          "size": "1.25rem",
+          "lineHeight": "1.35",
+          "letterSpacing": "0.02em",
+          "fontWeight": "500"
+        },
+        {
+          "name": "2xl",
+          "size": "1.5rem",
+          "lineHeight": "1.3",
+          "letterSpacing": "0.01em",
+          "fontWeight": "500"
+        },
+        {
+          "name": "3xl",
+          "size": "1.875rem",
+          "lineHeight": "1.25",
+          "letterSpacing": "0.01em",
+          "fontWeight": "600"
+        },
+        {
+          "name": "4xl",
+          "size": "2.25rem",
+          "lineHeight": "1.2",
+          "letterSpacing": "0.005em",
+          "fontWeight": "600"
+        },
+        {
+          "name": "5xl",
+          "size": "3rem",
+          "lineHeight": "1.15",
+          "letterSpacing": "0.005em",
+          "fontWeight": "700"
+        },
+        {
+          "name": "6xl",
+          "size": "3.75rem",
+          "lineHeight": "1.1",
+          "letterSpacing": "0.002em",
+          "fontWeight": "700"
+        },
+        {
+          "name": "7xl",
+          "size": "4.5rem",
+          "lineHeight": "1.05",
+          "letterSpacing": "0.001em",
+          "fontWeight": "700"
+        },
+        {
+          "name": "8xl",
+          "size": "6rem",
+          "lineHeight": "1",
+          "letterSpacing": "0",
+          "fontWeight": "700"
+        },
+        {
+          "name": "9xl",
+          "size": "8rem",
+          "lineHeight": "1",
+          "letterSpacing": "0",
+          "fontWeight": "700"
+        }
+      ],
+      "welcomeSectionTypography": {
+        "placement": "Centered or left-aligned within a generous whitespace area.",
+        "implementation": "Headline in 'Playfair Display' (e.g., 6xl or 7xl), followed by a brief descriptive paragraph in 'Inter' (e.g., lg or xl). Ensure ample line height and spacing between headline and paragraph."
+      }
+    },
+    "originImagesUrls": []
+  },
+  "attachments": {
+    "contentImagesUrls": [],
+    "inspirationImagesUrls": [
+      "https://wixmp-c562ea68f10846b458285ce5.wixmp.com/scraped-screenshots/screenshot-1787094694807.webp"
+    ]
+  },
+  "status": "READY",
+  "plan": "\n\n```json\n{\n  \"sections\": [\n    {\n      \"id\": \"overview\",\n      \"title\": \"## Overview\",\n      \"content\": \"This plan creates a multi-page informational website for Ujima Creative Writing Services, showcasing their educational programs, community mission, and wellness resources for underserved populations.\"\n    },\n    {\n      \"id\": \"key-features\",\n      \"title\": \"## Key features\",\n      \"content\": \"- **View Program Listing**: Browse all educational programs and services offered.\\n- **View Program Details**: See detailed information about each program including virtual tutoring, college prep, AI training, and wellness resources.\\n- **View About Information**: Learn about Ujima's mission, values, and community-focused approach.\\n- **Submit Contact Form**: Send inquiries and connect with the organization.\\n- **View Mental Health Resources**: Access free mental health and wellness support materials.\",\n      \"metadata\": [\n        { \"id\": \"view-program-listing\", \"name\": \"View Program Listing\" },\n        { \"id\": \"view-program-details\", \"name\": \"View Program Details\" },\n        { \"id\": \"view-about-information\", \"name\": \"View About Information\" },\n        { \"id\": \"submit-contact-form\", \"name\": \"Submit Contact Form\" },\n        { \"id\": \"view-mental-health-resources\", \"name\": \"View Mental Health Resources\" }\n      ]\n    },\n    {\n      \"id\": \"structure\",\n      \"title\": \"## Structure\",\n      \"content\": \"- **Header (Reusable)**: Contains site logo, navigation menu with links to all main pages, and primary call-to-action button.\\n- **Home Page**: Features hero section highlighting Ujima's mission, overview of key programs, and call-to-action to explore programs.\\n- **Programs Page**: Displays comprehensive listing of all educational offerings (K-12 tutoring, college prep, AI training, Microsoft Copilot workshops) with filtering and detailed views.\\n- **About Page**: Presents organization's founding principles, community-focused approach, and commitment to accessible education.\\n- **Resources Page**: Provides access to free mental health and wellness materials supporting holistic growth.\\n- **Contact Page**: Includes contact form for inquiries and information about virtual service delivery.\\n- **Footer (Reusable)**: Contains organization information, quick links, and additional contact details.\"\n    }\n  ],\n  \"apps\": [\n    {\n      \"id\": \"wix-cms\",\n      \"keyFeatures\": [\n        { \"id\": \"view-program-listing\", \"name\": \"View Program Listing\" },\n        { \"id\": \"view-program-details\", \"name\": \"View Program Details\" },\n        { \"id\": \"view-about-information\", \"name\": \"View About Information\" },\n        { \"id\": \"submit-contact-form\", \"name\": \"Submit Contact Form\" },\n        { \"id\": \"view-mental-health-resources\", \"name\": \"View Mental Health Resources\" }\n      ]\n    }\n  ],\n  \"version\": \"4.0.1\"\n}\n```"
+}

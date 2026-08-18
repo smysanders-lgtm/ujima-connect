@@ -1,0 +1,72 @@
+/**
+ * Auto-generated entity types
+ * Contains all CMS collection interfaces in a single file 
+ */
+
+/**
+ * Collection ID: contactinquiries
+ * Interface for ContactInquiries
+ */
+export interface ContactInquiries {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  senderName?: string;
+  /** @wixFieldType text */
+  emailAddress?: string;
+  /** @wixFieldType text */
+  subject?: string;
+  /** @wixFieldType text */
+  inquiryMessage?: string;
+  /** @wixFieldType text */
+  phoneNumber?: string;
+  /** @wixFieldType datetime */
+  submissionDate?: Date | string;
+}
+
+
+/**
+ * Collection ID: educationalprograms
+ * Interface for EducationalPrograms
+ */
+export interface EducationalPrograms {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  programName?: string;
+  /** @wixFieldType text */
+  shortDescription?: string;
+  /** @wixFieldType text */
+  detailedDescription?: string;
+  /** @wixFieldType text */
+  category?: string;
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
+  programImage?: string;
+  /** @wixFieldType text */
+  targetAudience?: string;
+}
+
+
+/**
+ * Collection ID: mentalhealthresources
+ * Interface for MentalHealthResources
+ */
+export interface MentalHealthResources {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  resourceTitle?: string;
+  /** @wixFieldType text */
+  description?: string;
+  /** @wixFieldType url */
+  resourceLink?: string;
+  /** @wixFieldType text */
+  topic?: string;
+  /** @wixFieldType text */
+  provider?: string;
+  /** @wixFieldType date */
+  datePublished?: Date | string;
+}
