@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { Calendar, MapPin, Clock, ArrowRight, Users, Mail, CheckCircle } from 'lucide-react';
+import { Calendar, MapPin, Clock, ArrowRight, Users, Mail, CheckCircle, X } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
@@ -46,53 +46,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function CommunityEventsPage() {
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: 'Virtual Writing Workshop',
-      date: 'September 15, 2024',
-      time: '6:00 PM - 7:30 PM EST',
-      location: 'Online',
-      description: 'Join us for an interactive workshop on creative storytelling and personal narrative development.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format',
-      category: 'Workshop'
-    },
-    {
-      id: 2,
-      title: 'Community Mentorship Mixer',
-      date: 'September 22, 2024',
-      time: '5:00 PM - 6:30 PM EST',
-      location: 'Online',
-      description: 'Connect with mentors and peers in an informal setting. Perfect for networking and building relationships.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format',
-      category: 'Networking'
-    },
-    {
-      id: 3,
-      title: 'College Prep Information Session',
-      date: 'September 29, 2024',
-      time: '7:00 PM - 8:00 PM EST',
-      location: 'Online',
-      description: 'Learn about college applications, essays, and scholarship opportunities from our expert advisors.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format',
-      category: 'Information Session'
-    },
-    {
-      id: 4,
-      title: 'AI & Digital Skills Bootcamp',
-      date: 'October 5, 2024',
-      time: '4:00 PM - 5:30 PM EST',
-      location: 'Online',
-      description: 'Hands-on training in AI tools and digital literacy for students and professionals.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format',
-      category: 'Bootcamp'
-    }
-  ];
-
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const hasUpcomingEvents = upcomingEvents.length > 0;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -179,118 +136,89 @@ export default function CommunityEventsPage() {
             </div>
           </AnimatedElement>
 
-          {hasUpcomingEvents ? (
-            <div className="grid md:grid-cols-2 gap-8">
-              {upcomingEvents.map((event, index) => (
-                <AnimatedElement key={event.id} delay={index * 100}>
-                  <div className="bg-white border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group overflow-hidden flex flex-col h-full">
-                    {/* Event Image */}
-                    <div className="relative overflow-hidden h-48 bg-gray-100">
-                      <Image
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 right-4 bg-primary text-[#151615] px-3 py-1 text-xs font-bold tracking-wide">
-                        {event.category}
-                      </div>
-                    </div>
+          <AnimatedElement>
+            <div className="max-w-2xl mx-auto text-center py-16">
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-primary/10 rounded-full">
+                <Calendar className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-3xl font-heading font-bold text-foreground mb-4">
+                No Upcoming Events
+              </h3>
+              <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
+                We're currently planning our next events.
+              </p>
 
-                    {/* Event Content */}
-                    <div className="p-8 flex-1 flex flex-col">
-                      <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                        {event.title}
-                      </h3>
-
-                      <div className="space-y-3 mb-6 flex-1">
-                        <div className="flex items-center gap-3 text-gray-600">
-                          <Calendar className="w-4 h-4 text-primary shrink-0" />
-                          <span className="text-sm">{event.date}</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-gray-600">
-                          <Clock className="w-4 h-4 text-primary shrink-0" />
-                          <span className="text-sm">{event.time}</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-gray-600">
-                          <MapPin className="w-4 h-4 text-primary shrink-0" />
-                          <span className="text-sm">{event.location}</span>
-                        </div>
-                      </div>
-
-                      <p className="text-gray-600 leading-relaxed font-light mb-6">
-                        {event.description}
-                      </p>
-
-                      <Button
-                        className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                      >
-                        Register Now <ArrowRight className="ml-2 w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </AnimatedElement>
-              ))}
+              <Button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-8 py-3 rounded-none transition-all duration-300"
+              >
+                Sign Up to Be Notified <Mail className="ml-2 w-4 h-4" />
+              </Button>
             </div>
-          ) : (
-            <AnimatedElement>
-              <div className="max-w-2xl mx-auto text-center py-16">
-                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-primary/10 rounded-full">
-                  <Calendar className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-3xl font-heading font-bold text-foreground mb-4">
-                  No Upcoming Events
+          </AnimatedElement>
+
+          {/* Modal for Notification Signup */}
+          {isModalOpen && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-lg max-w-md w-full p-8 relative">
+                <button
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setFormData({ name: '', email: '' });
+                    setSubmitSuccess(false);
+                  }}
+                  className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
+                  Get Notified
                 </h3>
-                <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
-                  We're currently planning our next events. Sign up below to be notified when new events are scheduled!
+                <p className="text-gray-600 mb-6 font-light">
+                  Sign up to receive updates about upcoming events.
                 </p>
 
-                {/* Notification Signup Form */}
-                <div className="bg-secondary p-8 md:p-12">
-                  <h4 className="text-2xl font-heading font-bold text-foreground mb-6">
-                    Get Notified About Upcoming Events
-                  </h4>
-
-                  {submitSuccess ? (
-                    <div className="flex items-center justify-center gap-3 text-foreground">
-                      <CheckCircle className="w-6 h-6 text-primary" />
-                      <span className="text-lg font-semibold">Thanks! We'll notify you soon.</span>
+                {submitSuccess ? (
+                  <div className="flex flex-col items-center justify-center gap-3 text-foreground py-8">
+                    <CheckCircle className="w-12 h-12 text-primary" />
+                    <span className="text-lg font-semibold">Thanks! We'll notify you soon.</span>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmitNotification} className="space-y-4">
+                    <div>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Your Name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 bg-white text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                      />
                     </div>
-                  ) : (
-                    <form onSubmit={handleSubmitNotification} className="space-y-4">
-                      <div>
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Your Name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 bg-white text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Your Email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 bg-white text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                        />
-                      </div>
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300 disabled:opacity-50"
-                      >
-                        {isSubmitting ? 'Signing Up...' : 'Sign Me Up'} <Mail className="ml-2 w-4 h-4" />
-                      </Button>
-                    </form>
-                  )}
-                </div>
+                    <div>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Your Email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 bg-white text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300 disabled:opacity-50"
+                    >
+                      {isSubmitting ? 'Signing Up...' : 'Sign Me Up'} <Mail className="ml-2 w-4 h-4" />
+                    </Button>
+                  </form>
+                )}
               </div>
-            </AnimatedElement>
+            </div>
           )}
         </div>
       </section>
