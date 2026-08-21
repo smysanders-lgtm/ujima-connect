@@ -68,8 +68,8 @@ export default function ProgramsPage() {
 
   const categories = ['all', ...Array.from(new Set(programs.map(p => p.category).filter(Boolean)))];
   const filteredPrograms = selectedCategory === 'all' 
-    ? programs 
-    : programs.filter(p => p.category === selectedCategory);
+    ? programs.filter((_, index) => index < 4 || index > 7)
+    : programs.filter((p, index) => p.category === selectedCategory && (index < 4 || index > 7));
 
   const getIconForIndex = (index: number) => {
     const icons = [BookOpen, GraduationCap, Laptop, Briefcase];
