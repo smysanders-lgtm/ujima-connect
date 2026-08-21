@@ -75,9 +75,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/10 pt-6">
-          <p className="text-sm text-white/60 text-center">
-            © 2026 motor-drop-24571728.figma.site. All rights reserved.
-          </p>
+          <p className="text-sm text-white/60 text-center">© 2026 Ujima Creative Writing Servces. All rights reserved.</p>
         </div>
       </div>
     </footer>
