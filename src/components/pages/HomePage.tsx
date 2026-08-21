@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf } from 'lucide-react';
+import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -77,6 +77,39 @@ export default function HomePage() {
     { _id: '4', programName: 'Microsoft Copilot Training', shortDescription: 'Professional workshops that teach working adults to leverage AI for productivity, creativity, and career growth.' }
   ];
 
+  const guidingPrinciples = [
+    {
+      title: 'Ujima',
+      subtitle: 'Collective Responsibility',
+      description: 'We believe growth happens when we work together, share knowledge, and invest in one another.',
+      icon: Users
+    },
+    {
+      title: 'Gye Nyame',
+      subtitle: 'Purpose Beyond Self',
+      description: 'We honor the greatness of God and recognize that our talents and creativity can serve a purpose greater than ourselves.',
+      icon: Sparkles
+    },
+    {
+      title: 'Creativity',
+      subtitle: 'Expression & Innovation',
+      description: 'We encourage people to think differently, tell their stories, solve problems, and turn ideas into meaningful work.',
+      icon: Lightbulb
+    },
+    {
+      title: 'Empowerment',
+      subtitle: 'Knowledge Creates Opportunity',
+      description: 'We equip individuals with practical knowledge and skills that help them grow academically, creatively, and professionally.',
+      icon: Zap
+    },
+    {
+      title: 'Community',
+      subtitle: 'Impact Through Connection',
+      description: 'We believe meaningful change begins when people have access to resources, encouragement, and opportunities to thrive.',
+      icon: Heart
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
@@ -115,7 +148,7 @@ export default function HomePage() {
 
             <AnimatedElement delay={200}>
               <p className="text-lg md:text-xl text-white/70 mb-10 leading-relaxed max-w-xl font-light">
-                Virtual education, creative writing, and wellness support designed for youth and adults in underserved communities.
+                Creativity, education, and technology empowering individuals and strengthening communities. We create opportunities for people to learn, develop skills, express ideas, and confidently navigate an evolving digital world.
               </p>
             </AnimatedElement>
 
@@ -187,6 +220,52 @@ export default function HomePage() {
                 </div>
               </div>
             </AnimatedElement>
+          </div>
+        </div>
+      </section>
+
+      {/* Guiding Principles Section - Five Squares */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <AnimatedElement>
+            <div className="mb-16">
+              <span className="text-xs text-primary/80 font-paragraph tracking-[0.2em] uppercase mb-4 block">
+                Our Foundation
+              </span>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">
+                Guiding Principles
+              </h2>
+            </div>
+          </AnimatedElement>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {guidingPrinciples.map((principle, index) => {
+              const IconComponent = principle.icon;
+              return (
+                <AnimatedElement key={index} delay={index * 100}>
+                  <div className="bg-white p-8 h-full border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex flex-col">
+                    {/* Subtle hover gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="w-12 h-12 mb-6 flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+                        <IconComponent className="w-6 h-6 text-primary" />
+                      </div>
+                      
+                      <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
+                        {principle.title}
+                      </h3>
+                      <p className="text-sm text-primary font-semibold mb-4">
+                        {principle.subtitle}
+                      </p>
+                      <p className="text-gray-600 leading-relaxed font-light flex-grow">
+                        {principle.description}
+                      </p>
+                    </div>
+                  </div>
+                </AnimatedElement>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -325,10 +404,10 @@ export default function HomePage() {
                 
                 <div className="space-y-6 text-gray-600 font-light leading-relaxed">
                   <p>
-                    Ujima Creative Writing Services was founded on the conviction that quality education should never be limited by geography, income, or circumstance. We bring expert instruction and compassionate support directly to families who need it most.
+                    Ujima Creative is rooted in the belief that creativity, education, and technology can empower individuals and strengthen communities. We create opportunities for people to learn, develop their skills, express their ideas, and confidently navigate an evolving digital world.
                   </p>
                   <p>
-                    <span className="font-medium italic text-foreground">Ujima</span> is a Swahili word meaning "collective work and responsibility." It is the third principle of Kwanzaa, and the foundation of everything we do.
+                    Our name, <span className="font-medium italic text-foreground">Ujima</span>, reflects the principle of collective work and responsibility—the idea that we have a shared responsibility to build, support, and improve the communities around us.
                   </p>
                 </div>
                 

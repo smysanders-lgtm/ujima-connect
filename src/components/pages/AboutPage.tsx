@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Image } from '@/components/ui/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Heart, Users, Target, Award } from 'lucide-react';
+import { Heart, Users, Target, Award, Sparkles, Lightbulb, Zap } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -72,17 +72,22 @@ export default function AboutPage() {
               <div>
                 <span className="text-sm text-primary font-paragraph uppercase tracking-wider">Our Mission</span>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-6">
-                  Education Without Barriers
+                  Empowering Through Creativity & Education
                 </h2>
-                <p className="text-foreground/70 leading-relaxed mb-6">
-                  Ujima Creative Writing Services was founded on the conviction that quality education should never be limited by geography, income, or circumstance. We bring expert instruction and compassionate support directly to families who need it most.
-                </p>
-                <p className="text-foreground/70 leading-relaxed mb-6">
-                  Through virtual learning platforms, we eliminate transportation barriers and geographic limitations, ensuring that every student has access to the resources they need to succeed.
-                </p>
-                <p className="text-foreground/70 leading-relaxed">
-                  Our programs are developed with community input, not imposed from above. We listen, we learn, and we adapt to serve the unique needs of each family we work with.
-                </p>
+                <div className="space-y-6 text-foreground/70 leading-relaxed">
+                  <p>
+                    Ujima Creative is rooted in the belief that creativity, education, and technology can empower individuals and strengthen communities. We create opportunities for people to learn, develop their skills, express their ideas, and confidently navigate an evolving digital world.
+                  </p>
+                  <p>
+                    Our name, <span className="font-medium italic text-foreground">Ujima</span>, reflects the principle of collective work and responsibility—the idea that we have a shared responsibility to build, support, and improve the communities around us.
+                  </p>
+                  <p>
+                    Our work is also guided by <span className="font-medium italic text-foreground">Gye Nyame</span>, an Akan Adinkra symbol representing the supremacy and greatness of God. For Ujima Creative, Gye Nyame serves as a reminder that our gifts, knowledge, and creativity are connected to something greater than ourselves. We strive to use what we create not simply for individual achievement, but to educate, empower, and contribute to meaningful change.
+                  </p>
+                  <p>
+                    Through creative writing, tutoring, college and essay preparation, AI and digital skills, Microsoft Copilot training, and community-centered initiatives, Ujima Creative brings people together to create, learn, and contribute.
+                  </p>
+                </div>
               </div>
             </AnimatedElement>
 
@@ -101,13 +106,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Ujima Principle Section */}
+      {/* Ujima & Gye Nyame Section */}
       <section className="py-20 bg-gradient-to-br from-secondary/30 to-primary/5">
         <div className="container mx-auto px-4">
-          <AnimatedElement>
-            <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12">
+            <AnimatedElement>
               <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-foreground/5">
-                <div className="text-center mb-8">
+                <div className="mb-8">
                   <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
                     <span className="text-sm text-primary font-paragraph font-medium">The Third Principle of Kwanzaa</span>
                   </div>
@@ -116,23 +121,136 @@ export default function AboutPage() {
                   </h2>
                 </div>
                 
-                <p className="text-lg text-foreground/80 leading-relaxed mb-6 text-center">
+                <p className="text-lg text-foreground/80 leading-relaxed mb-6">
                   <span className="font-medium italic text-foreground">Ujima</span> is a Swahili word meaning{' '}
                   <span className="font-bold text-primary">&quot;collective work and responsibility.&quot;</span>{' '}
                   It is the third principle of Kwanzaa, emphasizing the importance of building and maintaining our community together.
                 </p>
                 
-                <p className="text-foreground/70 leading-relaxed text-center">
+                <p className="text-foreground/70 leading-relaxed">
                   This principle is the foundation of everything we do. We believe that education is not just an individual pursuit, but a collective responsibility. When one member of our community succeeds, we all succeed. When one struggles, we all work together to lift them up.
                 </p>
               </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={100}>
+              <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-foreground/5">
+                <div className="mb-8">
+                  <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+                    <span className="text-sm text-primary font-paragraph font-medium">Akan Adinkra Symbol</span>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                    What is <span className="italic text-primary">Gye Nyame</span>?
+                  </h2>
+                </div>
+                
+                <p className="text-lg text-foreground/80 leading-relaxed mb-6">
+                  <span className="font-medium italic text-foreground">Gye Nyame</span> is an Akan Adinkra symbol representing{' '}
+                  <span className="font-bold text-primary">the supremacy and greatness of God.</span>
+                </p>
+                
+                <p className="text-foreground/70 leading-relaxed">
+                  For Ujima Creative, Gye Nyame serves as a reminder that our gifts, knowledge, and creativity are connected to something greater than ourselves. We strive to use what we create not simply for individual achievement, but to educate, empower, and contribute to meaningful change in the world.
+                </p>
+              </div>
+            </AnimatedElement>
+          </div>
+        </div>
+      </section>
+
+      {/* Guiding Principles Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <AnimatedElement>
+            <div className="text-center mb-12">
+              <span className="text-sm text-primary font-paragraph uppercase tracking-wider">Our Foundation</span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-4">
+                Our Guiding Principles
+              </h2>
             </div>
           </AnimatedElement>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+            <AnimatedElement delay={0}>
+              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-foreground/5 text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="text-primary" size={32} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                  Ujima
+                </h3>
+                <p className="text-sm font-semibold text-primary mb-4">Collective Responsibility</p>
+                <p className="text-foreground/70 leading-relaxed">
+                  We believe growth happens when we work together, share knowledge, and invest in one another.
+                </p>
+              </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={100}>
+              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-foreground/5 text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Sparkles className="text-primary" size={32} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                  Gye Nyame
+                </h3>
+                <p className="text-sm font-semibold text-primary mb-4">Purpose Beyond Self</p>
+                <p className="text-foreground/70 leading-relaxed">
+                  We honor the greatness of God and recognize that our talents and creativity can serve a purpose greater than ourselves.
+                </p>
+              </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={200}>
+              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-foreground/5 text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Lightbulb className="text-primary" size={32} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                  Creativity
+                </h3>
+                <p className="text-sm font-semibold text-primary mb-4">Expression & Innovation</p>
+                <p className="text-foreground/70 leading-relaxed">
+                  We encourage people to think differently, tell their stories, solve problems, and turn ideas into meaningful work.
+                </p>
+              </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={300}>
+              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-foreground/5 text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Zap className="text-primary" size={32} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                  Empowerment
+                </h3>
+                <p className="text-sm font-semibold text-primary mb-4">Knowledge Creates Opportunity</p>
+                <p className="text-foreground/70 leading-relaxed">
+                  We equip individuals with practical knowledge and skills that help them grow academically, creatively, and professionally.
+                </p>
+              </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={400}>
+              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-foreground/5 text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Heart className="text-primary" size={32} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                  Community
+                </h3>
+                <p className="text-sm font-semibold text-primary mb-4">Impact Through Connection</p>
+                <p className="text-foreground/70 leading-relaxed">
+                  We believe meaningful change begins when people have access to resources, encouragement, and opportunities to thrive.
+                </p>
+              </div>
+            </AnimatedElement>
+          </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <AnimatedElement>
             <div className="text-center mb-12">
