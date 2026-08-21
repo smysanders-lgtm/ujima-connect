@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { Calendar, MapPin, Clock, ArrowRight, Users } from 'lucide-react';
+import { Calendar, MapPin, Clock, ArrowRight, Users, Mail, CheckCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { BaseCrudService } from '@/integrations';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -88,6 +89,40 @@ export default function CommunityEventsPage() {
     }
   ];
 
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const hasUpcomingEvents = upcomingEvents.length > 0;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmitNotification = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email) return;
+
+    setIsSubmitting(true);
+    try {
+      await BaseCrudService.create('contactinquiries', {
+        _id: crypto.randomUUID(),
+        senderName: formData.name,
+        emailAddress: formData.email,
+        subject: 'Event Notification Signup',
+        inquiryMessage: 'User signed up to be notified about upcoming events',
+        submissionDate: new Date().toISOString()
+      });
+      setSubmitSuccess(true);
+      setFormData({ name: '', email: '' });
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      console.error('Error submitting notification signup:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
@@ -130,7 +165,7 @@ export default function CommunityEventsPage() {
         </div>
       </section>
 
-      {/* Events Grid */}
+      {/* Events Grid or No Events Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
           <AnimatedElement>
@@ -144,57 +179,119 @@ export default function CommunityEventsPage() {
             </div>
           </AnimatedElement>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {upcomingEvents.map((event, index) => (
-              <AnimatedElement key={event.id} delay={index * 100}>
-                <div className="bg-white border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group overflow-hidden flex flex-col h-full">
-                  {/* Event Image */}
-                  <div className="relative overflow-hidden h-48 bg-gray-100">
-                    <Image
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 right-4 bg-primary text-[#151615] px-3 py-1 text-xs font-bold tracking-wide">
-                      {event.category}
-                    </div>
-                  </div>
-
-                  {/* Event Content */}
-                  <div className="p-8 flex-1 flex flex-col">
-                    <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                      {event.title}
-                    </h3>
-
-                    <div className="space-y-3 mb-6 flex-1">
-                      <div className="flex items-center gap-3 text-gray-600">
-                        <Calendar className="w-4 h-4 text-primary shrink-0" />
-                        <span className="text-sm">{event.date}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-600">
-                        <Clock className="w-4 h-4 text-primary shrink-0" />
-                        <span className="text-sm">{event.time}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-600">
-                        <MapPin className="w-4 h-4 text-primary shrink-0" />
-                        <span className="text-sm">{event.location}</span>
+          {hasUpcomingEvents ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {upcomingEvents.map((event, index) => (
+                <AnimatedElement key={event.id} delay={index * 100}>
+                  <div className="bg-white border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group overflow-hidden flex flex-col h-full">
+                    {/* Event Image */}
+                    <div className="relative overflow-hidden h-48 bg-gray-100">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-4 right-4 bg-primary text-[#151615] px-3 py-1 text-xs font-bold tracking-wide">
+                        {event.category}
                       </div>
                     </div>
 
-                    <p className="text-gray-600 leading-relaxed font-light mb-6">
-                      {event.description}
-                    </p>
+                    {/* Event Content */}
+                    <div className="p-8 flex-1 flex flex-col">
+                      <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
+                        {event.title}
+                      </h3>
 
-                    <Button
-                      className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                    >
-                      Register Now <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
+                      <div className="space-y-3 mb-6 flex-1">
+                        <div className="flex items-center gap-3 text-gray-600">
+                          <Calendar className="w-4 h-4 text-primary shrink-0" />
+                          <span className="text-sm">{event.date}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-gray-600">
+                          <Clock className="w-4 h-4 text-primary shrink-0" />
+                          <span className="text-sm">{event.time}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-gray-600">
+                          <MapPin className="w-4 h-4 text-primary shrink-0" />
+                          <span className="text-sm">{event.location}</span>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-600 leading-relaxed font-light mb-6">
+                        {event.description}
+                      </p>
+
+                      <Button
+                        className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                      >
+                        Register Now <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
+                </AnimatedElement>
+              ))}
+            </div>
+          ) : (
+            <AnimatedElement>
+              <div className="max-w-2xl mx-auto text-center py-16">
+                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-primary/10 rounded-full">
+                  <Calendar className="w-8 h-8 text-primary" />
                 </div>
-              </AnimatedElement>
-            ))}
-          </div>
+                <h3 className="text-3xl font-heading font-bold text-foreground mb-4">
+                  No Upcoming Events
+                </h3>
+                <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
+                  We're currently planning our next events. Sign up below to be notified when new events are scheduled!
+                </p>
+
+                {/* Notification Signup Form */}
+                <div className="bg-secondary p-8 md:p-12">
+                  <h4 className="text-2xl font-heading font-bold text-foreground mb-6">
+                    Get Notified About Upcoming Events
+                  </h4>
+
+                  {submitSuccess ? (
+                    <div className="flex items-center justify-center gap-3 text-foreground">
+                      <CheckCircle className="w-6 h-6 text-primary" />
+                      <span className="text-lg font-semibold">Thanks! We'll notify you soon.</span>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmitNotification} className="space-y-4">
+                      <div>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Your Name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-3 border border-gray-300 bg-white text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="Your Email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-3 border border-gray-300 bg-white text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                        />
+                      </div>
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300 disabled:opacity-50"
+                      >
+                        {isSubmitting ? 'Signing Up...' : 'Sign Me Up'} <Mail className="ml-2 w-4 h-4" />
+                      </Button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </AnimatedElement>
+          )}
         </div>
       </section>
 
