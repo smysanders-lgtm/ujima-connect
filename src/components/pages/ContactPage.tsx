@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
@@ -62,6 +63,13 @@ export default function ContactPage() {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubjectChange = (value: string) => {
+    setFormData({
+      ...formData,
+      subject: value,
     });
   };
 
@@ -254,16 +262,19 @@ export default function ContactPage() {
                           <Label htmlFor="subject" className="text-foreground font-medium mb-2 block">
                             Subject *
                           </Label>
-                          <Input
-                            id="subject"
-                            name="subject"
-                            type="text"
-                            required
-                            value={formData.subject}
-                            onChange={handleChange}
-                            className="border-foreground/20 focus:border-primary"
-                            placeholder="Program Inquiry"
-                          />
+                          <Select value={formData.subject} onValueChange={handleSubjectChange}>
+                            <SelectTrigger className="border-foreground/20 focus:border-primary">
+                              <SelectValue placeholder="Select a subject" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Program Inquiry">Program Inquiry</SelectItem>
+                              <SelectItem value="Scholarship Request">Scholarship Request</SelectItem>
+                              <SelectItem value="Partnership Opportunity">Partnership Opportunity</SelectItem>
+                              <SelectItem value="Volunteer Interest">Volunteer Interest</SelectItem>
+                              <SelectItem value="General Question">General Question</SelectItem>
+                              <SelectItem value="Feedback">Feedback</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
 
