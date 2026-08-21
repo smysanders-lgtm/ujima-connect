@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Image } from '@/components/ui/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,10 +23,13 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-heading font-bold text-foreground">
-              Ujima
-            </span>
+          <Link to="/" className="flex items-center">
+            <Image
+              src="https://static.wixstatic.com/media/0538ae_69faf28b5bd64aaa9b44ef3470ae5244~mv2.png"
+              alt="Ujima Creative Writing Workshop Services Logo"
+              width={120}
+              className="h-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
