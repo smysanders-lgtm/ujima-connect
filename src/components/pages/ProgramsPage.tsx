@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { BookOpen, GraduationCap, Laptop, Briefcase } from 'lucide-react';
+import { BookOpen, GraduationCap, Laptop, Briefcase, ChevronDown } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -50,6 +50,7 @@ export default function ProgramsPage() {
   const [programs, setPrograms] = useState<EducationalPrograms[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     loadPrograms();
@@ -123,64 +124,100 @@ export default function ProgramsPage() {
         </section>
       )}
 
-      {/* Programs Grid */}
+      {/* Programs Accordion */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="min-h-[500px]">
+          <div className="min-h-[500px] max-w-4xl mx-auto">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
                 <LoadingSpinner />
               </div>
             ) : filteredPrograms.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="space-y-4">
                 {filteredPrograms.map((program, index) => (
                   <AnimatedElement key={program._id} delay={index * 50}>
-                    <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-foreground/5 h-full flex flex-col">
-                      {program.programImage ? (
-                        <div className="relative h-56 overflow-hidden">
-                          <Image
-                            src={program.programImage}
-                            alt={program.programName || 'Program'}
-                            width={600}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                        </div>
-                      ) : (
-                        <div className="h-56 bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center">
-                          {getIconForIndex(index)}
-                        </div>
-                      )}
-                      
-                      <div className="p-6 flex-1 flex flex-col">
-                        <div className="flex items-start justify-between mb-4">
-                          <span className="text-5xl font-heading font-bold text-primary/10">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          {program.category && (
-                            <span className="px-3 py-1 bg-secondary text-foreground text-xs rounded-full font-medium">
-                              {program.category}
-                            </span>
-                          )}
-                        </div>
-                        
-                        <h3 className="text-xl font-heading font-bold text-foreground mb-3">
-                          {program.programName}
-                        </h3>
-                        
-                        <p className="text-foreground/70 leading-relaxed mb-4 flex-1">
-                          {program.detailedDescription || program.shortDescription}
-                        </p>
-                        
-                        {program.targetAudience && (
-                          <div className="pt-4 border-t border-foreground/10">
-                            <p className="text-sm text-foreground/60">
-                              <span className="font-medium text-foreground">Target Audience:</span>{' '}
-                              {program.targetAudience}
+                    <div className="border border-foreground/10 rounded-lg overflow-hidden bg-white hover:shadow-lg transition-all duration-300">
+                      {/* Accordion Header */}
+                      <button
+                        onClick={() => setExpandedId(expandedId === program._id ? null : program._id)}
+                        className="w-full px-6 py-5 flex items-center justify-between hover:bg-secondary/10 transition-colors duration-200"
+                      >
+                        <div className="flex items-center gap-4 text-left flex-1">
+                          <div className="flex-shrink-0">
+                            {program.programImage ? (
+                              <div className="w-16 h-16 rounded-lg overflow-hidden">
+                                <Image
+                                  src={program.programImage}
+                                  alt={program.programName || 'Program'}
+                                  width={64}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center">
+                                {getIconForIndex(index)}
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-1">
+                              <span className="text-2xl font-heading font-bold text-primary/20">
+                                {String(index + 1).padStart(2, '0')}
+                              </span>
+                              <h3 className="text-lg font-heading font-bold text-foreground">
+                                {program.programName}
+                              </h3>
+                            </div>
+                            <p className="text-sm text-foreground/60 line-clamp-1">
+                              {program.shortDescription || program.detailedDescription}
                             </p>
                           </div>
+                        </div>
+                        
+                        {program.category && (
+                          <span className="px-3 py-1 bg-secondary text-foreground text-xs rounded-full font-medium mr-4 flex-shrink-0">
+                            {program.category}
+                          </span>
                         )}
-                      </div>
+                        
+                        <ChevronDown
+                          size={24}
+                          className={`text-primary transition-transform duration-300 flex-shrink-0 ${
+                            expandedId === program._id ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      
+                      {/* Accordion Content */}
+                      {expandedId === program._id && (
+                        <div className="px-6 py-5 border-t border-foreground/10 bg-secondary/5">
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="font-heading font-bold text-foreground mb-2">Description</h4>
+                              <p className="text-foreground/70 leading-relaxed">
+                                {program.detailedDescription || program.shortDescription}
+                              </p>
+                            </div>
+                            
+                            {program.targetAudience && (
+                              <div>
+                                <h4 className="font-heading font-bold text-foreground mb-2">Target Audience</h4>
+                                <p className="text-foreground/70">
+                                  {program.targetAudience}
+                                </p>
+                              </div>
+                            )}
+                            
+                            <Button
+                              asChild
+                              className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 mt-4"
+                            >
+                              <a href="/contact">Learn More</a>
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </AnimatedElement>
                 ))}
