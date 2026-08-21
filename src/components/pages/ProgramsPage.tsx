@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { BookOpen, GraduationCap, Laptop, Briefcase, ChevronDown } from 'lucide-react';
+import { BookOpen, GraduationCap, Laptop, Settings, ChevronDown, Check } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -69,13 +69,22 @@ export default function ProgramsPage() {
 
   const categories = ['all', ...Array.from(new Set(programs.map(p => p.category).filter(Boolean)))];
   const filteredPrograms = selectedCategory === 'all' 
-    ? programs.filter((_, index) => index < 4 || index > 7)
-    : programs.filter((p, index) => p.category === selectedCategory && (index < 4 || index > 7));
+    ? programs
+    : programs.filter(p => p.category === selectedCategory);
 
-  const getIconForIndex = (index: number) => {
-    const icons = [BookOpen, GraduationCap, Laptop, Briefcase];
-    const Icon = icons[index % icons.length];
-    return <Icon size={32} className="text-primary" />;
+  const getIconForProgram = (programName?: string) => {
+    const iconMap: { [key: string]: React.ReactNode } = {
+      'Virtual Tutoring': <BookOpen size={32} className="text-primary" />,
+      'Essay & College Prep': <GraduationCap size={32} className="text-primary" />,
+      'AI & Digital Skills': <Settings size={32} className="text-primary" />,
+      'Microsoft Copilot Masterclass': <Laptop size={32} className="text-primary" />,
+    };
+    return iconMap[programName || ''] || <BookOpen size={32} className="text-primary" />;
+  };
+
+  const parseWhatsIncluded = (text?: string) => {
+    if (!text) return [];
+    return text.split('\n').filter(item => item.trim());
   };
 
   return (
@@ -155,31 +164,22 @@ export default function ProgramsPage() {
                               </div>
                             ) : (
                               <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center">
-                                {getIconForIndex(index)}
+                                {getIconForProgram(program.programName)}
                               </div>
                             )}
                           </div>
                           
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-1">
-                              <span className="text-2xl font-heading font-bold text-primary/20">
-                                {String(index + 1).padStart(2, '0')}
-                              </span>
                               <h3 className="text-lg font-heading font-bold text-foreground">
                                 {program.programName}
                               </h3>
                             </div>
                             <p className="text-sm text-foreground/60 line-clamp-1">
-                              {program.shortDescription || program.detailedDescription}
+                              {program.tagline || program.shortDescription || program.detailedDescription}
                             </p>
                           </div>
                         </div>
-                        
-                        {program.category && (
-                          <span className="px-3 py-1 bg-secondary text-foreground text-xs rounded-full font-medium mr-4 flex-shrink-0">
-                            {program.category}
-                          </span>
-                        )}
                         
                         <ChevronDown
                           size={24}
@@ -192,29 +192,82 @@ export default function ProgramsPage() {
                       {/* Accordion Content */}
                       {expandedId === program._id && (
                         <div className="px-6 py-5 border-t border-foreground/10 bg-secondary/5">
-                          <div className="space-y-4">
-                            <div>
-                              <h4 className="font-heading font-bold text-foreground mb-2">Description</h4>
-                              <p className="text-foreground/70 leading-relaxed">
-                                {program.detailedDescription || program.shortDescription}
-                              </p>
-                            </div>
-                            
-                            {program.targetAudience && (
+                          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            {/* Main Content */}
+                            <div className="lg:col-span-2 space-y-4">
+                              {/* Description */}
                               <div>
-                                <h4 className="font-heading font-bold text-foreground mb-2">Target Audience</h4>
-                                <p className="text-foreground/70">
-                                  {program.targetAudience}
+                                <h4 className="font-heading font-bold text-foreground mb-2">About This Program</h4>
+                                <p className="text-foreground/70 leading-relaxed">
+                                  {program.detailedDescription || program.shortDescription}
                                 </p>
                               </div>
-                            )}
-                            
-                            <Button
-                              asChild
-                              className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 mt-4"
-                            >
-                              <a href="/contact">Learn More</a>
-                            </Button>
+
+                              {/* What's Included */}
+                              {program.whatsIncluded && (
+                                <div>
+                                  <h4 className="font-heading font-bold text-foreground mb-3">What's Included</h4>
+                                  <ul className="space-y-2">
+                                    {parseWhatsIncluded(program.whatsIncluded).map((item, idx) => (
+                                      <li key={idx} className="flex items-start gap-3">
+                                        <Check size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                                        <span className="text-foreground/70">{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {/* CTA Button */}
+                              <Button
+                                asChild
+                                className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 mt-4"
+                              >
+                                <a href="/contact">Get started →</a>
+                              </Button>
+                            </div>
+
+                            {/* Sidebar Details */}
+                            <div className="lg:col-span-1">
+                              <div className="bg-white rounded-lg p-4 border border-foreground/10 space-y-4">
+                                <h4 className="font-heading font-bold text-foreground text-sm">Program Details</h4>
+                                
+                                {program.targetAudience && (
+                                  <div>
+                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Who It's For</p>
+                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.targetAudience}</p>
+                                  </div>
+                                )}
+
+                                {program.format && (
+                                  <div>
+                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Format</p>
+                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.format}</p>
+                                  </div>
+                                )}
+
+                                {program.schedule && (
+                                  <div>
+                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Schedule</p>
+                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.schedule}</p>
+                                  </div>
+                                )}
+
+                                {program.cost && (
+                                  <div>
+                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Cost</p>
+                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.cost}</p>
+                                  </div>
+                                )}
+
+                                {program.platform && (
+                                  <div>
+                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Platform</p>
+                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.platform}</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       )}

@@ -35,6 +35,18 @@ export interface EducationalPrograms {
   _createdDate?: Date;
   _updatedDate?: Date;
   /** @wixFieldType text */
+  format?: string;
+  /** @wixFieldType text */
+  platform?: string;
+  /** @wixFieldType text */
+  cost?: string;
+  /** @wixFieldType text */
+  schedule?: string;
+  /** @wixFieldType text */
+  tagline?: string;
+  /** @wixFieldType text */
+  whatsIncluded?: string;
+  /** @wixFieldType text */
   programName?: string;
   /** @wixFieldType text */
   shortDescription?: string;
