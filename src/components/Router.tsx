@@ -4,6 +4,7 @@ import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import HomePage from '@/components/pages/HomePage';
 import ProgramsPage from '@/components/pages/ProgramsPage';
+import ProgramDetailPage from '@/components/pages/ProgramDetailPage';
 import AboutPage from '@/components/pages/AboutPage';
 import ResourcesPage from '@/components/pages/ResourcesPage';
 import ContactPage from '@/components/pages/ContactPage';
@@ -39,6 +40,13 @@ const router = createBrowserRouter([
         element: <ProgramsPage />,
         routeMetadata: {
           pageIdentifier: 'programs',
+        },
+      },
+      {
+        path: "programs/:id",
+        element: <ProgramDetailPage />,
+        routeMetadata: {
+          pageIdentifier: 'program-detail',
         },
       },
       {

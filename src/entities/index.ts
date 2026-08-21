@@ -82,3 +82,28 @@ export interface MentalHealthResources {
   /** @wixFieldType date */
   datePublished?: Date | string;
 }
+
+
+/**
+ * Collection ID: programschedules
+ * Interface for ProgramSchedules
+ */
+export interface ProgramSchedules {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  scheduleName?: string;
+  /** @wixFieldType date */
+  startDate?: Date | string;
+  /** @wixFieldType time */
+  startTime?: any;
+  /** @wixFieldType number */
+  totalSpots?: number;
+  /** @wixFieldType number */
+  availableSpots?: number;
+  /** @wixFieldType text */
+  status?: string;
+  /** @wixFieldType datetime */
+  registrationDeadline?: Date | string;
+}

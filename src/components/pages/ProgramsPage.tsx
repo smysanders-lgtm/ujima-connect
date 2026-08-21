@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -6,7 +7,7 @@ import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { BookOpen, GraduationCap, Laptop, Settings, ChevronDown, Check } from 'lucide-react';
+import { BookOpen, GraduationCap, Laptop, Settings, ChevronDown, Check, ArrowRight } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -47,6 +48,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function ProgramsPage() {
+  const navigate = useNavigate();
   const [programs, setPrograms] = useState<EducationalPrograms[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -218,13 +220,21 @@ export default function ProgramsPage() {
                                 </div>
                               )}
 
-                              {/* CTA Button */}
-                              <Button
-                                asChild
-                                className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 mt-4"
-                              >
-                                <a href="/contact">Get started →</a>
-                              </Button>
+                              {/* CTA Buttons */}
+                              <div className="flex gap-3 mt-4 flex-wrap">
+                                <Button
+                                  asChild
+                                  className="bg-primary text-white hover:bg-primary/90 transition-all duration-200"
+                                >
+                                  <a href="/contact">Get started →</a>
+                                </Button>
+                                <Button
+                                  onClick={() => navigate(`/programs/${program._id}`)}
+                                  className="bg-foreground/10 text-foreground hover:bg-foreground/20 transition-all duration-200 flex items-center gap-2"
+                                >
+                                  View Schedules <ArrowRight size={16} />
+                                </Button>
+                              </div>
                             </div>
 
                             {/* Sidebar Details */}
