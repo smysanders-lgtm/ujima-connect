@@ -13,6 +13,9 @@ export default function Header() {
     { name: 'Programs', path: '/programs' },
     { name: 'About', path: '/about' },
     { name: 'Resources', path: '/resources' },
+    { name: 'Events', path: '/events' },
+    { name: 'Team', path: '/team' },
+    { name: 'Get Involved', path: '/get-involved' },
     { name: 'Contact', path: '/contact' },
   ];
 

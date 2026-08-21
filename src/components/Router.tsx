@@ -7,6 +7,9 @@ import ProgramsPage from '@/components/pages/ProgramsPage';
 import AboutPage from '@/components/pages/AboutPage';
 import ResourcesPage from '@/components/pages/ResourcesPage';
 import ContactPage from '@/components/pages/ContactPage';
+import CommunityEventsPage from '@/components/pages/CommunityEventsPage';
+import MeetTheTeamPage from '@/components/pages/MeetTheTeamPage';
+import GetInvolvedPage from '@/components/pages/GetInvolvedPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -57,6 +60,27 @@ const router = createBrowserRouter([
         element: <ContactPage />,
         routeMetadata: {
           pageIdentifier: 'contact',
+        },
+      },
+      {
+        path: "events",
+        element: <CommunityEventsPage />,
+        routeMetadata: {
+          pageIdentifier: 'events',
+        },
+      },
+      {
+        path: "team",
+        element: <MeetTheTeamPage />,
+        routeMetadata: {
+          pageIdentifier: 'team',
+        },
+      },
+      {
+        path: "get-involved",
+        element: <GetInvolvedPage />,
+        routeMetadata: {
+          pageIdentifier: 'get-involved',
         },
       },
       {
