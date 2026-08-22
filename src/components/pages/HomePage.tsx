@@ -354,7 +354,7 @@ export default function HomePage() {
                   <div className="absolute -inset-4 bg-secondary/50 transform rotate-2 transition-transform duration-500 group-hover:rotate-1" />
                   <Image
                     src="https://static.wixstatic.com/media/nsplsh_0a443f103f4647b6baa0b64f5f331d0c~mv2.jpg"
-                    className="relative w-full h-[600px] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
                     originWidth={6720}
                     originHeight={4480}
                     focalPointX={73.33333333333333}
