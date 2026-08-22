@@ -287,23 +287,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* About Us Section */}
-      <section className="py-24 bg-white px-6 md:px-12">
-        <div className="container mx-auto max-w-4xl text-center">
-          <AnimatedElement>
-            <span className="text-sm text-primary font-paragraph tracking-[0.2em] uppercase mb-4 block">About Us</span>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-8 leading-tight">
-              Empowering <span className="text-primary">Communities</span> Through Education
-            </h2>
-            <p className="text-lg text-foreground/80 font-light leading-relaxed mb-8">
-              We are dedicated to providing accessible, high-quality educational programs and mental health resources to underserved communities. Our mission is to foster personal growth, build resilience, and create pathways to success for every individual we serve.
-            </p>
-            <p className="text-base text-foreground/70 font-light leading-relaxed">
-              Through mentorship, skill-building workshops, and community events, we create safe spaces where people can learn, connect, and thrive. We believe that education and mental wellness are fundamental rights, not privileges.
-            </p>
-          </AnimatedElement>
-        </div>
-      </section>
       {/* Stats Section */}
       <section className="py-16 bg-white border-y border-gray-100">
         <div className="container mx-auto px-6 max-w-5xl">
