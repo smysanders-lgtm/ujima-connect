@@ -58,6 +58,8 @@ export interface EducationalPrograms {
   programImage?: string;
   /** @wixFieldType text */
   targetAudience?: string;
+  /** @wixFieldType text */
+  subjectsAvailable?: string;
 }
 
 
