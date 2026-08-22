@@ -99,7 +99,7 @@ export default function CommunityEventsPage() {
           <div className="max-w-2xl">
             <AnimatedElement>
               <div className="mb-6">
-                <span className="text-xs md:text-sm font-paragraph tracking-[0.2em] uppercase text-accent">
+                <span className="text-xs font-paragraph tracking-[0.2em] uppercase text-accent md:text-2xl">
                   Community Events
                 </span>
               </div>
@@ -148,7 +148,7 @@ export default function CommunityEventsPage() {
 
               <Button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-8 py-3 rounded-none transition-all duration-300"
+                className="text-[#151615] hover:bg-primary/90 font-semibold px-8 py-3 rounded-none transition-all duration-300 bg-accent"
               >
                 Sign Up to Be Notified <Mail className="ml-2 w-4 h-4" />
               </Button>
