@@ -212,7 +212,7 @@ export default function SpreadTheWordPage() {
                     </div>
 
                     <Button
-                      className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                      className="bg-accent text-white hover:bg-accent/90 font-semibold w-full rounded-none transition-all duration-300"
                     >
                       {method.action} <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
@@ -271,7 +271,7 @@ export default function SpreadTheWordPage() {
                     </div>
 
                     <Button
-                      className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                      className="bg-accent text-white hover:bg-accent/90 font-semibold w-full rounded-none transition-all duration-300"
                     >
                       Learn More <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>

@@ -552,7 +552,7 @@ export default function BecomeAMentorPage() {
               <div className="flex gap-4">
                 <Button
                   type="submit"
-                  className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-3 rounded-none transition-all duration-300"
+                  className="bg-accent text-white hover:bg-accent/90 font-semibold px-10 py-3 rounded-none transition-all duration-300"
                 >
                   Submit Application
                 </Button>

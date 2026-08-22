@@ -225,7 +225,7 @@ export default function GetInvolvedPage() {
                           ) : option.id === 2 ? (
                             <Button
                               asChild
-                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                              className="bg-accent text-white hover:bg-accent/90 font-semibold w-full rounded-none transition-all duration-300"
                             >
                               <Link to="/volunteer-your-skills">
                                 Learn More <ArrowRight className="ml-2 w-4 h-4" />
@@ -234,7 +234,7 @@ export default function GetInvolvedPage() {
                           ) : option.id === 4 ? (
                             <Button
                               asChild
-                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                              className="bg-accent text-white hover:bg-accent/90 font-semibold w-full rounded-none transition-all duration-300"
                             >
                               <Link to="/spread-the-word">
                                 Learn More <ArrowRight className="ml-2 w-4 h-4" />
@@ -243,9 +243,9 @@ export default function GetInvolvedPage() {
                           ) : (
                             <Button
                               asChild
-                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                              className="bg-accent text-white hover:bg-accent/90 font-semibold w-full rounded-none transition-all duration-300"
                             >
-                              <Link to="/become-a-mentor" className="bg-accent">
+                              <Link to="/become-a-mentor">
                                 Learn More <ArrowRight className="ml-2 w-4 h-4" />
                               </Link>
                             </Button>
