@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProgramRegistrationForm from '@/components/ProgramRegistrationForm';
-import { BookOpen, GraduationCap, Laptop, Settings, ChevronDown, Check, ArrowRight } from 'lucide-react';
+import { BookOpen, GraduationCap, Laptop, Settings, Check, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -53,7 +53,7 @@ export default function ProgramsPage() {
   const [programs, setPrograms] = useState<EducationalPrograms[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
   const [registrationFormOpen, setRegistrationFormOpen] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState<EducationalPrograms | null>(null);
 
@@ -76,6 +76,27 @@ export default function ProgramsPage() {
   const filteredPrograms = selectedCategory === 'all' 
     ? programs
     : programs.filter(p => p.category === selectedCategory);
+
+  // Carousel logic
+  const itemsPerSlide = 3;
+  const totalSlides = Math.ceil(filteredPrograms.length / itemsPerSlide);
+  const currentSlidePrograms = filteredPrograms.slice(
+    carouselIndex * itemsPerSlide,
+    (carouselIndex + 1) * itemsPerSlide
+  );
+
+  const handlePrevSlide = () => {
+    setCarouselIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCarouselIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+  };
+
+  // Reset carousel when category changes
+  useEffect(() => {
+    setCarouselIndex(0);
+  }, [selectedCategory]);
 
   const getIconForProgram = (programName?: string) => {
     const iconMap: { [key: string]: React.ReactNode } = {
@@ -148,155 +169,133 @@ export default function ProgramsPage() {
         </section>
       )}
 
-      {/* Programs Accordion */}
+      {/* Programs Carousel */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="min-h-[500px] max-w-4xl mx-auto">
+          <div className="min-h-[500px]">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
                 <LoadingSpinner />
               </div>
             ) : filteredPrograms.length > 0 ? (
-              <div className="space-y-4">
-                {filteredPrograms.map((program, index) => (
-                  <AnimatedElement key={program._id} delay={index * 50}>
-                    <div className="border border-foreground/10 rounded-lg overflow-hidden bg-white hover:shadow-lg transition-all duration-300">
-                      {/* Accordion Header */}
-                      <button
-                        onClick={() => setExpandedId(expandedId === program._id ? null : program._id)}
-                        className="w-full px-6 py-5 flex items-center justify-between hover:bg-secondary/10 transition-colors duration-200"
-                      >
-                        <div className="flex items-center gap-4 text-left flex-1">
-                          <div className="flex-shrink-0">
+              <div className="max-w-7xl mx-auto">
+                {/* Carousel Container */}
+                <div className="relative">
+                  {/* Carousel Items */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {currentSlidePrograms.map((program, index) => (
+                      <AnimatedElement key={program._id} delay={index * 50}>
+                        <div className="border border-foreground/10 rounded-lg overflow-hidden bg-white hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                          {/* Program Image */}
+                          <div className="w-full h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center">
                             {program.programImage ? (
-                              <div className="w-16 h-16 rounded-lg overflow-hidden">
-                                <Image
-                                  src={program.programImage}
-                                  alt={program.programName || 'Program'}
-                                  width={64}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
+                              <Image
+                                src={program.programImage}
+                                alt={program.programName || 'Program'}
+                                width={300}
+                                className="w-full h-full object-cover"
+                              />
                             ) : (
-                              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center">
+                              <div className="flex items-center justify-center">
                                 {getIconForProgram(program.programName)}
                               </div>
                             )}
                           </div>
-                          
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-1">
-                              <h3 className="text-lg font-heading font-bold text-foreground">
-                                {program.programName}
-                              </h3>
-                            </div>
-                            <p className="text-sm text-foreground/60 line-clamp-1">
-                              {program.tagline || program.shortDescription || program.detailedDescription}
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <ChevronDown
-                          size={24}
-                          className={`text-primary transition-transform duration-300 flex-shrink-0 ${
-                            expandedId === program._id ? 'rotate-180' : ''
-                          }`}
-                        />
-                      </button>
-                      
-                      {/* Accordion Content */}
-                      {expandedId === program._id && (
-                        <div className="px-6 py-5 border-t border-foreground/10 bg-secondary/5">
-                          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            {/* Main Content */}
-                            <div className="lg:col-span-2 space-y-4">
-                              {/* Description */}
-                              <div>
-                                <h4 className="font-heading font-bold text-foreground mb-2">About This Program</h4>
-                                <p className="text-foreground/70 leading-relaxed">
-                                  {program.detailedDescription || program.shortDescription}
-                                </p>
-                              </div>
 
-                              {/* What's Included */}
-                              {program.whatsIncluded && (
+                          {/* Program Content */}
+                          <div className="p-6 flex flex-col flex-1">
+                            <h3 className="text-lg font-heading font-bold text-foreground mb-2">
+                              {program.programName}
+                            </h3>
+                            <p className="text-sm text-foreground/60 mb-4 line-clamp-2">
+                              {program.tagline || program.shortDescription}
+                            </p>
+
+                            {/* Program Details */}
+                            <div className="space-y-3 mb-6 flex-1">
+                              {program.targetAudience && (
                                 <div>
-                                  <h4 className="font-heading font-bold text-foreground mb-3">What's Included</h4>
-                                  <ul className="space-y-2">
-                                    {parseWhatsIncluded(program.whatsIncluded).map((item, idx) => (
-                                      <li key={idx} className="flex items-start gap-3">
-                                        <Check size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                                        <span className="text-foreground/70">{item}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
+                                  <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Who It's For</p>
+                                  <p className="text-sm text-foreground font-paragraph mt-1">{program.targetAudience}</p>
                                 </div>
                               )}
 
-                              {/* CTA Buttons */}
-                              <div className="flex gap-3 mt-4 flex-wrap">
-                                <Button
-                                  onClick={() => openRegistrationForm(program)}
-                                  className="bg-primary text-white hover:bg-primary/90 transition-all duration-200"
-                                >
-                                  Register Now
-                                </Button>
-                                <Button
-                                  onClick={() => navigate(`/programs/${program._id}`)}
-                                  className="bg-foreground/10 text-foreground hover:bg-foreground/20 transition-all duration-200 flex items-center gap-2"
-                                >
-                                  View Schedules <ArrowRight size={16} />
-                                </Button>
-                              </div>
+                              {program.format && (
+                                <div>
+                                  <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Format</p>
+                                  <p className="text-sm text-foreground font-paragraph mt-1">{program.format}</p>
+                                </div>
+                              )}
+
+                              {program.cost && (
+                                <div>
+                                  <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Cost</p>
+                                  <p className="text-sm text-foreground font-paragraph mt-1">{program.cost}</p>
+                                </div>
+                              )}
                             </div>
 
-                            {/* Sidebar Details */}
-                            <div className="lg:col-span-1">
-                              <div className="bg-white rounded-lg p-4 border border-foreground/10 space-y-4">
-                                <h4 className="font-heading font-bold text-foreground text-sm">Program Details</h4>
-                                
-                                {program.targetAudience && (
-                                  <div>
-                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Who It's For</p>
-                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.targetAudience}</p>
-                                  </div>
-                                )}
-
-                                {program.format && (
-                                  <div>
-                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Format</p>
-                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.format}</p>
-                                  </div>
-                                )}
-
-                                {program.schedule && (
-                                  <div>
-                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Schedule</p>
-                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.schedule}</p>
-                                  </div>
-                                )}
-
-                                {program.cost && (
-                                  <div>
-                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Cost</p>
-                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.cost}</p>
-                                  </div>
-                                )}
-
-                                {program.platform && (
-                                  <div>
-                                    <p className="text-xs font-medium text-foreground/60 uppercase tracking-wide">Platform</p>
-                                    <p className="text-sm text-foreground font-paragraph mt-1">{program.platform}</p>
-                                  </div>
-                                )}
-                              </div>
+                            {/* CTA Buttons */}
+                            <div className="flex gap-2 flex-wrap">
+                              <Button
+                                onClick={() => openRegistrationForm(program)}
+                                className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 flex-1"
+                              >
+                                Register
+                              </Button>
+                              <Button
+                                onClick={() => navigate(`/programs/${program._id}`)}
+                                className="bg-foreground/10 text-foreground hover:bg-foreground/20 transition-all duration-200 flex-1"
+                              >
+                                Details
+                              </Button>
                             </div>
                           </div>
                         </div>
-                      )}
+                      </AnimatedElement>
+                    ))}
+                  </div>
+
+                  {/* Carousel Controls */}
+                  {totalSlides > 1 && (
+                    <div className="flex items-center justify-between mt-8">
+                      <button
+                        onClick={handlePrevSlide}
+                        className="p-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-all duration-200"
+                        aria-label="Previous slide"
+                      >
+                        <ChevronLeft size={24} />
+                      </button>
+
+                      {/* Slide Indicators */}
+                      <div className="flex gap-2">
+                        {Array.from({ length: totalSlides }).map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setCarouselIndex(idx)}
+                            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                              idx === carouselIndex ? 'bg-primary w-8' : 'bg-foreground/20'
+                            }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                          />
+                        ))}
+                      </div>
+
+                      <button
+                        onClick={handleNextSlide}
+                        className="p-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-all duration-200"
+                        aria-label="Next slide"
+                      >
+                        <ChevronRight size={24} />
+                      </button>
                     </div>
-                  </AnimatedElement>
-                ))}
+                  )}
+
+                  {/* Slide Counter */}
+                  <div className="text-center mt-6 text-foreground/60 text-sm">
+                    Slide {carouselIndex + 1} of {totalSlides}
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="text-center py-20">
