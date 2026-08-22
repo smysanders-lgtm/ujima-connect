@@ -287,32 +287,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Stats Section */}
-      <section className="py-16 bg-white border-y border-gray-100">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 divide-x divide-gray-100">
-            <AnimatedElement className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-3">200+</div>
-              <div className="text-xs font-bold tracking-[0.15em] uppercase text-foreground/70">Students Served</div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={100} className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-3">5</div>
-              <div className="text-xs font-bold tracking-[0.15em] uppercase text-foreground/70">Core Programs</div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={200} className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-3">100%</div>
-              <div className="text-xs font-bold tracking-[0.15em] uppercase text-foreground/70">Virtual Access</div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={300} className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-3">Free</div>
-              <div className="text-xs font-bold tracking-[0.15em] uppercase text-foreground/70">Mental Health Support</div>
-            </AnimatedElement>
-          </div>
-        </div>
-      </section>
       {/* Story Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
