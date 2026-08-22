@@ -11,6 +11,8 @@ import ContactPage from '@/components/pages/ContactPage';
 import CommunityEventsPage from '@/components/pages/CommunityEventsPage';
 import MeetTheTeamPage from '@/components/pages/MeetTheTeamPage';
 import GetInvolvedPage from '@/components/pages/GetInvolvedPage';
+import BecomeAMentorPage from '@/components/pages/BecomeAMentorPage';
+import VolunteerYourSkillsPage from '@/components/pages/VolunteerYourSkillsPage';
 import DonationPage from '@/components/pages/DonationPage';
 import SpreadTheWordPage from '@/components/pages/SpreadTheWordPage';
 
@@ -91,6 +93,20 @@ const router = createBrowserRouter([
         element: <GetInvolvedPage />,
         routeMetadata: {
           pageIdentifier: 'get-involved',
+        },
+      },
+      {
+        path: "become-a-mentor",
+        element: <BecomeAMentorPage />,
+        routeMetadata: {
+          pageIdentifier: 'become-a-mentor',
+        },
+      },
+      {
+        path: "volunteer-your-skills",
+        element: <VolunteerYourSkillsPage />,
+        routeMetadata: {
+          pageIdentifier: 'volunteer-your-skills',
         },
       },
       {

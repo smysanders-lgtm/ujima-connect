@@ -212,6 +212,15 @@ export default function GetInvolvedPage() {
                             Make a Donation <ArrowRight className="ml-2 w-4 h-4" />
                           </Link>
                         </Button>
+                      ) : option.id === 2 ? (
+                        <Button
+                          asChild
+                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                        >
+                          <Link to="/volunteer-your-skills">
+                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                          </Link>
+                        </Button>
                       ) : option.id === 4 ? (
                         <Button
                           asChild
@@ -223,9 +232,12 @@ export default function GetInvolvedPage() {
                         </Button>
                       ) : (
                         <Button
+                          asChild
                           className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
                         >
-                          Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                          <Link to="/become-a-mentor">
+                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                          </Link>
                         </Button>
                       )}
                     </div>
