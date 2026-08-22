@@ -203,11 +203,31 @@ export default function GetInvolvedPage() {
                         ))}
                       </div>
 
-                      <Button
-                        className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                      >
-                        Learn More <ArrowRight className="ml-2 w-4 h-4" />
-                      </Button>
+                      {option.id === 3 ? (
+                        <Button
+                          asChild
+                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                        >
+                          <Link to="/donation">
+                            Make a Donation <ArrowRight className="ml-2 w-4 h-4" />
+                          </Link>
+                        </Button>
+                      ) : option.id === 4 ? (
+                        <Button
+                          asChild
+                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                        >
+                          <Link to="/spread-the-word">
+                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                          </Link>
+                        </Button>
+                      ) : (
+                        <Button
+                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                        >
+                          Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </AnimatedElement>

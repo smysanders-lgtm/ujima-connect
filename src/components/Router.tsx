@@ -11,6 +11,8 @@ import ContactPage from '@/components/pages/ContactPage';
 import CommunityEventsPage from '@/components/pages/CommunityEventsPage';
 import MeetTheTeamPage from '@/components/pages/MeetTheTeamPage';
 import GetInvolvedPage from '@/components/pages/GetInvolvedPage';
+import DonationPage from '@/components/pages/DonationPage';
+import SpreadTheWordPage from '@/components/pages/SpreadTheWordPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -89,6 +91,20 @@ const router = createBrowserRouter([
         element: <GetInvolvedPage />,
         routeMetadata: {
           pageIdentifier: 'get-involved',
+        },
+      },
+      {
+        path: "donation",
+        element: <DonationPage />,
+        routeMetadata: {
+          pageIdentifier: 'donation',
+        },
+      },
+      {
+        path: "spread-the-word",
+        element: <SpreadTheWordPage />,
+        routeMetadata: {
+          pageIdentifier: 'spread-the-word',
         },
       },
       {
