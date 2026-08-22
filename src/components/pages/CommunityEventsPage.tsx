@@ -89,8 +89,8 @@ export default function CommunityEventsPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#151615] via-[#151615]/80 to-transparent z-10 hidden lg:block" />
           <div className="absolute inset-0 bg-[#151615]/60 lg:hidden z-10" />
           <Image
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=1000&fit=crop&auto=format"
-            alt="Community event gathering"
+            src="https://static.wixstatic.com/media/0538ae_ab67143930594a20a5c5ff9e96284ec8~mv2.png?originWidth=1600&originHeight=960"
+            alt="Community food drive event with volunteers"
             className="w-full h-full object-cover object-center opacity-70 lg:opacity-100"
           />
         </div>
