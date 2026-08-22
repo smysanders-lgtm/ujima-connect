@@ -5,6 +5,7 @@ import { Image } from '@/components/ui/image';
 import { Gift, Heart, ArrowRight, CheckCircle2, DollarSign } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { wixDonations } from '@wix/donations';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -45,27 +46,42 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function DonationPage() {
+  const handleDonate = async (amount: number) => {
+    try {
+      await wixDonations.startDonationFlow({
+        amount: amount,
+        currency: 'USD'
+      });
+    } catch (error) {
+      console.error('Error starting donation flow:', error);
+    }
+  };
+
   const donationLevels = [
     {
       amount: '$25',
+      amountValue: 25,
       title: 'Friend',
       description: 'Support a student with essential resources',
       benefits: ['Digital learning materials', 'Monthly impact updates', 'Donor recognition']
     },
     {
       amount: '$50',
+      amountValue: 50,
       title: 'Advocate',
       description: 'Fund a mentoring session',
       benefits: ['All Friend benefits', 'Quarterly impact report', 'Exclusive webinar access']
     },
     {
       amount: '$100',
+      amountValue: 100,
       title: 'Champion',
       description: 'Sponsor a workshop or training',
       benefits: ['All Advocate benefits', 'Annual impact dinner invitation', 'Custom impact report']
     },
     {
       amount: '$250+',
+      amountValue: 250,
       title: 'Visionary',
       description: 'Create lasting change',
       benefits: ['All Champion benefits', 'Named scholarship option', 'Strategic partnership opportunities']
@@ -175,6 +191,7 @@ export default function DonationPage() {
                   </div>
 
                   <Button
+                    onClick={() => handleDonate(level.amountValue)}
                     className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
                   >
                     Donate Now <ArrowRight className="ml-2 w-4 h-4" />
@@ -343,6 +360,7 @@ export default function DonationPage() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
+                  onClick={() => handleDonate(50)}
                   className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300"
                 >
                   Donate Now <ArrowRight className="ml-2 w-4 h-4" />
