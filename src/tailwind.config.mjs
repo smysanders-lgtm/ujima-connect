@@ -23,12 +23,12 @@ export default {
                 paragraph: "Roboto"
             },
             colors: {
-                primary: '#C9A84C',
-                secondary: '#F3ECD8',
-                accent: '#C9A84C',
-                background: '#FFFFFF',
-                foreground: '#1A4D2E',
-                link: '#1A4D2E'
+                primary: "#C9A84C",
+                secondary: "#F3ECD8",
+                background: "#FFFFFF",
+                accent: "#C9A84C",
+                foreground: "#1A4D2E",
+                link: "#1A4D2E"
             },
         },
     },
