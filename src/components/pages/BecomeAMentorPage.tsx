@@ -5,6 +5,7 @@ import { Image } from '@/components/ui/image';
 import { ArrowLeft, CheckCircle2, Upload } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { BaseCrudService } from '@/integrations';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -84,27 +85,45 @@ export default function BecomeAMentorPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        expertise: '',
-        resume: null,
-        credentials: null,
-        whyMentor: '',
-        availability: '',
-        experience: ''
+    
+    try {
+      // Create mentor application record in CMS
+      await BaseCrudService.create('mentorApplications', {
+        _id: crypto.randomUUID(),
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        expertise: formData.expertise,
+        yearsOfExperience: formData.experience,
+        availability: formData.availability,
+        motivation: formData.whyMentor,
+        submissionDate: new Date().toISOString(),
+        status: 'pending'
       });
-      setResumeFileName('');
-      setCredentialsFileName('');
-    }, 3000);
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          expertise: '',
+          resume: null,
+          credentials: null,
+          whyMentor: '',
+          availability: '',
+          experience: ''
+        });
+        setResumeFileName('');
+        setCredentialsFileName('');
+      }, 3000);
+    } catch (error) {
+      console.error('Error submitting mentor application:', error);
+      alert('There was an error submitting your application. Please try again.');
+    }
   };
 
   const mentorBenefits = [

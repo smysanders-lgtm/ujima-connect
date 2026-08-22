@@ -89,6 +89,33 @@ export interface MentalHealthResources {
 
 
 /**
+ * Collection ID: mentorapplications
+ * Interface for MentorApplications
+ */
+export interface MentorApplications {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  fullName?: string;
+  /** @wixFieldType text */
+  email?: string;
+  /** @wixFieldType text */
+  phoneNumber?: string;
+  /** @wixFieldType text */
+  expertise?: string;
+  /** @wixFieldType number */
+  yearsOfExperience?: number;
+  /** @wixFieldType text */
+  availability?: string;
+  /** @wixFieldType text */
+  motivation?: string;
+  /** @wixFieldType datetime */
+  submissionDate?: Date | string;
+}
+
+
+/**
  * Collection ID: programregistrations
  * Interface for ProgramRegistrations
  */
