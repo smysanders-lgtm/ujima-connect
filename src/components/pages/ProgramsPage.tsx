@@ -126,7 +126,6 @@ export default function ProgramsPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-foreground via-foreground/95 to-foreground text-white py-20 md:py-32">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(201,168,76,0.1),transparent_50%)]" />
@@ -143,7 +142,6 @@ export default function ProgramsPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Filter Section */}
       {categories.length > 1 && (
         <section className="py-8 bg-secondary/20 border-b border-foreground/10">
@@ -168,7 +166,6 @@ export default function ProgramsPage() {
           </div>
         </section>
       )}
-
       {/* Programs Carousel */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -245,7 +242,7 @@ export default function ProgramsPage() {
                               </Button>
                               <Button
                                 onClick={() => navigate(`/programs/${program._id}`)}
-                                className="bg-foreground/10 text-foreground hover:bg-foreground/20 transition-all duration-200 flex-1"
+                                className="text-foreground hover:bg-foreground/20 transition-all duration-200 flex-1 bg-secondary"
                               >
                                 Details
                               </Button>
@@ -305,7 +302,6 @@ export default function ProgramsPage() {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-foreground to-foreground/90 text-white">
         <div className="container mx-auto px-4">
@@ -328,7 +324,6 @@ export default function ProgramsPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Registration Form Modal */}
       {registrationFormOpen && selectedProgram && (
         <ProgramRegistrationForm
@@ -336,7 +331,6 @@ export default function ProgramsPage() {
           onClose={closeRegistrationForm}
         />
       )}
-
       <Footer />
     </div>
   );

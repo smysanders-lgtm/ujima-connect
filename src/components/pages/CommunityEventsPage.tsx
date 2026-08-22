@@ -83,7 +83,6 @@ export default function CommunityEventsPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-[#151615] text-white overflow-hidden min-h-[70vh] flex items-center">
         <div className="absolute inset-0 w-full h-full lg:w-[60%] lg:left-auto lg:right-0 z-0">
@@ -100,7 +99,7 @@ export default function CommunityEventsPage() {
           <div className="max-w-2xl">
             <AnimatedElement>
               <div className="mb-6">
-                <span className="text-xs md:text-sm text-primary/90 font-paragraph tracking-[0.2em] uppercase">
+                <span className="text-xs md:text-sm font-paragraph tracking-[0.2em] uppercase text-accent">
                   Community Events
                 </span>
               </div>
@@ -109,7 +108,7 @@ export default function CommunityEventsPage() {
             <AnimatedElement delay={100}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
                 Connect, Learn, <br className="hidden md:block" />
-                <span className="text-primary">Grow Together</span>
+                <span className="text-accent">Grow Together</span>
               </h1>
             </AnimatedElement>
 
@@ -121,7 +120,6 @@ export default function CommunityEventsPage() {
           </div>
         </div>
       </section>
-
       {/* Events Grid or No Events Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -222,7 +220,6 @@ export default function CommunityEventsPage() {
           )}
         </div>
       </section>
-
       {/* Past Events Section */}
       <section className="py-24 bg-secondary">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -264,7 +261,6 @@ export default function CommunityEventsPage() {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-32 bg-foreground text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay" />
@@ -293,7 +289,6 @@ export default function CommunityEventsPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );

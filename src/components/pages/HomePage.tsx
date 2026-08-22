@@ -362,7 +362,7 @@ export default function HomePage() {
               <Button
                 onClick={() => navigate('/contact')}
                 size="lg"
-                className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
               >
                 GET IN TOUCH
               </Button>
