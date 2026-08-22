@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { ArrowLeft, CheckCircle2, Upload } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Bold, Italic, List } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
@@ -51,16 +51,13 @@ export default function BecomeAMentorPage() {
     email: '',
     phone: '',
     expertise: '',
-    resume: null as File | null,
-    credentials: null as File | null,
     whyMentor: '',
     availability: '',
-    experience: ''
+    experience: '',
+    richContent: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [resumeFileName, setResumeFileName] = useState('');
-  const [credentialsFileName, setCredentialsFileName] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -70,19 +67,48 @@ export default function BecomeAMentorPage() {
     }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileType: 'resume' | 'credentials') => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFormData(prev => ({
-        ...prev,
-        [fileType]: file
-      }));
-      if (fileType === 'resume') {
-        setResumeFileName(file.name);
-      } else {
-        setCredentialsFileName(file.name);
-      }
+  const handleRichContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      richContent: e.target.value
+    }));
+  };
+
+  const applyRichTextFormat = (format: 'bold' | 'italic' | 'list') => {
+    const textarea = document.getElementById('rich-content') as HTMLTextAreaElement;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = formData.richContent.substring(start, end);
+    
+    let formattedText = '';
+    switch (format) {
+      case 'bold':
+        formattedText = `**${selectedText}**`;
+        break;
+      case 'italic':
+        formattedText = `*${selectedText}*`;
+        break;
+      case 'list':
+        formattedText = `• ${selectedText}`;
+        break;
     }
+
+    const newContent = 
+      formData.richContent.substring(0, start) + 
+      formattedText + 
+      formData.richContent.substring(end);
+    
+    setFormData(prev => ({
+      ...prev,
+      richContent: newContent
+    }));
+
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
+    }, 0);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -92,8 +118,8 @@ export default function BecomeAMentorPage() {
       // Validate required fields
       if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim() || 
           !formData.expertise.trim() || !formData.experience || !formData.availability || 
-          !formData.whyMentor.trim() || !formData.resume) {
-        alert('Please fill in all required fields and upload your resume.');
+          !formData.whyMentor.trim() || !formData.richContent.trim()) {
+        alert('Please fill in all required fields.');
         return;
       }
 
@@ -113,7 +139,6 @@ export default function BecomeAMentorPage() {
       const yearsOfExperience = experienceMap[formData.experience] || 0;
 
       // Create mentor application record in CMS
-      // Note: File uploads are stored as file names only since direct upload API is not available
       await BaseCrudService.create('mentorapplications', {
         _id: crypto.randomUUID(),
         fullName: formData.fullName,
@@ -124,8 +149,7 @@ export default function BecomeAMentorPage() {
         availability: formData.availability,
         motivation: formData.whyMentor,
         submissionDate: new Date().toISOString(),
-        resumeUrl: resumeFileName,
-        credentialsUrl: credentialsFileName
+        richcontent: formData.richContent
       });
 
       setSubmitted(true);
@@ -136,14 +160,11 @@ export default function BecomeAMentorPage() {
           email: '',
           phone: '',
           expertise: '',
-          resume: null,
-          credentials: null,
           whyMentor: '',
           availability: '',
-          experience: ''
+          experience: '',
+          richContent: ''
         });
-        setResumeFileName('');
-        setCredentialsFileName('');
       }, 3000);
     } catch (error) {
       console.error('Error submitting mentor application:', error);
@@ -390,64 +411,6 @@ export default function BecomeAMentorPage() {
                 </div>
               </div>
 
-              {/* File Uploads */}
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div>
-                  <label className="block text-sm font-bold text-foreground mb-3">
-                    Upload Resume *
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      onChange={(e) => handleFileChange(e, 'resume')}
-                      required
-                      className="hidden"
-                      id="resume-upload"
-                    />
-                    <label
-                      htmlFor="resume-upload"
-                      className="flex items-center justify-center gap-3 px-4 py-6 border-2 border-dashed border-gray-300 hover:border-primary transition-colors cursor-pointer bg-gray-50"
-                    >
-                      <Upload className="w-5 h-5 text-gray-400" />
-                      <div>
-                        <p className="text-sm font-bold text-foreground">
-                          {resumeFileName || 'Click to upload'}
-                        </p>
-                        <p className="text-xs text-gray-500">PDF, DOC, or DOCX</p>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-foreground mb-3">
-                    Upload Credentials/Certifications
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx,.jpg,.png"
-                      onChange={(e) => handleFileChange(e, 'credentials')}
-                      className="hidden"
-                      id="credentials-upload"
-                    />
-                    <label
-                      htmlFor="credentials-upload"
-                      className="flex items-center justify-center gap-3 px-4 py-6 border-2 border-dashed border-gray-300 hover:border-primary transition-colors cursor-pointer bg-gray-50"
-                    >
-                      <Upload className="w-5 h-5 text-gray-400" />
-                      <div>
-                        <p className="text-sm font-bold text-foreground">
-                          {credentialsFileName || 'Click to upload'}
-                        </p>
-                        <p className="text-xs text-gray-500">PDF, DOC, DOCX, JPG, or PNG</p>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
               {/* Why Mentor */}
               <div className="mb-8">
                 <label className="block text-sm font-bold text-foreground mb-3">
@@ -458,11 +421,58 @@ export default function BecomeAMentorPage() {
                   value={formData.whyMentor}
                   onChange={handleInputChange}
                   required
-                  rows={6}
+                  rows={4}
                   className="w-full px-4 py-3 border border-gray-200 focus:border-primary focus:outline-none transition-colors resize-none"
                   placeholder="Tell us about your motivation, what you hope to achieve, and how you plan to support your mentees..."
                 />
                 <p className="text-xs text-gray-500 mt-2">Minimum 50 characters</p>
+              </div>
+
+              {/* Rich Content Editor */}
+              <div className="mb-8">
+                <label className="block text-sm font-bold text-foreground mb-3">
+                  Additional Information / Experience Details *
+                </label>
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  {/* Toolbar */}
+                  <div className="bg-gray-50 border-b border-gray-200 p-3 flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => applyRichTextFormat('bold')}
+                      className="p-2 hover:bg-gray-200 transition-colors rounded"
+                      title="Bold"
+                    >
+                      <Bold className="w-4 h-4 text-foreground" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => applyRichTextFormat('italic')}
+                      className="p-2 hover:bg-gray-200 transition-colors rounded"
+                      title="Italic"
+                    >
+                      <Italic className="w-4 h-4 text-foreground" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => applyRichTextFormat('list')}
+                      className="p-2 hover:bg-gray-200 transition-colors rounded"
+                      title="List"
+                    >
+                      <List className="w-4 h-4 text-foreground" />
+                    </button>
+                  </div>
+                  {/* Editor */}
+                  <textarea
+                    id="rich-content"
+                    value={formData.richContent}
+                    onChange={handleRichContentChange}
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 focus:outline-none resize-none font-mono text-sm"
+                    placeholder="Share your professional achievements, certifications, relevant projects, and any other information that would help us understand your qualifications..."
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-2">Use the formatting buttons above to add emphasis to your text</p>
               </div>
 
               {/* Submit Button */}
