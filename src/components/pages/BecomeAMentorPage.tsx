@@ -116,35 +116,40 @@ export default function BecomeAMentorPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const fileContent = event.target?.result as string;
-      const fileName = file.name;
-      
-      // Insert file reference into rich content
-      const fileReference = `[File: ${fileName}]\n`;
-      const textarea = document.getElementById('rich-content') as HTMLTextAreaElement;
-      
-      if (textarea) {
-        const start = textarea.selectionStart;
-        const newContent = 
-          formData.richContent.substring(0, start) + 
-          fileReference + 
-          formData.richContent.substring(start);
-        
-        setFormData(prev => ({
-          ...prev,
-          richContent: newContent
-        }));
-
-        setTimeout(() => {
-          textarea.focus();
-          textarea.setSelectionRange(start + fileReference.length, start + fileReference.length);
-        }, 0);
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      alert('File size exceeds 5MB limit. Please choose a smaller file.');
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
       }
-    };
+      return;
+    }
+
+    const fileName = file.name;
+    const fileSize = (file.size / 1024).toFixed(2); // Convert to KB
     
-    reader.readAsText(file);
+    // Insert file reference into rich content
+    const fileReference = `📎 [Attached: ${fileName} (${fileSize}KB)]\n`;
+    const textarea = document.getElementById('rich-content') as HTMLTextAreaElement;
+    
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const newContent = 
+        formData.richContent.substring(0, start) + 
+        fileReference + 
+        formData.richContent.substring(start);
+      
+      setFormData(prev => ({
+        ...prev,
+        richContent: newContent
+      }));
+
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + fileReference.length, start + fileReference.length);
+      }, 0);
+    }
     
     // Reset file input
     if (fileInputRef.current) {
