@@ -7,6 +7,7 @@ import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target } from 'lucide-react';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -224,9 +225,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Guiding Principles Section - Five Squares */}
+      {/* Guiding Principles Section - Accordion */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
+        <div className="container mx-auto px-6 max-w-4xl">
           <AnimatedElement>
             <div className="mb-16">
               <span className="text-xs text-primary/80 font-paragraph tracking-[0.2em] uppercase mb-4 block">
@@ -238,35 +239,37 @@ export default function HomePage() {
             </div>
           </AnimatedElement>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {guidingPrinciples.map((principle, index) => {
-              const IconComponent = principle.icon;
-              return (
-                <AnimatedElement key={index} delay={index * 100}>
-                  <div className="bg-white p-8 h-full border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex flex-col">
-                    {/* Subtle hover gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="w-12 h-12 mb-6 flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                        <IconComponent className="w-6 h-6 text-primary" />
+          <AnimatedElement delay={100}>
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {guidingPrinciples.map((principle, index) => {
+                const IconComponent = principle.icon;
+                return (
+                  <AccordionItem key={index} value={`principle-${index}`} className="border border-gray-200 rounded-lg overflow-hidden hover:border-primary/30 transition-colors duration-300">
+                    <AccordionTrigger className="px-6 py-5 hover:bg-secondary/30 transition-colors duration-300 group">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="w-10 h-10 flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 rounded-lg shrink-0">
+                          <IconComponent className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg md:text-xl font-heading font-bold text-foreground">
+                            {principle.title}
+                          </h3>
+                          <p className="text-sm text-primary font-semibold">
+                            {principle.subtitle}
+                          </p>
+                        </div>
                       </div>
-                      
-                      <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
-                        {principle.title}
-                      </h3>
-                      <p className="text-sm text-primary font-semibold mb-4">
-                        {principle.subtitle}
-                      </p>
-                      <p className="text-gray-600 leading-relaxed font-light flex-grow">
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 py-5 bg-white border-t border-gray-100">
+                      <p className="text-gray-600 leading-relaxed font-light ml-14">
                         {principle.description}
                       </p>
-                    </div>
-                  </div>
-                </AnimatedElement>
-              );
-            })}
-          </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+          </AnimatedElement>
         </div>
       </section>
 
