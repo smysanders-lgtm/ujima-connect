@@ -106,7 +106,6 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-foreground via-foreground/95 to-foreground text-white py-20 md:py-32">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_60%,rgba(201,168,76,0.15),transparent_60%)]" />
@@ -123,7 +122,6 @@ export default function ContactPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Contact Info Section */}
       <section className="py-16 bg-gradient-to-b from-secondary/30 to-background">
         <div className="container mx-auto px-4">
@@ -152,9 +150,7 @@ export default function ContactPage() {
                 <a
                   href="tel:5551234567"
                   className="text-foreground/70 hover:text-primary transition-colors"
-                >
-                  (555) 123-4567
-                </a>
+                >(</a>
               </div>
             </AnimatedElement>
 
@@ -170,7 +166,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
       {/* Contact Form Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -315,7 +310,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
       {/* Info Section */}
       <section className="py-20 bg-gradient-to-br from-secondary/30 to-primary/5">
         <div className="container mx-auto px-4">
@@ -336,7 +330,6 @@ export default function ContactPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
