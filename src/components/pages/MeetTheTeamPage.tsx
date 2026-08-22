@@ -58,7 +58,6 @@ export default function MeetTheTeamPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-
       {/* Hero Section */}
       <section className="bg-white py-20 md:py-32">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -87,7 +86,6 @@ export default function MeetTheTeamPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Founder Spotlight Section */}
       <section className="bg-secondary py-24 md:py-32">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -104,10 +102,10 @@ export default function MeetTheTeamPage() {
             <AnimatedElement delay={100}>
               <div className="relative overflow-hidden">
                 <Image
-                  src="https://static.wixstatic.com/media/0538ae_90d7db64c0ea4adeafd4659d79b1ce77~mv2.png?originWidth=576&originHeight=768"
-                  alt="Dara Baker, Founder"
+                  src="https://static.wixstatic.com/media/0538ae_69faf28b5bd64aaa9b44ef3470ae5244~mv2.png"
                   className="w-full h-auto object-cover"
-                />
+                  originWidth={1024}
+                  originHeight={1024} />
               </div>
             </AnimatedElement>
 
@@ -128,7 +126,6 @@ export default function MeetTheTeamPage() {
           </div>
         </div>
       </section>
-
       {/* Team Grid Section */}
       <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -184,7 +181,6 @@ export default function MeetTheTeamPage() {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-32 bg-foreground text-white relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
@@ -209,7 +205,6 @@ export default function MeetTheTeamPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
