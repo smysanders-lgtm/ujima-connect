@@ -148,7 +148,7 @@ export default function ContactPage() {
                 </div>
                 <h3 className="text-lg font-heading font-bold text-foreground mb-2">Call Us</h3>
                 <a
-                  href="tel:5551234567"
+                  href="tel:+18159143140"
                   className="text-foreground/70 hover:text-primary transition-colors"
                 >(</a>
               </div>
