@@ -319,32 +319,7 @@ export default function HomePage() {
               </div>
             )}
 
-            {/* Mental Health Banner */}
-            <AnimatedElement delay={400}>
-              <div className="bg-foreground text-white p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-overlay" />
-                
-                <div className="relative z-10 flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Shield className="w-5 h-5 text-primary" />
-                    <h3 className="text-xl font-heading font-bold">Mental Health Partnership</h3>
-                  </div>
-                  <p className="text-white/80 leading-relaxed max-w-3xl font-light text-sm md:text-base">
-                    Free support services connecting families to mental health resources, counseling referrals, and wellness workshops. Because learning requires a healthy mind and heart.
-                  </p>
-                </div>
-                
-                <div className="relative z-10 shrink-0">
-                  <Button
-                    onClick={() => navigate('/resources')}
-                    variant="link"
-                    className="text-primary hover:text-white p-0 h-auto font-semibold tracking-wide transition-colors duration-300"
-                  >
-                    Learn more <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </AnimatedElement>
+
           </div>
 
           <AnimatedElement delay={500}>
