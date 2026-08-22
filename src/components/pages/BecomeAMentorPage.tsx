@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { ArrowLeft, CheckCircle2, Bold, Italic, List } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Bold, Italic, List, Upload } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
@@ -58,6 +58,7 @@ export default function BecomeAMentorPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -109,6 +110,46 @@ export default function BecomeAMentorPage() {
       textarea.focus();
       textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
     }, 0);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const fileContent = event.target?.result as string;
+      const fileName = file.name;
+      
+      // Insert file reference into rich content
+      const fileReference = `[File: ${fileName}]\n`;
+      const textarea = document.getElementById('rich-content') as HTMLTextAreaElement;
+      
+      if (textarea) {
+        const start = textarea.selectionStart;
+        const newContent = 
+          formData.richContent.substring(0, start) + 
+          fileReference + 
+          formData.richContent.substring(start);
+        
+        setFormData(prev => ({
+          ...prev,
+          richContent: newContent
+        }));
+
+        setTimeout(() => {
+          textarea.focus();
+          textarea.setSelectionRange(start + fileReference.length, start + fileReference.length);
+        }, 0);
+      }
+    };
+    
+    reader.readAsText(file);
+    
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -435,7 +476,7 @@ export default function BecomeAMentorPage() {
                 </label>
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   {/* Toolbar */}
-                  <div className="bg-gray-50 border-b border-gray-200 p-3 flex gap-2">
+                  <div className="bg-gray-50 border-b border-gray-200 p-3 flex gap-2 flex-wrap items-center">
                     <button
                       type="button"
                       onClick={() => applyRichTextFormat('bold')}
@@ -460,6 +501,23 @@ export default function BecomeAMentorPage() {
                     >
                       <List className="w-4 h-4 text-foreground" />
                     </button>
+                    <div className="border-l border-gray-300 h-6 mx-1" />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="p-2 hover:bg-gray-200 transition-colors rounded flex items-center gap-2"
+                      title="Upload File"
+                    >
+                      <Upload className="w-4 h-4 text-foreground" />
+                      <span className="text-xs text-foreground font-medium">Upload</span>
+                    </button>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      accept=".txt,.pdf,.doc,.docx"
+                    />
                   </div>
                   {/* Editor */}
                   <textarea
@@ -472,7 +530,7 @@ export default function BecomeAMentorPage() {
                     placeholder="Share your professional achievements, certifications, relevant projects, and any other information that would help us understand your qualifications..."
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-2">Use the formatting buttons above to add emphasis to your text</p>
+                <p className="text-xs text-gray-500 mt-2">Use the formatting buttons above to add emphasis to your text or upload files</p>
               </div>
 
               {/* Submit Button */}
