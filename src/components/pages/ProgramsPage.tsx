@@ -7,6 +7,7 @@ import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ProgramRegistrationForm from '@/components/ProgramRegistrationForm';
 import { BookOpen, GraduationCap, Laptop, Settings, ChevronDown, Check, ArrowRight } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
@@ -53,6 +54,8 @@ export default function ProgramsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [registrationFormOpen, setRegistrationFormOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState<EducationalPrograms | null>(null);
 
   useEffect(() => {
     loadPrograms();
@@ -87,6 +90,16 @@ export default function ProgramsPage() {
   const parseWhatsIncluded = (text?: string) => {
     if (!text) return [];
     return text.split('\n').filter(item => item.trim());
+  };
+
+  const openRegistrationForm = (program: EducationalPrograms) => {
+    setSelectedProgram(program);
+    setRegistrationFormOpen(true);
+  };
+
+  const closeRegistrationForm = () => {
+    setRegistrationFormOpen(false);
+    setSelectedProgram(null);
   };
 
   return (
@@ -223,10 +236,10 @@ export default function ProgramsPage() {
                               {/* CTA Buttons */}
                               <div className="flex gap-3 mt-4 flex-wrap">
                                 <Button
-                                  asChild
+                                  onClick={() => openRegistrationForm(program)}
                                   className="bg-primary text-white hover:bg-primary/90 transition-all duration-200"
                                 >
-                                  <a href="/contact">Get started →</a>
+                                  Register Now
                                 </Button>
                                 <Button
                                   onClick={() => navigate(`/programs/${program._id}`)}
@@ -316,6 +329,14 @@ export default function ProgramsPage() {
           </AnimatedElement>
         </div>
       </section>
+
+      {/* Registration Form Modal */}
+      {registrationFormOpen && selectedProgram && (
+        <ProgramRegistrationForm
+          programName={selectedProgram.programName || 'Program'}
+          onClose={closeRegistrationForm}
+        />
+      )}
 
       <Footer />
     </div>

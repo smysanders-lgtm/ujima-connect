@@ -85,6 +85,27 @@ export interface MentalHealthResources {
 
 
 /**
+ * Collection ID: programregistrations
+ * Interface for ProgramRegistrations
+ */
+export interface ProgramRegistrations {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  registrantName?: string;
+  /** @wixFieldType text */
+  registrantEmail?: string;
+  /** @wixFieldType text */
+  programName?: string;
+  /** @wixFieldType datetime */
+  registrationDate?: Date | string;
+  /** @wixFieldType text */
+  phoneNumber?: string;
+}
+
+
+/**
  * Collection ID: programschedules
  * Interface for ProgramSchedules
  */
