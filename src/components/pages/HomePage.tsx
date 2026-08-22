@@ -349,15 +349,17 @@ export default function HomePage() {
             </AnimatedElement>
 
             <AnimatedElement delay={200}>
-              <div className="relative group">
-                <div className="absolute -inset-4 bg-secondary/50 transform rotate-2 transition-transform duration-500 group-hover:rotate-1" />
-                <Image
-                  src="https://static.wixstatic.com/media/nsplsh_0a443f103f4647b6baa0b64f5f331d0c~mv2.jpg"
-                  className="relative w-full h-[600px] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
-                  originWidth={6720}
-                  originHeight={4480}
-                  focalPointX={73.33333333333333}
-                  focalPointY={33.80580357142857} />
+              <div className="flex justify-center">
+                <div className="relative group max-w-2xl">
+                  <div className="absolute -inset-4 bg-secondary/50 transform rotate-2 transition-transform duration-500 group-hover:rotate-1" />
+                  <Image
+                    src="https://static.wixstatic.com/media/nsplsh_0a443f103f4647b6baa0b64f5f331d0c~mv2.jpg"
+                    className="relative w-full h-[600px] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
+                    originWidth={6720}
+                    originHeight={4480}
+                    focalPointX={73.33333333333333}
+                    focalPointY={33.80580357142857} />
+                </div>
               </div>
             </AnimatedElement>
           </div>
