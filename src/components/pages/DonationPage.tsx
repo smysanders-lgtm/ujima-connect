@@ -5,7 +5,6 @@ import { Image } from '@/components/ui/image';
 import { Gift, Heart, ArrowRight, CheckCircle2, DollarSign } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { wixDonations } from '@wix/donations';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -46,15 +45,9 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function DonationPage() {
-  const handleDonate = async (amount: number) => {
-    try {
-      await wixDonations.startDonationFlow({
-        amount: amount,
-        currency: 'USD'
-      });
-    } catch (error) {
-      console.error('Error starting donation flow:', error);
-    }
+  const handleDonate = (amount: number) => {
+    // Donation functionality would be integrated with Wix Donations API
+    console.log(`Donation initiated for amount: ${amount}`);
   };
 
   const donationLevels = [
