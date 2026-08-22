@@ -474,42 +474,51 @@ export default function BecomeAMentorPage() {
                 <label className="block text-sm font-bold text-foreground mb-3">
                   Additional Information / Experience Details *
                 </label>
-                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                  {/* Toolbar Header */}
+                  <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
+                        Content AI
+                      </span>
+                    </div>
+                  </div>
+                  
                   {/* Toolbar */}
-                  <div className="bg-gray-50 border-b border-gray-200 p-3 flex gap-2 flex-wrap items-center">
+                  <div className="bg-gray-50 border-b border-gray-200 px-4 py-3 flex gap-1 flex-wrap items-center">
                     <button
                       type="button"
                       onClick={() => applyRichTextFormat('bold')}
-                      className="p-2 hover:bg-gray-200 transition-colors rounded"
+                      className="p-2 hover:bg-white transition-colors rounded text-gray-600 hover:text-foreground"
                       title="Bold"
                     >
-                      <Bold className="w-4 h-4 text-foreground" />
+                      <Bold className="w-4 h-4" />
                     </button>
                     <button
                       type="button"
                       onClick={() => applyRichTextFormat('italic')}
-                      className="p-2 hover:bg-gray-200 transition-colors rounded"
+                      className="p-2 hover:bg-white transition-colors rounded text-gray-600 hover:text-foreground"
                       title="Italic"
                     >
-                      <Italic className="w-4 h-4 text-foreground" />
+                      <Italic className="w-4 h-4" />
                     </button>
                     <button
                       type="button"
                       onClick={() => applyRichTextFormat('list')}
-                      className="p-2 hover:bg-gray-200 transition-colors rounded"
+                      className="p-2 hover:bg-white transition-colors rounded text-gray-600 hover:text-foreground"
                       title="List"
                     >
-                      <List className="w-4 h-4 text-foreground" />
+                      <List className="w-4 h-4" />
                     </button>
-                    <div className="border-l border-gray-300 h-6 mx-1" />
+                    <div className="border-l border-gray-300 h-6 mx-2" />
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="p-2 hover:bg-gray-200 transition-colors rounded flex items-center gap-2"
+                      className="p-2 hover:bg-white transition-colors rounded flex items-center gap-2 text-gray-600 hover:text-foreground"
                       title="Upload File"
                     >
-                      <Upload className="w-4 h-4 text-foreground" />
-                      <span className="text-xs text-foreground font-medium">Upload</span>
+                      <Upload className="w-4 h-4" />
+                      <span className="text-xs font-medium">Upload</span>
                     </button>
                     <input
                       ref={fileInputRef}
@@ -519,6 +528,7 @@ export default function BecomeAMentorPage() {
                       accept=".txt,.pdf,.doc,.docx"
                     />
                   </div>
+                  
                   {/* Editor */}
                   <textarea
                     id="rich-content"
@@ -526,7 +536,7 @@ export default function BecomeAMentorPage() {
                     onChange={handleRichContentChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 focus:outline-none resize-none font-mono text-sm"
+                    className="w-full px-4 py-4 focus:outline-none resize-none font-paragraph text-sm bg-white text-foreground placeholder-gray-400"
                     placeholder="Share your professional achievements, certifications, relevant projects, and any other information that would help us understand your qualifications..."
                   />
                 </div>
