@@ -89,54 +89,43 @@ export default function BecomeAMentorPage() {
     e.preventDefault();
     
     try {
-      let resumeUrl = '';
-      let credentialsUrl = '';
-
-      // Upload resume file if provided
-      if (formData.resume) {
-        const resumeFormData = new FormData();
-        resumeFormData.append('file', formData.resume);
-        
-        const resumeResponse = await fetch('/api/upload', {
-          method: 'POST',
-          body: resumeFormData,
-        });
-        
-        if (resumeResponse.ok) {
-          const resumeData = await resumeResponse.json();
-          resumeUrl = resumeData.url;
-        }
+      // Validate required fields
+      if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim() || 
+          !formData.expertise.trim() || !formData.experience || !formData.availability || 
+          !formData.whyMentor.trim() || !formData.resume) {
+        alert('Please fill in all required fields and upload your resume.');
+        return;
       }
 
-      // Upload credentials file if provided
-      if (formData.credentials) {
-        const credentialsFormData = new FormData();
-        credentialsFormData.append('file', formData.credentials);
-        
-        const credentialsResponse = await fetch('/api/upload', {
-          method: 'POST',
-          body: credentialsFormData,
-        });
-        
-        if (credentialsResponse.ok) {
-          const credentialsData = await credentialsResponse.json();
-          credentialsUrl = credentialsData.url;
-        }
+      // Validate motivation text length
+      if (formData.whyMentor.trim().length < 50) {
+        alert('Please provide at least 50 characters for your motivation.');
+        return;
       }
+
+      // Convert experience string to number (extract first number from range)
+      const experienceMap: { [key: string]: number } = {
+        '0-2': 1,
+        '2-5': 3,
+        '5-10': 7,
+        '10+': 15
+      };
+      const yearsOfExperience = experienceMap[formData.experience] || 0;
 
       // Create mentor application record in CMS
+      // Note: File uploads are stored as file names only since direct upload API is not available
       await BaseCrudService.create('mentorapplications', {
         _id: crypto.randomUUID(),
         fullName: formData.fullName,
         email: formData.email,
         phoneNumber: formData.phone,
         expertise: formData.expertise,
-        yearsOfExperience: formData.experience,
+        yearsOfExperience: yearsOfExperience,
         availability: formData.availability,
         motivation: formData.whyMentor,
         submissionDate: new Date().toISOString(),
-        resumeUrl: resumeUrl,
-        credentialsUrl: credentialsUrl
+        resumeUrl: resumeFileName,
+        credentialsUrl: credentialsFileName
       });
 
       setSubmitted(true);

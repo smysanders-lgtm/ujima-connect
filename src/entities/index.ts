@@ -120,6 +120,8 @@ export interface MentorApplications {
   multireference?: MentorApplications[];
   /** @wixFieldType multi_reference */
   mentorapplications_multireference?: MentorApplications[];
+  /** @wixFieldType rich_content */
+  richcontent?: any;
 }
 
 
