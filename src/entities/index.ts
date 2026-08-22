@@ -72,6 +72,10 @@ export interface MentalHealthResources {
   /** @wixFieldType text */
   resourceTitle?: string;
   /** @wixFieldType text */
+  contactDetails?: string;
+  /** @wixFieldType text */
+  categoryGroup?: string;
+  /** @wixFieldType text */
   description?: string;
   /** @wixFieldType url */
   resourceLink?: string;
