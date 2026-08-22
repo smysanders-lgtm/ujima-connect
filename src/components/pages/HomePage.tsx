@@ -114,7 +114,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-
       {/* Hero Section - Dark Charcoal Background */}
       <section className="relative bg-[#151615] text-white overflow-hidden min-h-[85vh] flex items-center">
         {/* Background Image with Gradient Mask */}
@@ -175,7 +174,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Features Bar - Solid Green */}
       <section className="bg-foreground text-white py-12 border-b border-white/10">
         <div className="container mx-auto px-6">
@@ -224,44 +222,46 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Guiding Principles Section - Accordion */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl">
+      <section className="py-24 bg-white pt-24 px-6 md:px-12">
+        <div className="container mx-auto max-w-7xl grid md:grid-cols-2 gap-16 items-center">
           <AnimatedElement>
-            <div className="mb-16">
-              <span className="text-xs text-primary/80 font-paragraph tracking-[0.2em] uppercase mb-4 block">
-                Our Foundation
-              </span>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">
-                Guiding Principles
+            <div className="relative p-8 md:p-12 bg-secondary/30 rounded-3xl shadow-xl border border-primary/20">
+              <span className="text-sm text-primary font-paragraph tracking-[0.2em] uppercase mb-4 block relative z-10">Our Foundation</span>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-8 relative z-10 leading-tight">
+                Guiding <br /> <span className="text-primary">Principles</span>
               </h2>
+              <p className="text-lg text-foreground/80 font-light leading-relaxed relative z-10">
+                These core values shape our approach to education, community, and empowerment. They are the bedrock of our mission to foster growth and positive change.
+              </p>
+              <div className="absolute top-0 left-0 w-24 h-24 bg-primary/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl opacity-70" />
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/10 rounded-full translate-x-1/3 translate-y-1/3 blur-2xl opacity-70" />
             </div>
           </AnimatedElement>
 
           <AnimatedElement delay={100}>
-            <Accordion type="single" collapsible className="w-full space-y-4">
+            <Accordion type="single" collapsible className="w-full space-y-6">
               {guidingPrinciples.map((principle, index) => {
                 const IconComponent = principle.icon;
                 return (
-                  <AccordionItem key={index} value={`principle-${index}`} className="border border-gray-200 rounded-lg overflow-hidden hover:border-primary/30 transition-colors duration-300">
-                    <AccordionTrigger className="px-6 py-5 hover:bg-secondary/30 transition-colors duration-300 group">
-                      <div className="flex items-center gap-4 text-left">
-                        <div className="w-10 h-10 flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 rounded-lg shrink-0">
-                          <IconComponent className="w-5 h-5 text-primary" />
+                  <AccordionItem key={index} value={`principle-${index}`} className="border-b border-gray-200 last:border-b-0 overflow-hidden group">
+                    <AccordionTrigger className="px-0 py-6 flex justify-between items-center text-left hover:bg-transparent transition-colors duration-300">
+                      <div className="flex items-center gap-6">
+                        <div className="w-14 h-14 flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 rounded-full shrink-0 shadow-sm">
+                          <IconComponent className="w-7 h-7 text-primary group-hover:scale-110 transition-transform duration-300" />
                         </div>
                         <div>
-                          <h3 className="text-lg md:text-xl font-heading font-bold text-foreground">
+                          <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground group-hover:text-primary transition-colors duration-300">
                             {principle.title}
                           </h3>
-                          <p className="text-sm text-primary font-semibold">
+                          <p className="text-sm text-primary/80 font-semibold mt-1">
                             {principle.subtitle}
                           </p>
                         </div>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="px-6 py-5 bg-white border-t border-gray-100">
-                      <p className="text-gray-600 leading-relaxed font-light ml-14">
+                    <AccordionContent className="pt-2 pb-6 bg-white">
+                      <p className="text-gray-600 leading-relaxed font-light pl-20">
                         {principle.description}
                       </p>
                     </AccordionContent>
@@ -272,73 +272,71 @@ export default function HomePage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Programs Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <AnimatedElement>
-            <div className="mb-16">
-              <span className="text-xs text-primary/80 font-paragraph tracking-[0.2em] uppercase mb-4 block">
-                Our Programs
-              </span>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">
-                Designed for Impact
-              </h2>
-            </div>
-          </AnimatedElement>
-
-          <div className="min-h-[400px] relative">
-            {isLoading ? (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <LoadingSpinner className="text-primary w-8 h-8" />
+      <section className="py-24 pt-32 bg-secondary/20 relative overflow-hidden px-6 md:px-12">
+        <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <AnimatedElement>
+              <div className="lg:pr-16 mb-12 lg:mb-0">
+                <span className="text-sm text-primary font-paragraph tracking-[0.2em] uppercase mb-4 block">
+                  Our Programs
+                </span>
+                <h2 className="text-5xl md:text-6xl font-heading font-bold text-foreground leading-tight">
+                  Designed for <br /> <span className="text-primary">Impact</span>
+                </h2>
+                <p className="mt-6 text-lg text-foreground/80 leading-relaxed font-light">
+                  Discover our diverse range of programs crafted to empower learners and strengthen communities through creativity, education, and technology.
+                </p>
+                <div className="mt-12">
+                  <Button
+                    onClick={() => navigate('/programs')}
+                    size="lg"
+                    className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-full tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  >
+                    VIEW ALL PROGRAMS
+                  </Button>
+                </div>
               </div>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                {displayPrograms.map((program, index) => (
-                  <AnimatedElement key={program._id || index} delay={index * 100}>
-                    <div className="bg-white p-10 h-full border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group relative overflow-hidden">
-                      {/* Subtle hover gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                      
-                      <div className="relative z-10">
-                        <div className="absolute top-0 right-0 text-5xl font-heading font-light text-gray-100 group-hover:text-primary/10 transition-colors duration-500">
-                          {String(index + 1).padStart(2, '0')}
+            </AnimatedElement>
+
+            <div className="min-h-[400px] relative">
+              {isLoading ? (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <LoadingSpinner className="text-primary w-8 h-8" />
+                </div>
+              ) : (
+                <div className="grid gap-6">
+                  {displayPrograms.map((program, index) => (
+                    <AnimatedElement key={program._id || index} delay={index * 100}>
+                      <div className="bg-white p-8 lg:p-10 h-full border border-gray-100 rounded-lg shadow-md hover:border-primary/50 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex items-start">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        
+                        <div className="relative z-10 flex-shrink-0 mr-6 mt-1">
+                          <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors duration-300">
+                            <span className="text-xl font-heading font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                              {String(index + 1)}
+                            </span>
+                          </div>
                         </div>
                         
-                        <div className="w-8 h-8 mb-6 border border-gray-200 flex items-center justify-center group-hover:border-primary/50 transition-colors duration-300">
-                          <div className="w-2 h-2 bg-primary/40 group-hover:bg-primary transition-colors duration-300" />
+                        <div className="relative z-10 flex-grow">
+                          <h3 className="text-2xl font-heading font-bold text-foreground mb-2 leading-snug">
+                            {program.programName}
+                          </h3>
+                          <p className="text-gray-600 leading-relaxed font-light">
+                            {program.shortDescription}
+                          </p>
                         </div>
-                        
-                        <h3 className="text-2xl font-heading font-bold text-foreground mb-4 pr-12">
-                          {program.programName}
-                        </h3>
-                        <p className="text-gray-600 leading-relaxed font-light">
-                          {program.shortDescription}
-                        </p>
                       </div>
-                    </div>
-                  </AnimatedElement>
-                ))}
-              </div>
-            )}
-
-
-          </div>
-
-          <AnimatedElement delay={500}>
-            <div className="text-center mt-16">
-              <Button
-                onClick={() => navigate('/programs')}
-                variant="outline"
-                className="border-gray-300 text-foreground hover:bg-foreground hover:text-white rounded-none px-8 py-6 tracking-widest text-xs uppercase transition-all duration-300"
-              >
-                VIEW ALL PROGRAMS
-              </Button>
+                    </AnimatedElement>
+                  ))}
+                </div>
+              )}
             </div>
-          </AnimatedElement>
+          </div>
         </div>
       </section>
-
       {/* Stats Section */}
       <section className="py-16 bg-white border-y border-gray-100">
         <div className="container mx-auto px-6 max-w-5xl">
@@ -365,7 +363,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Story Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -405,16 +402,17 @@ export default function HomePage() {
               <div className="relative group">
                 <div className="absolute -inset-4 bg-secondary/50 transform rotate-2 transition-transform duration-500 group-hover:rotate-1" />
                 <Image
-                  src="https://images.unsplash.com/photo-1632215861513-130b66fe97f4?w=800&h=1000&fit=crop&auto=format"
-                  alt="Educator working with community members"
+                  src="https://static.wixstatic.com/media/nsplsh_0a443f103f4647b6baa0b64f5f331d0c~mv2.jpg"
                   className="relative w-full h-[600px] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
-                />
+                  originWidth={6720}
+                  originHeight={4480}
+                  focalPointX={73.33333333333333}
+                  focalPointY={33.80580357142857} />
               </div>
             </AnimatedElement>
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-32 bg-secondary relative overflow-hidden">
         {/* Decorative subtle pattern */}
@@ -446,7 +444,6 @@ export default function HomePage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
