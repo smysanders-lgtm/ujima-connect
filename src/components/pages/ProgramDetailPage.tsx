@@ -5,26 +5,18 @@ import { EducationalPrograms } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Calendar, Clock, Users, AlertCircle, CheckCircle, XCircle, BookOpen, GraduationCap, Laptop, Settings } from 'lucide-react';
-
-interface ProgramSchedule {
-  _id: string;
-  scheduleName?: string;
-  startDate?: string;
-  startTime?: string;
-  totalSpots?: number;
-  availableSpots?: number;
-  status?: string;
-  registrationDeadline?: string;
-}
+import { AlertCircle, CheckCircle, BookOpen, GraduationCap, Laptop, Settings, Bell, Mail } from 'lucide-react';
 
 export default function ProgramDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [program, setProgram] = useState<EducationalPrograms | null>(null);
-  const [schedules, setSchedules] = useState<ProgramSchedule[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     loadProgramData();
@@ -37,10 +29,6 @@ export default function ProgramDetailPage() {
       // Load program details
       const programData = await BaseCrudService.getById<EducationalPrograms>('educationalprograms', id);
       setProgram(programData);
-
-      // Load schedules for this program
-      const schedulesResult = await BaseCrudService.getAll<ProgramSchedule>('programschedules', [], { limit: 100 });
-      setSchedules(schedulesResult.items || []);
     } catch (error) {
       console.error('Error loading program data:', error);
     } finally {
@@ -48,65 +36,31 @@ export default function ProgramDetailPage() {
     }
   };
 
-  const getStatusIcon = (status?: string) => {
-    switch (status?.toLowerCase()) {
-      case 'open':
-        return <CheckCircle size={20} className="text-green-600" />;
-      case 'full':
-        return <XCircle size={20} className="text-red-600" />;
-      case 'coming soon':
-        return <AlertCircle size={20} className="text-yellow-600" />;
-      default:
-        return <AlertCircle size={20} className="text-gray-600" />;
-    }
-  };
+  const handleNotificationSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !program) return;
 
-  const getStatusColor = (status?: string) => {
-    switch (status?.toLowerCase()) {
-      case 'open':
-        return 'bg-green-50 border-green-200';
-      case 'full':
-        return 'bg-red-50 border-red-200';
-      case 'coming soon':
-        return 'bg-yellow-50 border-yellow-200';
-      default:
-        return 'bg-gray-50 border-gray-200';
-    }
-  };
-
-  const getStatusBadgeColor = (status?: string) => {
-    switch (status?.toLowerCase()) {
-      case 'open':
-        return 'bg-green-100 text-green-800';
-      case 'full':
-        return 'bg-red-100 text-red-800';
-      case 'coming soon':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return '';
+    setIsSubmitting(true);
     try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    } catch {
-      return dateString;
-    }
-  };
+      // Create a contact inquiry for schedule notifications
+      await BaseCrudService.create('contactinquiries', {
+        _id: crypto.randomUUID(),
+        senderName: 'Schedule Notification',
+        emailAddress: email,
+        subject: `Schedule Notification Request - ${program.programName}`,
+        inquiryMessage: `User wants to be notified when schedules are available for: ${program.programName}`,
+        submissionDate: new Date().toISOString(),
+      });
 
-  const formatTime = (timeString?: string) => {
-    if (!timeString) return '';
-    try {
-      const [hours, minutes] = timeString.split(':');
-      const hour = parseInt(hours);
-      const ampm = hour >= 12 ? 'PM' : 'AM';
-      const displayHour = hour % 12 || 12;
-      return `${displayHour}:${minutes} ${ampm}`;
-    } catch {
-      return timeString;
+      setSubmitMessage({ type: 'success', text: 'Thank you! We\'ll notify you when schedules are available.' });
+      setEmail('');
+      setTimeout(() => setSubmitMessage(null), 5000);
+    } catch (error) {
+      console.error('Error submitting notification signup:', error);
+      setSubmitMessage({ type: 'error', text: 'Failed to sign up. Please try again.' });
+      setTimeout(() => setSubmitMessage(null), 5000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -238,108 +192,67 @@ export default function ProgramDetailPage() {
                 </div>
               )}
 
-              {/* Schedules Section */}
+              {/* Schedule Notification Section */}
               <div>
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Available Schedules</h2>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Schedule Coming Soon</h2>
                 
-                {schedules.length > 0 ? (
-                  <div className="space-y-4">
-                    {schedules.map((schedule) => (
-                      <div
-                        key={schedule._id}
-                        className={`border-2 rounded-lg p-6 transition-all duration-200 ${getStatusColor(schedule.status)}`}
+                <div className="bg-gradient-to-br from-secondary/20 to-secondary/5 border-2 border-primary/20 rounded-lg p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="bg-primary/10 rounded-full p-3 flex-shrink-0">
+                      <Bell size={24} className="text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-heading font-bold text-foreground mb-2">
+                        Be the First to Know
+                      </h3>
+                      <p className="text-foreground/70">
+                        Schedules for this program are coming soon! Sign up below to receive an email notification as soon as new sessions become available.
+                      </p>
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleNotificationSignup} className="space-y-4">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Input
+                        type="email"
+                        placeholder="Enter your email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="flex-1 px-4 py-3 rounded-lg border border-foreground/20 focus:border-primary focus:outline-none"
+                      />
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting || !email}
+                        className="bg-primary text-white hover:bg-primary/90 disabled:bg-gray-400 px-6 py-3 rounded-lg font-medium transition-all duration-200"
                       >
-                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                          <div className="flex-1">
-                            <h3 className="text-xl font-heading font-bold text-foreground mb-2">
-                              {schedule.scheduleName}
-                            </h3>
-                            <div className="flex flex-wrap gap-4 text-sm text-foreground/70">
-                              {schedule.startDate && (
-                                <div className="flex items-center gap-2">
-                                  <Calendar size={16} className="text-primary" />
-                                  <span>{formatDate(schedule.startDate)}</span>
-                                </div>
-                              )}
-                              {schedule.startTime && (
-                                <div className="flex items-center gap-2">
-                                  <Clock size={16} className="text-primary" />
-                                  <span>{formatTime(schedule.startTime)}</span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {getStatusIcon(schedule.status)}
-                            <span className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusBadgeColor(schedule.status)}`}>
-                              {schedule.status || 'Unknown'}
-                            </span>
-                          </div>
-                        </div>
+                        {isSubmitting ? 'Signing up...' : 'Notify Me'}
+                      </Button>
+                    </div>
 
-                        {/* Availability Bar */}
-                        <div className="mb-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium text-foreground">Availability</span>
-                            <span className="text-sm font-bold text-foreground">
-                              {schedule.availableSpots} / {schedule.totalSpots} spots available
-                            </span>
-                          </div>
-                          <div className="w-full bg-foreground/10 rounded-full h-3 overflow-hidden">
-                            <div
-                              className="bg-gradient-to-r from-primary to-primary/80 h-full rounded-full transition-all duration-300"
-                              style={{
-                                width: `${((schedule.totalSpots || 0) - (schedule.availableSpots || 0)) / (schedule.totalSpots || 1) * 100}%`,
-                              }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Spots Info */}
-                        <div className="flex flex-wrap gap-4 mb-4">
-                          <div className="flex items-center gap-2">
-                            <Users size={16} className="text-primary" />
-                            <span className="text-sm text-foreground/70">
-                              {schedule.availableSpots === 0
-                                ? 'Class Full'
-                                : `${schedule.availableSpots} spot${schedule.availableSpots !== 1 ? 's' : ''} left`}
-                            </span>
-                          </div>
-                          {schedule.registrationDeadline && (
-                            <div className="flex items-center gap-2">
-                              <Clock size={16} className="text-primary" />
-                              <span className="text-sm text-foreground/70">
-                                Register by {formatDate(schedule.registrationDeadline)}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* CTA Button */}
-                        <Button
-                          asChild
-                          disabled={schedule.status?.toLowerCase() === 'full' || schedule.availableSpots === 0}
-                          className={`w-full md:w-auto ${
-                            schedule.status?.toLowerCase() === 'full' || schedule.availableSpots === 0
-                              ? 'bg-gray-400 cursor-not-allowed'
-                              : 'bg-primary text-white hover:bg-primary/90'
-                          }`}
-                        >
-                          <a href="/contact">
-                            {schedule.status?.toLowerCase() === 'full' || schedule.availableSpots === 0
-                              ? 'Class Full - Join Waitlist'
-                              : 'Enroll Now'}
-                          </a>
-                        </Button>
+                    {submitMessage && (
+                      <div className={`p-4 rounded-lg flex items-start gap-3 ${
+                        submitMessage.type === 'success'
+                          ? 'bg-green-50 border border-green-200'
+                          : 'bg-red-50 border border-red-200'
+                      }`}>
+                        {submitMessage.type === 'success' ? (
+                          <CheckCircle size={20} className="text-green-600 flex-shrink-0 mt-0.5" />
+                        ) : (
+                          <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
+                        )}
+                        <p className={submitMessage.type === 'success' ? 'text-green-800' : 'text-red-800'}>
+                          {submitMessage.text}
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="bg-secondary/10 border border-foreground/10 rounded-lg p-8 text-center">
-                    <AlertCircle size={32} className="text-foreground/40 mx-auto mb-3" />
-                    <p className="text-foreground/60">No schedules available yet. Check back soon!</p>
-                  </div>
-                )}
+                    )}
+                  </form>
+
+                  <p className="text-sm text-foreground/50 mt-4 flex items-center gap-2">
+                    <Mail size={16} />
+                    We'll send you an email when new schedules are available
+                  </p>
+                </div>
               </div>
             </div>
 
