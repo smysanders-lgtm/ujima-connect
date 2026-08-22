@@ -102,10 +102,12 @@ export default function MeetTheTeamPage() {
             <AnimatedElement delay={100}>
               <div className="relative overflow-hidden">
                 <Image
-                  src="https://static.wixstatic.com/media/0538ae_69faf28b5bd64aaa9b44ef3470ae5244~mv2.png"
+                  src="https://static.wixstatic.com/media/0538ae_aba9d8c6134b4d398636a60f071f5548~mv2.jpg"
                   className="w-full h-auto object-cover"
                   originWidth={1024}
-                  originHeight={1024} />
+                  originHeight={1536}
+                  focalPointX={44.62890625}
+                  focalPointY={36.328125} />
               </div>
             </AnimatedElement>
 

@@ -462,7 +462,7 @@ export default function GetInvolvedPage() {
                   asChild
                   className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300"
                 >
-                  <Link to="/contact">Get Started</Link>
+                  <Link to="/contact" className="text-accent">Get Started</Link>
                 </Button>
                 <Button
                   variant="outline"
