@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { Heart, Users, Briefcase, Gift, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Heart, Users, Briefcase, Gift, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -45,6 +46,8 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function GetInvolvedPage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const involvementOptions = [
     {
       id: 1,
@@ -149,7 +152,7 @@ export default function GetInvolvedPage() {
         </div>
       </section>
 
-      {/* Involvement Options */}
+      {/* Involvement Options - Carousel */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
           <AnimatedElement>
@@ -163,88 +166,131 @@ export default function GetInvolvedPage() {
             </div>
           </AnimatedElement>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {involvementOptions.map((option, index) => {
-              const IconComponent = option.icon;
-              return (
-                <AnimatedElement key={option.id} delay={index * 100}>
-                  <div className="bg-white border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group overflow-hidden flex flex-col h-full">
-                    {/* Option Image */}
-                    <div className="relative overflow-hidden h-48 bg-gray-100">
-                      <Image
-                        src={option.image}
-                        alt={option.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Option Content */}
-                    <div className="p-8 flex-1 flex flex-col">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
-                          <IconComponent className="w-6 h-6 text-primary" />
+          {/* Carousel Container */}
+          <div className="relative">
+            <div className="overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                >
+                  {(() => {
+                    const option = involvementOptions[currentSlide];
+                    const IconComponent = option.icon;
+                    return (
+                      <div className="bg-white border border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group overflow-hidden flex flex-col h-full">
+                        {/* Option Image */}
+                        <div className="relative overflow-hidden h-64 bg-gray-100">
+                          <Image
+                            src={option.image}
+                            alt={option.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
                         </div>
-                        <h3 className="text-2xl font-heading font-bold text-foreground">
-                          {option.title}
-                        </h3>
-                      </div>
 
-                      <p className="text-gray-600 leading-relaxed font-light mb-6 flex-1">
-                        {option.description}
-                      </p>
-
-                      {/* Benefits */}
-                      <div className="space-y-3 mb-8 pb-8 border-b border-gray-100">
-                        {option.benefits.map((benefit, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
-                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-1" />
-                            <span className="text-sm text-gray-600">{benefit}</span>
+                        {/* Option Content */}
+                        <div className="p-8 flex-1 flex flex-col">
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                              <IconComponent className="w-6 h-6 text-primary" />
+                            </div>
+                            <h3 className="text-2xl font-heading font-bold text-foreground">
+                              {option.title}
+                            </h3>
                           </div>
-                        ))}
-                      </div>
 
-                      {option.id === 3 ? (
-                        <Button
-                          asChild
-                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                        >
-                          <Link to="/donation">
-                            Make a Donation <ArrowRight className="ml-2 w-4 h-4" />
-                          </Link>
-                        </Button>
-                      ) : option.id === 2 ? (
-                        <Button
-                          asChild
-                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                        >
-                          <Link to="/volunteer-your-skills">
-                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
-                          </Link>
-                        </Button>
-                      ) : option.id === 4 ? (
-                        <Button
-                          asChild
-                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                        >
-                          <Link to="/spread-the-word">
-                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
-                          </Link>
-                        </Button>
-                      ) : (
-                        <Button
-                          asChild
-                          className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
-                        >
-                          <Link to="/become-a-mentor">
-                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </AnimatedElement>
-              );
-            })}
+                          <p className="text-gray-600 leading-relaxed font-light mb-6 flex-1">
+                            {option.description}
+                          </p>
+
+                          {/* Benefits */}
+                          <div className="space-y-3 mb-8 pb-8 border-b border-gray-100">
+                            {option.benefits.map((benefit, idx) => (
+                              <div key={idx} className="flex items-start gap-3">
+                                <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-1" />
+                                <span className="text-sm text-gray-600">{benefit}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {option.id === 3 ? (
+                            <Button
+                              asChild
+                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                            >
+                              <Link to="/donation">
+                                Make a Donation <ArrowRight className="ml-2 w-4 h-4" />
+                              </Link>
+                            </Button>
+                          ) : option.id === 2 ? (
+                            <Button
+                              asChild
+                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                            >
+                              <Link to="/volunteer-your-skills">
+                                Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                              </Link>
+                            </Button>
+                          ) : option.id === 4 ? (
+                            <Button
+                              asChild
+                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                            >
+                              <Link to="/spread-the-word">
+                                Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                              </Link>
+                            </Button>
+                          ) : (
+                            <Button
+                              asChild
+                              className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
+                            >
+                              <Link to="/become-a-mentor">
+                                Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                              </Link>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + involvementOptions.length) % involvementOptions.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:-translate-x-20 z-10 bg-primary text-[#151615] hover:bg-primary/90 p-3 rounded-full transition-all duration-300"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % involvementOptions.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-20 z-10 bg-primary text-[#151615] hover:bg-primary/90 p-3 rounded-full transition-all duration-300"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {involvementOptions.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === currentSlide ? 'bg-primary w-8' : 'bg-gray-300 w-2 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
