@@ -50,7 +50,7 @@ export default function MeetTheTeamPage() {
       name: 'Kesha L. Ford',
       role: 'Creative Writing Facilitator & Author',
       bio: 'A three-time published author of Seasons of Life, Seasons of Life: Continue On, and Rivers of Sister Ties, known for emotionally driven storytelling and compelling characters. She has ghostwritten for CEOs, retired professional athletes, and other professionals, and is passionate about mentoring aspiring authors through her writing, mentorship, volunteer work, and mission trips.',
-      image: 'https://static.wixstatic.com/media/0538ae_01de06928e4041fdbab88513c9d43c4c~mv2.png?originWidth=256&originHeight=256',
+      image: 'https://static.wixstatic.com/media/0538ae_56d9d3dbafa24692b4fb6f57c927614a~mv2.png',
       tags: ['Creative Writing', 'Mentorship']
     }
   ];
