@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { ArrowLeft, CheckCircle2, Upload } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Upload, X } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { BaseCrudService } from '@/integrations';
+import { VolunteerApplications } from '@/entities';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -48,17 +50,17 @@ export default function VolunteerYourSkillsPage() {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    phone: '',
-    profession: '',
-    resume: null as File | null,
-    interests: [] as string[],
+    phoneNumber: '',
+    areasOfInterest: '',
     availability: '',
     experience: '',
-    volunteerDescription: ''
+    portfolioLink: ''
   });
 
+  const [documents, setDocuments] = useState<File[]>([]);
   const [submitted, setSubmitted] = useState(false);
-  const [resumeFileName, setResumeFileName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const interestOptions = [
     'STEM Education',
@@ -73,56 +75,6 @@ export default function VolunteerYourSkillsPage() {
     'Social Justice & Advocacy'
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleInterestChange = (interest: string) => {
-    setFormData(prev => ({
-      ...prev,
-      interests: prev.interests.includes(interest)
-        ? prev.interests.filter(i => i !== interest)
-        : [...prev.interests, interest]
-    }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFormData(prev => ({
-        ...prev,
-        resume: file
-      }));
-      setResumeFileName(file.name);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        profession: '',
-        resume: null,
-        interests: [],
-        availability: '',
-        experience: '',
-        volunteerDescription: ''
-      });
-      setResumeFileName('');
-    }, 3000);
-  };
-
   const volunteerBenefits = [
     'Lead workshops in your field of expertise',
     'Tutor students one-on-one',
@@ -131,6 +83,82 @@ export default function VolunteerYourSkillsPage() {
     'Flexible scheduling options',
     'Professional development opportunities'
   ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    setError('');
+  };
+
+  const handleDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const newFiles = Array.from(files);
+      setDocuments(prev => [...prev, ...newFiles]);
+    }
+  };
+
+  const removeDocument = (index: number) => {
+    setDocuments(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+
+    try {
+      // Validate required fields
+      if (!formData.fullName || !formData.email || !formData.phoneNumber || !formData.areasOfInterest || !formData.experience || !formData.availability) {
+        setError('Please fill in all required fields');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Create application data
+      const applicationData: VolunteerApplications = {
+        _id: crypto.randomUUID(),
+        fullName: formData.fullName,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        areasOfInterest: formData.areasOfInterest,
+        experience: formData.experience,
+        availability: formData.availability,
+        portfolioLink: formData.portfolioLink || undefined,
+        arraydocument: documents.length > 0 ? documents.map(doc => ({
+          name: doc.name,
+          size: doc.size,
+          type: doc.type
+        })) : undefined
+      };
+
+      // Submit to CMS
+      await BaseCrudService.create('volunteerapplications', applicationData);
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          fullName: '',
+          email: '',
+          phoneNumber: '',
+          areasOfInterest: '',
+          availability: '',
+          experience: '',
+          portfolioLink: ''
+        });
+        setDocuments([]);
+      }, 3000);
+    } catch (err) {
+      setError('Failed to submit application. Please try again.');
+      console.error('Submission error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
@@ -262,6 +290,12 @@ export default function VolunteerYourSkillsPage() {
                 </div>
               )}
 
+              {error && (
+                <div className="mb-8 p-6 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-700">{error}</p>
+                </div>
+              )}
+
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div>
                   <label className="block text-sm font-bold text-foreground mb-3">
@@ -299,27 +333,12 @@ export default function VolunteerYourSkillsPage() {
                   </label>
                   <input
                     type="tel"
-                    name="phone"
-                    value={formData.phone}
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 border border-gray-200 focus:border-primary focus:outline-none transition-colors"
                     placeholder="(555) 123-4567"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-foreground mb-3">
-                    Current Profession/Title *
-                  </label>
-                  <input
-                    type="text"
-                    name="profession"
-                    value={formData.profession}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-200 focus:border-primary focus:outline-none transition-colors"
-                    placeholder="e.g., Software Engineer, Teacher, Designer"
                   />
                 </div>
 
@@ -360,38 +379,23 @@ export default function VolunteerYourSkillsPage() {
                     <option value="10+-hours">10+ hours per week</option>
                   </select>
                 </div>
-              </div>
 
-              {/* Resume Upload */}
-              <div className="mb-8">
-                <label className="block text-sm font-bold text-foreground mb-3">
-                  Upload Resume *
-                </label>
-                <div className="relative">
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleFileChange}
-                    required
-                    className="hidden"
-                    id="resume-upload"
-                  />
-                  <label
-                    htmlFor="resume-upload"
-                    className="flex items-center justify-center gap-3 px-4 py-6 border-2 border-dashed border-gray-300 hover:border-primary transition-colors cursor-pointer bg-gray-50"
-                  >
-                    <Upload className="w-5 h-5 text-gray-400" />
-                    <div>
-                      <p className="text-sm font-bold text-foreground">
-                        {resumeFileName || 'Click to upload'}
-                      </p>
-                      <p className="text-xs text-gray-500">PDF, DOC, or DOCX</p>
-                    </div>
+                <div>
+                  <label className="block text-sm font-bold text-foreground mb-3">
+                    Portfolio Link (Optional)
                   </label>
+                  <input
+                    type="url"
+                    name="portfolioLink"
+                    value={formData.portfolioLink}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-200 focus:border-primary focus:outline-none transition-colors"
+                    placeholder="https://yourportfolio.com"
+                  />
                 </div>
               </div>
 
-              {/* Interests Dropdown */}
+              {/* Areas of Interest */}
               <div className="mb-8">
                 <label className="block text-sm font-bold text-foreground mb-4">
                   Areas of Interest *
@@ -401,8 +405,21 @@ export default function VolunteerYourSkillsPage() {
                     <label key={interest} className="flex items-center gap-3 cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={formData.interests.includes(interest)}
-                        onChange={() => handleInterestChange(interest)}
+                        checked={formData.areasOfInterest.includes(interest)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData(prev => ({
+                              ...prev,
+                              areasOfInterest: prev.areasOfInterest ? `${prev.areasOfInterest}, ${interest}` : interest
+                            }));
+                          } else {
+                            setFormData(prev => ({
+                              ...prev,
+                              areasOfInterest: prev.areasOfInterest.split(', ').filter(i => i !== interest).join(', ')
+                            }));
+                          }
+                          setError('');
+                        }}
                         className="w-4 h-4 border-gray-300 rounded text-primary focus:ring-primary"
                       />
                       <span className="text-gray-700 font-light">{interest}</span>
@@ -412,30 +429,60 @@ export default function VolunteerYourSkillsPage() {
                 <p className="text-xs text-gray-500 mt-3">Select at least one area of interest</p>
               </div>
 
-              {/* Volunteer Description */}
+              {/* Document Upload */}
               <div className="mb-8">
                 <label className="block text-sm font-bold text-foreground mb-3">
-                  Tell us about your volunteer interests *
+                  Upload Supporting Documents (Optional)
                 </label>
-                <textarea
-                  name="volunteerDescription"
-                  value={formData.volunteerDescription}
-                  onChange={handleInputChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-200 focus:border-primary focus:outline-none transition-colors resize-none"
-                  placeholder="Describe what you'd like to do, what skills you can share, and what impact you hope to make..."
-                />
-                <p className="text-xs text-gray-500 mt-2">Minimum 50 characters</p>
+                <div className="relative">
+                  <input
+                    type="file"
+                    multiple
+                    onChange={handleDocumentChange}
+                    className="hidden"
+                    id="documents-upload"
+                  />
+                  <label
+                    htmlFor="documents-upload"
+                    className="flex items-center justify-center gap-3 px-4 py-6 border-2 border-dashed border-gray-300 hover:border-primary transition-colors cursor-pointer bg-gray-50"
+                  >
+                    <Upload className="w-5 h-5 text-gray-400" />
+                    <div>
+                      <p className="text-sm font-bold text-foreground">
+                        Click to upload documents
+                      </p>
+                      <p className="text-xs text-gray-500">PDF, DOC, DOCX, or images</p>
+                    </div>
+                  </label>
+                </div>
+
+                {documents.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    <p className="text-sm font-bold text-foreground">Uploaded documents:</p>
+                    {documents.map((doc, idx) => (
+                      <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 border border-gray-200">
+                        <span className="text-sm text-gray-700">{doc.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeDocument(idx)}
+                          className="text-red-500 hover:text-red-700 transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Submit Button */}
               <div className="flex gap-4">
                 <Button
                   type="submit"
-                  className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-3 rounded-none transition-all duration-300"
+                  disabled={isSubmitting}
+                  className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-3 rounded-none transition-all duration-300 disabled:opacity-50"
                 >
-                  Submit Application
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
                 </Button>
                 <Button
                   type="button"

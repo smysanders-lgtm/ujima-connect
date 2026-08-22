@@ -193,6 +193,6 @@ export interface VolunteerApplications {
   availability?: string;
   /** @wixFieldType url */
   portfolioLink?: string;
-  /** @wixFieldType text */
-  uploadedContent?: string;
+  /** @wixFieldType array_document */
+  arraydocument?: any;
 }
