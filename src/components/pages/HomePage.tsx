@@ -357,8 +357,8 @@ export default function HomePage() {
                     className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
                     originWidth={6720}
                     originHeight={4480}
-                    focalPointX={73.33333333333333}
-                    focalPointY={33.80580357142857} />
+                    focalPointX={94.0677966101695}
+                    focalPointY={64.61864406779661} />
                 </div>
               </div>
             </AnimatedElement>
