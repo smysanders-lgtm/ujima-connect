@@ -113,7 +113,6 @@ export default function GetInvolvedPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-[#151615] text-white overflow-hidden min-h-[70vh] flex items-center">
         <div className="absolute inset-0 w-full h-full lg:w-[60%] lg:left-auto lg:right-0 z-0">
@@ -130,7 +129,7 @@ export default function GetInvolvedPage() {
           <div className="max-w-2xl">
             <AnimatedElement>
               <div className="mb-6">
-                <span className="text-xs md:text-sm text-primary/90 font-paragraph tracking-[0.2em] uppercase">
+                <span className="text-xs font-paragraph tracking-[0.2em] uppercase text-accent md:text-2xl">
                   Get Involved
                 </span>
               </div>
@@ -139,7 +138,7 @@ export default function GetInvolvedPage() {
             <AnimatedElement delay={100}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
                 Be Part of <br className="hidden md:block" />
-                <span className="text-primary">the Change</span>
+                <span className="text-accent">the Change</span>
               </h1>
             </AnimatedElement>
 
@@ -151,7 +150,6 @@ export default function GetInvolvedPage() {
           </div>
         </div>
       </section>
-
       {/* Involvement Options - Carousel */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -190,7 +188,6 @@ export default function GetInvolvedPage() {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         </div>
-
                         {/* Option Content */}
                         <div className="p-8 flex-1 flex flex-col">
                           <div className="flex items-center gap-4 mb-4">
@@ -248,7 +245,7 @@ export default function GetInvolvedPage() {
                               asChild
                               className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold w-full rounded-none transition-all duration-300"
                             >
-                              <Link to="/become-a-mentor">
+                              <Link to="/become-a-mentor" className="bg-accent">
                                 Learn More <ArrowRight className="ml-2 w-4 h-4" />
                               </Link>
                             </Button>
@@ -294,7 +291,6 @@ export default function GetInvolvedPage() {
           </div>
         </div>
       </section>
-
       {/* Impact Stats */}
       <section className="py-16 bg-secondary border-y border-gray-100">
         <div className="container mx-auto px-6 max-w-5xl">
@@ -312,7 +308,6 @@ export default function GetInvolvedPage() {
           </div>
         </div>
       </section>
-
       {/* How It Works Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -378,7 +373,6 @@ export default function GetInvolvedPage() {
           </div>
         </div>
       </section>
-
       {/* Testimonials Section */}
       <section className="py-24 bg-foreground text-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -444,7 +438,6 @@ export default function GetInvolvedPage() {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-32 bg-secondary relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
@@ -482,7 +475,6 @@ export default function GetInvolvedPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
