@@ -89,18 +89,54 @@ export default function BecomeAMentorPage() {
     e.preventDefault();
     
     try {
+      let resumeUrl = '';
+      let credentialsUrl = '';
+
+      // Upload resume file if provided
+      if (formData.resume) {
+        const resumeFormData = new FormData();
+        resumeFormData.append('file', formData.resume);
+        
+        const resumeResponse = await fetch('/api/upload', {
+          method: 'POST',
+          body: resumeFormData,
+        });
+        
+        if (resumeResponse.ok) {
+          const resumeData = await resumeResponse.json();
+          resumeUrl = resumeData.url;
+        }
+      }
+
+      // Upload credentials file if provided
+      if (formData.credentials) {
+        const credentialsFormData = new FormData();
+        credentialsFormData.append('file', formData.credentials);
+        
+        const credentialsResponse = await fetch('/api/upload', {
+          method: 'POST',
+          body: credentialsFormData,
+        });
+        
+        if (credentialsResponse.ok) {
+          const credentialsData = await credentialsResponse.json();
+          credentialsUrl = credentialsData.url;
+        }
+      }
+
       // Create mentor application record in CMS
-      await BaseCrudService.create('mentorApplications', {
+      await BaseCrudService.create('mentorapplications', {
         _id: crypto.randomUUID(),
         fullName: formData.fullName,
         email: formData.email,
-        phone: formData.phone,
+        phoneNumber: formData.phone,
         expertise: formData.expertise,
         yearsOfExperience: formData.experience,
         availability: formData.availability,
         motivation: formData.whyMentor,
         submissionDate: new Date().toISOString(),
-        status: 'pending'
+        resumeUrl: resumeUrl,
+        credentialsUrl: credentialsUrl
       });
 
       setSubmitted(true);

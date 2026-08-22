@@ -96,6 +96,10 @@ export interface MentorApplications {
   _id: string;
   _createdDate?: Date;
   _updatedDate?: Date;
+  /** @wixFieldType url */
+  resumeUrl?: string;
+  /** @wixFieldType url */
+  credentialsUrl?: string;
   /** @wixFieldType text */
   fullName?: string;
   /** @wixFieldType text */
@@ -112,6 +116,10 @@ export interface MentorApplications {
   motivation?: string;
   /** @wixFieldType datetime */
   submissionDate?: Date | string;
+  /** @wixFieldType multi_reference */
+  multireference?: MentorApplications[];
+  /** @wixFieldType multi_reference */
+  mentorapplications_multireference?: MentorApplications[];
 }
 
 
