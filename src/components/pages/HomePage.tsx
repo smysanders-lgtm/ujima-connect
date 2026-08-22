@@ -287,53 +287,20 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Guiding Principles Section - Accordion */}
-      <section className="py-24 bg-white pt-24 px-6 md:px-12">
-        <div className="container mx-auto max-w-7xl grid md:grid-cols-2 gap-16 items-center">
+      {/* About Us Section */}
+      <section className="py-24 bg-white px-6 md:px-12">
+        <div className="container mx-auto max-w-4xl text-center">
           <AnimatedElement>
-            <div className="relative p-8 md:p-12 bg-secondary/30 rounded-3xl shadow-xl border border-primary/20">
-              <span className="text-sm text-primary font-paragraph tracking-[0.2em] uppercase mb-4 block relative z-10">Our Foundation</span>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-8 relative z-10 leading-tight">
-                Guiding <br /> <span className="text-primary">Principles</span>
-              </h2>
-              <p className="text-lg text-foreground/80 font-light leading-relaxed relative z-10">
-                These core values shape our approach to education, community, and empowerment. They are the bedrock of our mission to foster growth and positive change.
-              </p>
-              <div className="absolute top-0 left-0 w-24 h-24 bg-primary/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl opacity-70" />
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/10 rounded-full translate-x-1/3 translate-y-1/3 blur-2xl opacity-70" />
-            </div>
-          </AnimatedElement>
-
-          <AnimatedElement delay={100}>
-            <Accordion type="single" collapsible className="w-full space-y-6">
-              {guidingPrinciples.map((principle, index) => {
-                const IconComponent = principle.icon;
-                return (
-                  <AccordionItem key={index} value={`principle-${index}`} className="border-b border-gray-200 last:border-b-0 overflow-hidden group">
-                    <AccordionTrigger className="px-0 py-6 flex justify-between items-center text-left hover:bg-transparent transition-colors duration-300">
-                      <div className="flex items-center gap-6">
-                        <div className="w-14 h-14 flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 rounded-full shrink-0 shadow-sm">
-                          <IconComponent className="w-7 h-7 text-primary group-hover:scale-110 transition-transform duration-300" />
-                        </div>
-                        <div>
-                          <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                            {principle.title}
-                          </h3>
-                          <p className="text-sm text-primary/80 font-semibold mt-1">
-                            {principle.subtitle}
-                          </p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-2 pb-6 bg-white">
-                      <p className="text-gray-600 leading-relaxed font-light pl-20">
-                        {principle.description}
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
+            <span className="text-sm text-primary font-paragraph tracking-[0.2em] uppercase mb-4 block">About Us</span>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-8 leading-tight">
+              Empowering <span className="text-primary">Communities</span> Through Education
+            </h2>
+            <p className="text-lg text-foreground/80 font-light leading-relaxed mb-8">
+              We are dedicated to providing accessible, high-quality educational programs and mental health resources to underserved communities. Our mission is to foster personal growth, build resilience, and create pathways to success for every individual we serve.
+            </p>
+            <p className="text-base text-foreground/70 font-light leading-relaxed">
+              Through mentorship, skill-building workshops, and community events, we create safe spaces where people can learn, connect, and thrive. We believe that education and mental wellness are fundamental rights, not privileges.
+            </p>
           </AnimatedElement>
         </div>
       </section>
