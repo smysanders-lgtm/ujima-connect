@@ -261,7 +261,7 @@ export default function GetInvolvedPage() {
             {/* Navigation Buttons */}
             <button
               onClick={() => setCurrentSlide((prev) => (prev - 1 + involvementOptions.length) % involvementOptions.length)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:-translate-x-20 z-10 bg-primary text-[#151615] hover:bg-primary/90 p-3 rounded-full transition-all duration-300"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:-translate-x-20 z-10 text-[#151615] hover:bg-primary/90 p-3 rounded-full transition-all duration-300 bg-foreground"
               aria-label="Previous slide"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -269,7 +269,7 @@ export default function GetInvolvedPage() {
 
             <button
               onClick={() => setCurrentSlide((prev) => (prev + 1) % involvementOptions.length)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-20 z-10 bg-primary text-[#151615] hover:bg-primary/90 p-3 rounded-full transition-all duration-300"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-20 z-10 text-[#151615] hover:bg-primary/90 p-3 rounded-full transition-all duration-300 bg-foreground"
               aria-label="Next slide"
             >
               <ChevronRight className="w-6 h-6" />
