@@ -169,3 +169,30 @@ export interface ProgramSchedules {
   /** @wixFieldType datetime */
   registrationDeadline?: Date | string;
 }
+
+
+/**
+ * Collection ID: volunteerapplications
+ * Interface for VolunteerApplications
+ */
+export interface VolunteerApplications {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  fullName?: string;
+  /** @wixFieldType text */
+  email?: string;
+  /** @wixFieldType text */
+  phoneNumber?: string;
+  /** @wixFieldType text */
+  areasOfInterest?: string;
+  /** @wixFieldType text */
+  experience?: string;
+  /** @wixFieldType text */
+  availability?: string;
+  /** @wixFieldType url */
+  portfolioLink?: string;
+  /** @wixFieldType text */
+  uploadedContent?: string;
+}
