@@ -131,7 +131,7 @@ export default function HomePage() {
           <div className="max-w-2xl">
             <AnimatedElement>
               <div className="mb-6">
-                <span className="text-xs md:text-sm text-primary/90 font-paragraph tracking-[0.2em] uppercase">
+                <span className="text-xs md:text-sm font-paragraph tracking-[0.2em] uppercase text-background">
                   Collective Work & Responsibility
                 </span>
               </div>
@@ -140,7 +140,7 @@ export default function HomePage() {
             <AnimatedElement delay={100}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
                 Empowering <br className="hidden md:block" />
-                <span className="text-primary">Learners.</span><br />
+                <span className="text-accent">Learners.</span><br className="text-accent" />
                 Strengthening <br className="hidden md:block" />
                 Communities.
               </h1>
@@ -157,7 +157,7 @@ export default function HomePage() {
                 <Button
                   onClick={() => navigate('/programs')}
                   size="lg"
-                  className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-8 py-6 rounded-none transition-all duration-300 hover:scale-[1.02]"
+                  className="text-[#151615] hover:bg-primary/90 font-semibold px-8 py-6 rounded-none transition-all duration-300 hover:scale-[1.02] bg-accent"
                 >
                   EXPLORE PROGRAMS
                 </Button>
@@ -242,7 +242,7 @@ export default function HomePage() {
                   <Button
                     onClick={() => navigate('/programs')}
                     size="lg"
-                    className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-full tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                    className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-full tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
                   >
                     VIEW ALL PROGRAMS
                   </Button>
