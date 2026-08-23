@@ -132,8 +132,8 @@ export default function DonationPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#151615] via-[#151615]/80 to-transparent z-10 hidden lg:block" />
           <div className="absolute inset-0 bg-[#151615]/60 lg:hidden z-10" />
           <Image
-            src="https://static.wixstatic.com/media/0538ae_8ba5dfd05aeb4d898aaefa55f04e05c8~mv2.png?originWidth=1600&originHeight=960"
-            alt="Diverse group of people volunteering and giving back to their community"
+            src="https://images.unsplash.com/photo-1532635241749-b22642131d25?w=1600&h=1000&fit=crop&auto=format"
+            alt="Make a donation to support our mission"
             className="w-full h-full object-cover object-center opacity-70 lg:opacity-100"
           />
         </div>
@@ -142,7 +142,7 @@ export default function DonationPage() {
           <div className="max-w-2xl">
             <AnimatedElement>
               <div className="mb-6">
-                <span className="text-xs md:text-sm font-paragraph tracking-[0.2em] uppercase text-accent">
+                <span className="text-xs md:text-sm text-primary/90 font-paragraph tracking-[0.2em] uppercase">
                   Make a Donation
                 </span>
               </div>
