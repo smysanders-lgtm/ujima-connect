@@ -126,7 +126,6 @@ export default function DonationPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-[#151615] text-white overflow-hidden min-h-[60vh] flex items-center">
         <div className="absolute inset-0 w-full h-full lg:w-[60%] lg:left-auto lg:right-0 z-0">
@@ -164,7 +163,6 @@ export default function DonationPage() {
           </div>
         </div>
       </section>
-
       {/* Donation Levels */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -216,7 +214,6 @@ export default function DonationPage() {
           </div>
         </div>
       </section>
-
       {/* Impact Breakdown */}
       <section className="py-24 bg-secondary">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -256,7 +253,6 @@ export default function DonationPage() {
           </div>
         </div>
       </section>
-
       {/* Donor Stories */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -298,7 +294,6 @@ export default function DonationPage() {
           </div>
         </div>
       </section>
-
       {/* Wix Donations Form Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -488,7 +483,7 @@ export default function DonationPage() {
             </div>
 
             <Button
-              className="w-full bg-primary text-[#151615] hover:bg-primary/90 font-semibold py-7 rounded-none text-lg transition-all duration-300 uppercase tracking-widest"
+              className="w-full text-[#151615] hover:bg-primary/90 font-semibold py-7 rounded-none text-lg transition-all duration-300 uppercase tracking-widest bg-foreground"
               disabled={!donationAmount || donationAmount < 1}
             >
               Complete Donation <ArrowRight className="ml-2 w-4 h-4" />
@@ -500,7 +495,6 @@ export default function DonationPage() {
           </div>
         </div>
       </section>
-
       {/* ... keep existing code (FAQ Section and CTA Section) ... */}
       <section className="py-24 bg-foreground text-white">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -554,7 +548,6 @@ export default function DonationPage() {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-32 bg-secondary relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
@@ -593,7 +586,6 @@ export default function DonationPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
