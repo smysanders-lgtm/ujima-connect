@@ -132,8 +132,8 @@ export default function DonationPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#151615] via-[#151615]/80 to-transparent z-10 hidden lg:block" />
           <div className="absolute inset-0 bg-[#151615]/60 lg:hidden z-10" />
           <Image
-            src="https://static.wixstatic.com/media/0538ae_2f6d6da985704112abede0c922fb256a~mv2.png?originWidth=1600&originHeight=960"
-            alt="Community giving back and supporting each other"
+            src="https://static.wixstatic.com/media/0538ae_8ba5dfd05aeb4d898aaefa55f04e05c8~mv2.png?originWidth=1600&originHeight=960"
+            alt="Diverse group of people volunteering and giving back to their community"
             className="w-full h-full object-cover object-center opacity-70 lg:opacity-100"
           />
         </div>
