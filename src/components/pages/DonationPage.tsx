@@ -142,7 +142,7 @@ export default function DonationPage() {
           <div className="max-w-2xl">
             <AnimatedElement>
               <div className="mb-6">
-                <span className="text-xs md:text-sm text-primary/90 font-paragraph tracking-[0.2em] uppercase">
+                <span className="text-xs md:text-sm font-paragraph tracking-[0.2em] uppercase text-accent">
                   Make a Donation
                 </span>
               </div>
@@ -151,7 +151,7 @@ export default function DonationPage() {
             <AnimatedElement delay={100}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
                 Your Generosity <br className="hidden md:block" />
-                <span className="text-primary">Transforms Lives</span>
+                <span className="text-accent">Transforms Lives</span>
               </h1>
             </AnimatedElement>
 
