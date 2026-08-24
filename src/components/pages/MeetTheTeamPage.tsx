@@ -129,7 +129,7 @@ export default function MeetTheTeamPage() {
                 </div>
                 
                 <p className="text-base md:text-lg text-foreground/75 leading-relaxed font-light">
-                  Author and community leader specializing in business strategy using AI, driven by a commitment to serving her community. Dara's vision is to create accessible pathways for education and creative expression.
+                  Founder of Ujima Creative Writing & Services, Dara Baker is a writer, educator, and creative strategist committed to uplifting communities through storytelling and technology. She holds a BA in Arts from Chicago State University, an MBA in Business Management from the University of Phoenix, a Project Management Certificate from Collin Community College, and a Certificate in Artificial Intelligence: Implications for Business Strategy from Massachusetts Institute of Technology (MIT) Sloan Management School. Dara's work spans creative writing, corporate documentation, and international training with a multi-cultural training program. She has published poems in Grass Roots Magazine, written numerous memorial and obituary poems, authored extensive Standard Operating Procedures across multiple industries, and traveled abroad to train teams on advanced publishing tools and workflow systems.
                 </p>
 
                 <div className="pt-2">
