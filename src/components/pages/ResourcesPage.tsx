@@ -5,7 +5,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ExternalLink, Building2, Phone, AlertCircle } from 'lucide-react';
+import { ExternalLink, Building2, Phone, AlertCircle, BookOpen } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -54,6 +54,33 @@ const CATEGORY_COLORS = {
   'Learning & Growth': 'bg-emerald-100 text-emerald-700',
   'Basic Needs & Wellness': 'bg-amber-100 text-amber-700'
 };
+
+const BOOKS = [
+  {
+    title: 'Book 1',
+    link: 'https://a.co/d/0iRqrRap'
+  },
+  {
+    title: 'Book 2',
+    link: 'https://a.co/d/0hDdtofR'
+  },
+  {
+    title: 'Book 3',
+    link: 'https://a.co/d/0feAGlox'
+  },
+  {
+    title: 'Book 4',
+    link: 'https://a.co/d/0aGUrl2J'
+  },
+  {
+    title: 'Book 5',
+    link: 'https://a.co/d/06kmRJCz'
+  },
+  {
+    title: 'Book 6',
+    link: 'https://a.co/d/0j8hmDF7'
+  }
+];
 
 const CRISIS_RESOURCES = [
   {
@@ -256,6 +283,50 @@ export default function ResourcesPage() {
               </div>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* Books We've Read or Are Reading Section */}
+      <section className="py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-[100rem]">
+          <AnimatedElement>
+            <div className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <BookOpen size={32} className="text-foreground" />
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+                  Books We've Read or Are Reading
+                </h2>
+              </div>
+              <p className="text-lg text-foreground/70 max-w-2xl">
+                Explore books that have inspired and informed our community's journey toward growth and wellness.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {BOOKS.map((book, index) => (
+                <AnimatedElement key={index} delay={index * 50}>
+                  <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-foreground/5 h-full flex flex-col">
+                    <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
+                      {book.title}
+                    </h3>
+                    <Button
+                      asChild
+                      className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
+                    >
+                      <a
+                        href={book.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center"
+                      >
+                        View on Amazon
+                        <ExternalLink size={16} className="ml-2" />
+                      </a>
+                    </Button>
+                  </div>
+                </AnimatedElement>
+              ))}
+            </div>
+          </AnimatedElement>
         </div>
       </section>
 
