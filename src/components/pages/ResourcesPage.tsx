@@ -127,43 +127,6 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Crisis/Urgent Support Callout */}
-      <section className="bg-foreground text-white py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-[100rem]">
-          <AnimatedElement>
-            <div className="max-w-4xl">
-              <div className="flex items-start gap-4 mb-8">
-                <AlertCircle size={32} className="flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-heading font-bold mb-2">
-                    Need Help Right Now?
-                  </h2>
-                  <p className="text-white/90 text-lg">
-                    If you or someone you know is facing an emergency, these resources are available 24/7.
-                  </p>
-                </div>
-              </div>
-              <div className="grid md:grid-cols-3 gap-6">
-                {CRISIS_RESOURCES.map((resource, idx) => (
-                  <div key={idx} className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20">
-                    <h3 className="font-heading font-bold text-lg mb-2">{resource.title}</h3>
-                    <p className="text-white/80 text-sm mb-4">{resource.description}</p>
-                    <Button
-                      asChild
-                      className="w-full bg-primary text-white hover:bg-primary/90"
-                    >
-                      <a href={resource.link} target="_blank" rel="noopener noreferrer">
-                        {resource.contact}
-                      </a>
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimatedElement>
-        </div>
-      </section>
-
       {/* Category Group Tabs */}
       <section className="py-8 bg-background border-b border-foreground/10">
         <div className="container mx-auto px-4 max-w-[100rem]">
@@ -352,6 +315,43 @@ export default function ResourcesPage() {
                   Subscribe
                 </Button>
               </form>
+            </div>
+          </AnimatedElement>
+        </div>
+      </section>
+
+      {/* Crisis/Urgent Support Callout */}
+      <section className="bg-foreground text-white py-12 md:py-16">
+        <div className="container mx-auto px-4 max-w-[100rem]">
+          <AnimatedElement>
+            <div className="max-w-4xl">
+              <div className="flex items-start gap-4 mb-8">
+                <AlertCircle size={32} className="flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-heading font-bold mb-2">
+                    Need Help Right Now?
+                  </h2>
+                  <p className="text-white/90 text-lg">
+                    If you or someone you know is facing an emergency, these resources are available 24/7.
+                  </p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                {CRISIS_RESOURCES.map((resource, idx) => (
+                  <div key={idx} className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20">
+                    <h3 className="font-heading font-bold text-lg mb-2">{resource.title}</h3>
+                    <p className="text-white/80 text-sm mb-4">{resource.description}</p>
+                    <Button
+                      asChild
+                      className="w-full bg-primary text-white hover:bg-primary/90"
+                    >
+                      <a href={resource.link} target="_blank" rel="noopener noreferrer">
+                        {resource.contact}
+                      </a>
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </div>
           </AnimatedElement>
         </div>
