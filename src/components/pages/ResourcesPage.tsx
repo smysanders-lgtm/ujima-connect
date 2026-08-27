@@ -5,6 +5,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Image } from '@/components/ui/image';
 import { ExternalLink, Building2, Phone, AlertCircle, BookOpen } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
@@ -46,7 +47,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 const CATEGORY_GROUPS = {
-  'Learning & Growth': ['Writing', 'College', 'Technology', 'Community'],
+  'Learning & Growth': ['Writing', 'College', 'Technology', 'Community', 'Reading'],
   'Basic Needs & Wellness': ['Housing', 'Food', 'Health', 'Career']
 };
 
@@ -58,27 +59,33 @@ const CATEGORY_COLORS = {
 const BOOKS = [
   {
     title: 'Book 1',
-    link: 'https://a.co/d/0iRqrRap'
+    link: 'https://a.co/d/0iRqrRap',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_be2d3ad1e0aa41bc82579b5d6ee82554~mv2.png?originWidth=256&originHeight=384'
   },
   {
     title: 'Book 2',
-    link: 'https://a.co/d/0hDdtofR'
+    link: 'https://a.co/d/0hDdtofR',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_b2ed0d781e1a4565859cb425b85cd6ec~mv2.png?originWidth=256&originHeight=384'
   },
   {
     title: 'Book 3',
-    link: 'https://a.co/d/0feAGlox'
+    link: 'https://a.co/d/0feAGlox',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_dc0b1dc629fa47b195e21db017aa7988~mv2.png?originWidth=256&originHeight=384'
   },
   {
     title: 'Book 4',
-    link: 'https://a.co/d/0aGUrl2J'
+    link: 'https://a.co/d/0aGUrl2J',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_0a2b128da0ef407dbb39c64179910a55~mv2.png?originWidth=256&originHeight=384'
   },
   {
     title: 'Book 5',
-    link: 'https://a.co/d/06kmRJCz'
+    link: 'https://a.co/d/06kmRJCz',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_3ee0bd04b18b4640bf045efad1db0226~mv2.png?originWidth=256&originHeight=384'
   },
   {
     title: 'Book 6',
-    link: 'https://a.co/d/0j8hmDF7'
+    link: 'https://a.co/d/0j8hmDF7',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_c9456cd53c1848be941abdd966737ac5~mv2.png?originWidth=256&originHeight=384'
   }
 ];
 
@@ -304,24 +311,45 @@ export default function ResourcesPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {BOOKS.map((book, index) => (
                 <AnimatedElement key={index} delay={index * 50}>
-                  <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-foreground/5 h-full flex flex-col">
-                    <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
-                      {book.title}
-                    </h3>
-                    <Button
-                      asChild
-                      className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
-                    >
-                      <a
-                        href={book.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center"
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
+                    {/* Book Cover Image */}
+                    <div className="relative w-full h-48 bg-foreground/5 overflow-hidden">
+                      <Image
+                        src={book.coverImage}
+                        alt={`${book.title} cover`}
+                        width={300}
+                        height={400}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    
+                    {/* Reading Tag */}
+                    <div className="px-6 pt-4">
+                      <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit">
+                        Reading
+                      </span>
+                    </div>
+
+                    {/* Book Title and Button */}
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
+                        {book.title}
+                      </h3>
+                      <Button
+                        asChild
+                        className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
                       >
-                        View on Amazon
-                        <ExternalLink size={16} className="ml-2" />
-                      </a>
-                    </Button>
+                        <a
+                          href={book.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center"
+                        >
+                          View on Amazon
+                          <ExternalLink size={16} className="ml-2" />
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </AnimatedElement>
               ))}
