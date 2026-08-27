@@ -89,6 +89,12 @@ const BOOKS = [
   }
 ];
 
+const FEATURED_BOOK = {
+  title: 'Featured Reading Collection',
+  description: 'Curated books to support your learning and growth journey',
+  image: 'https://static.wixstatic.com/media/0538ae_eb8561b823794123b18424e1046c3c3e~mv2.png'
+};
+
 const CRISIS_RESOURCES = [
   {
     title: '988 Suicide & Crisis Lifeline',
@@ -137,6 +143,8 @@ export default function ResourcesPage() {
   const filteredResources = selectedTopic === 'all'
     ? resources.filter(r => currentGroupTopics.includes(r.topic || ''))
     : resources.filter(r => r.topic === selectedTopic);
+  
+  const showBooks = selectedGroup === 'Learning & Growth';
 
   return (
     <div className="min-h-screen bg-background">
@@ -218,6 +226,68 @@ export default function ResourcesPage() {
       {/* Resources Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-[100rem]">
+          {/* Featured Books Section - Always visible in Learning & Growth */}
+          {showBooks && (
+            <div className="mb-20">
+              <AnimatedElement>
+                <div className="mb-12">
+                  <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                    📚 Featured Reading Collection
+                  </h2>
+                  <p className="text-lg text-foreground/70">
+                    Curated books to support your learning and growth journey
+                  </p>
+                </div>
+              </AnimatedElement>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                {BOOKS.map((book, index) => (
+                  <AnimatedElement key={`book-${index}`} delay={index * 50}>
+                    <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
+                      {/* Book Cover Image */}
+                      <div className="relative w-full h-48 bg-foreground/5 overflow-hidden">
+                        <Image
+                          src={book.coverImage}
+                          alt={`${book.title} cover`}
+                          width={300}
+                          height={400}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      
+                      {/* Reading Tag and Content Container */}
+                      <div className="px-6 pt-4 pb-6 flex flex-col flex-1">
+                        <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit mb-4">
+                          Reading
+                        </span>
+
+                        {/* Book Title and Button */}
+                        <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
+                          {book.title}
+                        </h3>
+                        <Button
+                          asChild
+                          className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
+                        >
+                          <a
+                            href={book.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center"
+                          >
+                            View on Amazon
+                            <ExternalLink size={16} className="ml-2" />
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </AnimatedElement>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Main Resources Grid */}
           <div className="min-h-[500px]">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
@@ -283,54 +353,6 @@ export default function ResourcesPage() {
                     </AnimatedElement>
                   );
                 })}
-                
-                {/* Books We've Read or Are Reading - Positioned under Reading Resources */}
-                {selectedTopic === 'Reading' || selectedTopic === 'all' ? (
-                  <>
-                    {BOOKS.map((book, index) => (
-                      <AnimatedElement key={`book-${index}`} delay={(filteredResources.length + index) * 50}>
-                        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
-                          {/* Book Cover Image */}
-                          <div className="relative w-full h-48 bg-foreground/5 overflow-hidden">
-                            <Image
-                              src={book.coverImage}
-                              alt={`${book.title} cover`}
-                              width={300}
-                              height={400}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          
-                          {/* Reading Tag and Content Container */}
-                          <div className="px-6 pt-4 pb-6 flex flex-col flex-1">
-                            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit mb-4">
-                              Reading
-                            </span>
-
-                            {/* Book Title and Button */}
-                            <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
-                              {book.title}
-                            </h3>
-                            <Button
-                              asChild
-                              className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
-                            >
-                              <a
-                                href={book.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center"
-                              >
-                                View on Amazon
-                                <ExternalLink size={16} className="ml-2" />
-                              </a>
-                            </Button>
-                          </div>
-                        </div>
-                      </AnimatedElement>
-                    ))}
-                  </>
-                ) : null}
               </div>
             ) : (
               <div className="text-center py-20">
