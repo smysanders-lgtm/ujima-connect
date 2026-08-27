@@ -323,15 +323,13 @@ export default function ResourcesPage() {
                       />
                     </div>
                     
-                    {/* Reading Tag */}
-                    <div className="px-6 pt-4">
-                      <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit">
+                    {/* Reading Tag and Content Container */}
+                    <div className="px-6 pt-4 pb-6 flex flex-col flex-1">
+                      <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit mb-4">
                         Reading
                       </span>
-                    </div>
 
-                    {/* Book Title and Button */}
-                    <div className="p-6 flex flex-col flex-1">
+                      {/* Book Title and Button */}
                       <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
                         {book.title}
                       </h3>
