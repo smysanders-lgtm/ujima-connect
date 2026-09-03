@@ -188,14 +188,14 @@ export default function MeetTheTeamPage() {
                       whileHover={{ y: -4 }}
                       className="group h-full"
                     >
-                      <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
+                      <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
                         {/* Team Member Image */}
-                        <div className="relative overflow-hidden h-64 bg-gradient-to-br from-secondary/20 to-accent/10">
+                        <div className="relative overflow-hidden h-72 bg-gradient-to-br from-secondary/20 to-accent/10">
                           {member.profilePicture ? (
                             <Image
                               src={member.profilePicture}
                               alt={member.name || 'Team member'}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
                           ) : (
                             <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
@@ -208,17 +208,31 @@ export default function MeetTheTeamPage() {
                         {/* Team Member Content */}
                         <div className="p-6 flex-1 flex flex-col">
                           <div className="mb-4">
-                            <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
+                            <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
                               {member.name || 'Team Member'}
                             </h3>
-                            <p className="text-primary font-semibold text-xs tracking-widest uppercase">
+                            <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-4">
                               {member.role || 'Team Member'}
                             </p>
                           </div>
 
-                          <p className="text-foreground/70 leading-relaxed font-light mb-4 flex-1 text-sm">
+                          <p className="text-foreground/70 leading-relaxed font-light mb-6 flex-1 text-sm">
                             {member.bio || ''}
                           </p>
+
+                          {/* Skills/Expertise Tags */}
+                          {member.expertise && (
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {member.expertise.split(',').map((skill, idx) => (
+                                <span
+                                  key={idx}
+                                  className="inline-block px-3 py-1.5 bg-foreground/10 text-foreground text-xs font-semibold rounded-full border border-foreground/20 hover:bg-foreground/15 transition-colors"
+                                >
+                                  {skill.trim()}
+                                </span>
+                              ))}
+                            </div>
+                          )}
 
                           {/* LinkedIn Link */}
                           {member.linkedInProfile && (
