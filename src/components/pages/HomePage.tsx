@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
-import { EducationalPrograms } from '@/entities';
+import { EducationalPrograms, TeamMembers } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Linkedin } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import { motion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -75,7 +76,7 @@ export default function HomePage() {
 
   const loadTeamMembers = async () => {
     try {
-      const result = await BaseCrudService.getAll<any>('teammembers', [], { limit: 6 });
+      const result = await BaseCrudService.getAll<TeamMembers>('teammembers', [], { limit: 6 });
       setTeamMembers(result.items);
     } catch (error) {
       console.error('Error loading team members:', error);
@@ -325,51 +326,60 @@ export default function HomePage() {
                 <LoadingSpinner className="text-primary w-8 h-8" />
               </div>
             ) : teamMembers.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {teamMembers.map((member, index) => (
                   <AnimatedElement key={member._id} delay={index * 100}>
-                    <div className="group bg-white border border-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full">
-                      {/* Image Container */}
-                      <div className="relative overflow-hidden bg-secondary/20 h-64 flex items-center justify-center">
-                        {member.profilePicture ? (
-                          <Image
-                            src={member.profilePicture}
-                            alt={member.name || 'Team member'}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                            <Users className="w-16 h-16 text-primary/20" />
+                    <motion.div 
+                      whileHover={{ y: -4 }}
+                      className="group h-full"
+                    >
+                      <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
+                        {/* Team Member Image */}
+                        <div className="relative overflow-hidden h-64 bg-gradient-to-br from-secondary/20 to-accent/10">
+                          {member.profilePicture ? (
+                            <Image
+                              src={member.profilePicture}
+                              alt={member.name || 'Team member'}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+                              <Users className="w-16 h-16 text-primary/20" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
+
+                        {/* Team Member Content */}
+                        <div className="p-6 flex-1 flex flex-col">
+                          <div className="mb-4">
+                            <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
+                              {member.name || 'Team Member'}
+                            </h3>
+                            <p className="text-primary font-semibold text-xs tracking-widest uppercase">
+                              {member.role || 'Team Member'}
+                            </p>
                           </div>
-                        )}
-                      </div>
 
-                      {/* Content Container */}
-                      <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-xl font-heading font-bold text-foreground mb-1">
-                          {member.name || 'Team Member'}
-                        </h3>
-                        <p className="text-sm text-primary font-semibold mb-3 tracking-wide uppercase">
-                          {member.role || 'Team Member'}
-                        </p>
-                        <p className="text-gray-600 text-sm leading-relaxed font-light flex-grow mb-4">
-                          {member.bio || ''}
-                        </p>
+                          <p className="text-foreground/70 leading-relaxed font-light mb-4 flex-1 text-sm">
+                            {member.bio || ''}
+                          </p>
 
-                        {/* LinkedIn Link */}
-                        {member.linkedInProfile && (
-                          <a
-                            href={member.linkedInProfile}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm"
-                          >
-                            <Linkedin className="w-4 h-4" />
-                            Connect
-                          </a>
-                        )}
+                          {/* LinkedIn Link */}
+                          {member.linkedInProfile && (
+                            <a
+                              href={member.linkedInProfile}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
+                            >
+                              <Linkedin className="w-4 h-4" />
+                              Connect
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                    </motion.div>
                   </AnimatedElement>
                 ))}
               </div>
