@@ -3,7 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Users, Linkedin } from 'lucide-react';
+import { BaseCrudService } from '@/integrations';
+import { TeamMembers } from '@/entities';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -46,16 +49,23 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function MeetTheTeamPage() {
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'Kesha L. Ford',
-      role: 'Creative Writing Facilitator & Author',
-      bio: 'A three-time published author of Seasons of Life, Seasons of Life: Continue On, and Rivers of Sister Ties, known for emotionally driven storytelling and compelling characters. She has ghostwritten for CEOs, retired professional athletes, and other professionals, and is passionate about mentoring aspiring authors through her writing, mentorship, volunteer work, and mission trips.',
-      image: 'https://static.wixstatic.com/media/0538ae_56d9d3dbafa24692b4fb6f57c927614a~mv2.png',
-      tags: ['Creative Writing', 'Mentorship']
+  const [teamMembers, setTeamMembers] = useState<TeamMembers[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    loadTeamMembers();
+  }, []);
+
+  const loadTeamMembers = async () => {
+    try {
+      const result = await BaseCrudService.getAll<TeamMembers>('teammembers');
+      setTeamMembers(result.items);
+    } catch (error) {
+      console.error('Error loading team members:', error);
+    } finally {
+      setIsLoading(false);
     }
-  ];
+  };
 
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
@@ -165,56 +175,74 @@ export default function MeetTheTeamPage() {
             </div>
           </AnimatedElement>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {teamMembers.map((member, index) => (
-              <AnimatedElement key={member.id} delay={index * 100}>
-                <motion.div 
-                  whileHover={{ y: -4 }}
-                  className="group h-full"
-                >
-                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
-                    {/* Team Member Image */}
-                    <div className="relative overflow-hidden h-64 bg-gradient-to-br from-secondary/20 to-accent/10">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
+          <div className="min-h-[400px]">
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <LoadingSpinner className="text-primary w-8 h-8" />
+              </div>
+            ) : teamMembers.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {teamMembers.map((member, index) => (
+                  <AnimatedElement key={member._id} delay={index * 100}>
+                    <motion.div 
+                      whileHover={{ y: -4 }}
+                      className="group h-full"
+                    >
+                      <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
+                        {/* Team Member Image */}
+                        <div className="relative overflow-hidden h-64 bg-gradient-to-br from-secondary/20 to-accent/10">
+                          {member.profilePicture ? (
+                            <Image
+                              src={member.profilePicture}
+                              alt={member.name || 'Team member'}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+                              <Users className="w-16 h-16 text-primary/20" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
 
-                    {/* Team Member Content */}
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="mb-4">
-                        <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
-                          {member.name}
-                        </h3>
-                        <p className="text-primary font-semibold text-xs tracking-widest uppercase">
-                          {member.role}
-                        </p>
+                        {/* Team Member Content */}
+                        <div className="p-6 flex-1 flex flex-col">
+                          <div className="mb-4">
+                            <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
+                              {member.name || 'Team Member'}
+                            </h3>
+                            <p className="text-primary font-semibold text-xs tracking-widest uppercase">
+                              {member.role || 'Team Member'}
+                            </p>
+                          </div>
+
+                          <p className="text-foreground/70 leading-relaxed font-light mb-4 flex-1 text-sm">
+                            {member.bio || ''}
+                          </p>
+
+                          {/* LinkedIn Link */}
+                          {member.linkedInProfile && (
+                            <a
+                              href={member.linkedInProfile}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
+                            >
+                              <Linkedin className="w-4 h-4" />
+                              Connect
+                            </a>
+                          )}
+                        </div>
                       </div>
-
-                      <p className="text-foreground/70 leading-relaxed font-light mb-4 flex-1 text-sm">
-                        {member.bio}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
-                        {member.tags.map((tag, idx) => (
-                          <motion.span 
-                            key={idx} 
-                            whileHover={{ scale: 1.05 }}
-                            className="text-xs bg-secondary/60 text-foreground px-3 py-1 font-semibold rounded-full cursor-default transition-all"
-                          >
-                            {tag}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatedElement>
-            ))}
+                    </motion.div>
+                  </AnimatedElement>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-500 font-light">Team members will appear here. Add team members in the CMS to get started.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
