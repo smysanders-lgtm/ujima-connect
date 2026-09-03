@@ -174,6 +174,27 @@ export interface ProgramSchedules {
 
 
 /**
+ * Collection ID: teammembers
+ * Interface for TeamMembers
+ */
+export interface TeamMembers {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  name?: string;
+  /** @wixFieldType text */
+  role?: string;
+  /** @wixFieldType text */
+  bio?: string;
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
+  profilePicture?: string;
+  /** @wixFieldType url */
+  linkedInProfile?: string;
+}
+
+
+/**
  * Collection ID: volunteerapplications
  * Interface for VolunteerApplications
  */

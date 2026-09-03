@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target } from 'lucide-react';
+import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Linkedin } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -54,9 +54,12 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [programs, setPrograms] = useState<EducationalPrograms[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [isLoadingTeam, setIsLoadingTeam] = useState(true);
 
   useEffect(() => {
     loadPrograms();
+    loadTeamMembers();
   }, []);
 
   const loadPrograms = async () => {
@@ -67,6 +70,17 @@ export default function HomePage() {
       console.error('Error loading programs:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const loadTeamMembers = async () => {
+    try {
+      const result = await BaseCrudService.getAll<any>('teammembers', [], { limit: 6 });
+      setTeamMembers(result.items);
+    } catch (error) {
+      console.error('Error loading team members:', error);
+    } finally {
+      setIsLoadingTeam(false);
     }
   };
 
@@ -284,6 +298,86 @@ export default function HomePage() {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+      </section>
+      {/* Meet the Team Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <AnimatedElement>
+            <div className="text-center mb-16">
+              <span className="text-xs text-primary/80 font-paragraph tracking-[0.2em] uppercase mb-4 block">
+                Our Team
+              </span>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 leading-tight">
+                Meet the Visionaries <br />
+                <span className="text-primary">Behind the Mission</span>
+              </h2>
+              <p className="text-lg text-foreground/70 max-w-2xl mx-auto font-light leading-relaxed">
+                Dedicated educators, technologists, and community leaders committed to empowering the next generation.
+              </p>
+            </div>
+          </AnimatedElement>
+
+          <div className="min-h-[400px]">
+            {isLoadingTeam ? (
+              <div className="flex items-center justify-center py-12">
+                <LoadingSpinner className="text-primary w-8 h-8" />
+              </div>
+            ) : teamMembers.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {teamMembers.map((member, index) => (
+                  <AnimatedElement key={member._id} delay={index * 100}>
+                    <div className="group bg-white border border-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                      {/* Image Container */}
+                      <div className="relative overflow-hidden bg-secondary/20 h-64 flex items-center justify-center">
+                        {member.profilePicture ? (
+                          <Image
+                            src={member.profilePicture}
+                            alt={member.name || 'Team member'}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+                            <Users className="w-16 h-16 text-primary/20" />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Content Container */}
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-xl font-heading font-bold text-foreground mb-1">
+                          {member.name || 'Team Member'}
+                        </h3>
+                        <p className="text-sm text-primary font-semibold mb-3 tracking-wide uppercase">
+                          {member.role || 'Team Member'}
+                        </p>
+                        <p className="text-gray-600 text-sm leading-relaxed font-light flex-grow mb-4">
+                          {member.bio || ''}
+                        </p>
+
+                        {/* LinkedIn Link */}
+                        {member.linkedInProfile && (
+                          <a
+                            href={member.linkedInProfile}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm"
+                          >
+                            <Linkedin className="w-4 h-4" />
+                            Connect
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </AnimatedElement>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-500 font-light">Team members will appear here. Add team members in the CMS to get started.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
