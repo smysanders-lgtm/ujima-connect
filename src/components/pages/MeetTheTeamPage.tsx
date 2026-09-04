@@ -61,16 +61,7 @@ export default function MeetTheTeamPage() {
   const loadTeamMembers = async () => {
     try {
       const result = await BaseCrudService.getAll<TeamMembers>('teammembers');
-      // Add Dara Baker as founder at the beginning
-      const founderMember: TeamMembers = {
-        _id: 'founder-dara-baker',
-        name: 'Dara Baker',
-        role: 'Founder & Community Leader',
-        bio: 'Founder of Ujima Creative Writing & Services, Dara Baker is a writer, educator, and creative strategist committed to uplifting communities through storytelling and technology. She holds a BA in Arts from Chicago State University, an MBA in Business Management from the University of Phoenix, a Project Management Certificate from Collin Community College, and a Certificate in Artificial Intelligence: Implications for Business Strategy from Massachusetts Institute of Technology (MIT) Sloan Management School.',
-        profilePicture: 'https://static.wixstatic.com/media/0538ae_014b31ccb343415088081312249f54cc~mv2.png?originWidth=448&originHeight=448',
-        linkedInProfile: undefined,
-      };
-      setTeamMembers([founderMember, ...result.items]);
+      setTeamMembers(result.items);
     } catch (error) {
       console.error('Error loading team members:', error);
     } finally {
