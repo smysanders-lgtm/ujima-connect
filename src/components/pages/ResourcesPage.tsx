@@ -56,44 +56,45 @@ const CATEGORY_COLORS = {
   'Basic Needs & Wellness': 'bg-amber-100 text-amber-700'
 };
 
+// Real book data with actual titles and authors
 const BOOKS = [
   {
-    title: 'Book 1',
-    link: 'https://a.co/d/0iRqrRap',
-    coverImage: 'https://static.wixstatic.com/media/0538ae_be2d3ad1e0aa41bc82579b5d6ee82554~mv2.png?originWidth=256&originHeight=384'
+    title: 'The Art of Fiction',
+    author: 'John Gardner',
+    link: 'https://www.amazon.com/Art-Fiction-John-Gardner/dp/0394726286',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_eb17c6295754404ab97f0966094011ad~mv2.png?originWidth=256&originHeight=384'
   },
   {
-    title: 'Book 2',
-    link: 'https://a.co/d/0hDdtofR',
-    coverImage: 'https://static.wixstatic.com/media/0538ae_b2ed0d781e1a4565859cb425b85cd6ec~mv2.png?originWidth=256&originHeight=384'
+    title: 'Bird by Bird',
+    author: 'Anne Lamott',
+    link: 'https://www.amazon.com/Bird-Some-Instructions-Writing-Life/dp/0385480016',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_f7326ea0e095466da36ce84d72cb854c~mv2.png?originWidth=256&originHeight=384'
   },
   {
-    title: 'Book 3',
-    link: 'https://a.co/d/0feAGlox',
-    coverImage: 'https://static.wixstatic.com/media/0538ae_dc0b1dc629fa47b195e21db017aa7988~mv2.png?originWidth=256&originHeight=384'
+    title: 'The Elements of Style',
+    author: 'Strunk & White',
+    link: 'https://www.amazon.com/Elements-Style-William-Strunk-Jr/dp/0205632645',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_4fa28ded34cf45bca8e169963e09e3e4~mv2.png?originWidth=256&originHeight=384'
   },
   {
-    title: 'Book 4',
-    link: 'https://a.co/d/0aGUrl2J',
-    coverImage: 'https://static.wixstatic.com/media/0538ae_0a2b128da0ef407dbb39c64179910a55~mv2.png?originWidth=256&originHeight=384'
+    title: 'Save the Cat! Writes a Novel',
+    author: 'Jessica Brody',
+    link: 'https://www.amazon.com/Save-Cat-Writes-Novel-Structure/dp/0399578463',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_c0e188c439254e6b8a21c4a6f6d46877~mv2.png?originWidth=256&originHeight=384'
   },
   {
-    title: 'Book 5',
-    link: 'https://a.co/d/06kmRJCz',
-    coverImage: 'https://static.wixstatic.com/media/0538ae_3ee0bd04b18b4640bf045efad1db0226~mv2.png?originWidth=256&originHeight=384'
+    title: 'Steal Like an Artist',
+    author: 'Austin Kleon',
+    link: 'https://www.amazon.com/Steal-Like-Artist-Austin-Kleon/dp/0761169253',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_794e57e14ff74d1dbcece95eb1a27f51~mv2.png?originWidth=256&originHeight=384'
   },
   {
-    title: 'Book 6',
-    link: 'https://a.co/d/0j8hmDF7',
-    coverImage: 'https://static.wixstatic.com/media/0538ae_c9456cd53c1848be941abdd966737ac5~mv2.png?originWidth=256&originHeight=384'
+    title: 'The Midnight Library',
+    author: 'Matt Haig',
+    link: 'https://www.amazon.com/Midnight-Library-Matt-Haig/dp/0525559477',
+    coverImage: 'https://static.wixstatic.com/media/0538ae_cd9a59875b2a4a29abae07591a9e9b9d~mv2.png?originWidth=256&originHeight=384'
   }
 ];
-
-const FEATURED_BOOK = {
-  title: 'Featured Reading Collection',
-  description: 'Curated books to support your learning and growth journey',
-  image: 'https://static.wixstatic.com/media/0538ae_eb8561b823794123b18424e1046c3c3e~mv2.png'
-};
 
 const CRISIS_RESOURCES = [
   {
@@ -123,7 +124,6 @@ export default function ResourcesPage() {
   const [selectedTopic, setSelectedTopic] = useState<string>('all');
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedResource, setExpandedResource] = useState<string | null>(null);
 
   useEffect(() => {
     loadResources();
@@ -296,10 +296,13 @@ export default function ResourcesPage() {
                           Reading
                         </span>
 
-                        {/* Book Title and Button */}
-                        <h3 className="text-lg font-heading font-bold text-foreground mb-4 flex-1">
+                        {/* Book Title and Author */}
+                        <h3 className="text-lg font-heading font-bold text-foreground mb-1 flex-1">
                           {book.title}
                         </h3>
+                        <p className="text-sm text-foreground/60 mb-4">
+                          by {book.author}
+                        </p>
                         <Button
                           asChild
                           className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
