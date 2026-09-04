@@ -112,6 +112,77 @@ export default function MeetTheTeamPage() {
 
 
 
+      {/* Founder Spotlight Section */}
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-secondary/10 to-white overflow-hidden">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <AnimatedElement>
+            <div className="mb-12 text-center">
+              <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-accent/20 rounded-full">
+                <Sparkles size={16} className="text-accent" />
+                <span className="text-xs text-accent font-paragraph tracking-[0.1em] uppercase font-semibold">
+                  Founder Spotlight
+                </span>
+              </div>
+            </div>
+          </AnimatedElement>
+
+          <AnimatedElement delay={100}>
+            <div className="max-w-4xl mx-auto mb-20">
+              <motion.div 
+                whileHover={{ y: -4 }}
+                className="group"
+              >
+                <div className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-secondary/30 hover:border-accent/30">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                    {/* Image Section - Square */}
+                    <div className="relative overflow-hidden bg-gradient-to-br from-secondary/30 to-accent/10 aspect-square md:aspect-auto md:min-h-[500px]">
+                      <Image
+                        src="https://static.wixstatic.com/media/0538ae_014b31ccb343415088081312249f54cc~mv2.png?originWidth=448&originHeight=448"
+                        alt="Dara Baker - Founder"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {/* Founder Badge */}
+                      <div className="absolute top-6 right-6 bg-accent text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg">
+                        Founder
+                      </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="p-8 md:p-12 flex flex-col justify-center">
+                      <div className="mb-6">
+                        <h3 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-2">
+                          Dara Baker
+                        </h3>
+                        <p className="text-accent font-semibold text-lg tracking-wide mb-6">
+                          Founder & Community Leader
+                        </p>
+                      </div>
+
+                      <p className="text-foreground/75 leading-relaxed font-light text-base mb-6">
+                        Founder of Ujima Creative Writing & Services, Dara Baker is a writer, educator, and creative strategist committed to uplifting communities through storytelling and technology. She holds a BA in Arts from Chicago State University, an MBA in Business Management from the University of Phoenix, a Project Management Certificate from Collin Community College, and a Certificate in Artificial Intelligence: Implications for Business Strategy from Massachusetts Institute of Technology (MIT) Sloan Management School.
+                      </p>
+
+                      <p className="text-foreground/70 leading-relaxed font-light text-base">
+                        Dara's work spans creative writing, corporate documentation, and international training with a multi-cultural training program. She has published poems in Grass Roots Magazine, written numerous memorial and obituary poems, authored extensive Standard Operating Procedures across multiple industries, and traveled abroad to train teams on advanced publishing tools and workflow systems.
+                      </p>
+
+                      {/* Decorative Line */}
+                      <div className="mt-8 pt-8 border-t border-secondary/30">
+                        <p className="text-foreground/60 text-sm font-light italic">
+                          "Empowering communities through storytelling and technology"
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </AnimatedElement>
+        </div>
+      </section>
+
       {/* Team Carousel Section - Full Width */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-white to-secondary/5 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
