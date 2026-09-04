@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms, TeamMembers } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Linkedin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Linkedin } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { motion } from 'framer-motion';
 import Header from '@/components/Header';
@@ -57,7 +57,6 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [isLoadingTeam, setIsLoadingTeam] = useState(true);
-  const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
     loadPrograms();
@@ -77,7 +76,7 @@ export default function HomePage() {
 
   const loadTeamMembers = async () => {
     try {
-      const result = await BaseCrudService.getAll<TeamMembers>('teammembers', [], { limit: 10 });
+      const result = await BaseCrudService.getAll<TeamMembers>('teammembers', [], { limit: 6 });
       setTeamMembers(result.items);
     } catch (error) {
       console.error('Error loading team members:', error);
@@ -126,29 +125,6 @@ export default function HomePage() {
       icon: Heart
     }
   ];
-
-  const handleCarouselNext = () => {
-    setCarouselIndex((prev) => (prev + 1) % teamMembers.length);
-  };
-
-  const handleCarouselPrev = () => {
-    setCarouselIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
-  };
-
-  const getVisibleMembers = () => {
-    if (teamMembers.length === 0) return [];
-    
-    const itemsPerView = typeof window !== 'undefined' 
-      ? window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3
-      : 3;
-    const members = [];
-    
-    for (let i = 0; i < itemsPerView; i++) {
-      members.push(teamMembers[(carouselIndex + i) % teamMembers.length]);
-    }
-    
-    return members;
-  };
 
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
@@ -350,99 +326,62 @@ export default function HomePage() {
                 <LoadingSpinner className="text-primary w-8 h-8" />
               </div>
             ) : teamMembers.length > 0 ? (
-              <div className="relative">
-                {/* Carousel Container */}
-                <div className="overflow-hidden">
-                  <motion.div
-                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                    initial={false}
-                    animate={{ x: 0 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  >
-                    {getVisibleMembers().map((member, index) => (
-                      <AnimatedElement key={`${member._id}-${carouselIndex}-${index}`} delay={index * 100}>
-                        <motion.div 
-                          whileHover={{ y: -4 }}
-                          className="group h-full"
-                        >
-                          <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
-                            {/* Team Member Image */}
-                            <div className="relative overflow-hidden h-64 bg-gradient-to-br from-secondary/20 to-accent/10">
-                              {member.profilePicture ? (
-                                <Image
-                                  src={member.profilePicture}
-                                  alt={member.name || 'Team member'}
-                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                />
-                              ) : (
-                                <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                                  <Users className="w-16 h-16 text-primary/20" />
-                                </div>
-                              )}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {teamMembers.map((member, index) => (
+                  <AnimatedElement key={member._id} delay={index * 100}>
+                    <motion.div 
+                      whileHover={{ y: -4 }}
+                      className="group h-full"
+                    >
+                      <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
+                        {/* Team Member Image */}
+                        <div className="relative overflow-hidden h-64 bg-gradient-to-br from-secondary/20 to-accent/10">
+                          {member.profilePicture ? (
+                            <Image
+                              src={member.profilePicture}
+                              alt={member.name || 'Team member'}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+                              <Users className="w-16 h-16 text-primary/20" />
                             </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
 
-                            {/* Team Member Content */}
-                            <div className="p-6 flex-1 flex flex-col">
-                              <div className="mb-6">
-                                <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
-                                  {member.name || 'Team Member'}
-                                </h3>
-                                <p className="text-primary font-semibold text-xs tracking-widest uppercase">
-                                  {member.role || 'Team Member'}
-                                </p>
-                              </div>
-
-                              <Link
-                                to="/team"
-                                className="mt-auto inline-flex items-center justify-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 font-semibold text-sm"
-                              >
-                                Learn More
-                              </Link>
-                            </div>
+                        {/* Team Member Content */}
+                        <div className="p-6 flex-1 flex flex-col">
+                          <div className="mb-4">
+                            <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
+                              {member.name || 'Team Member'}
+                            </h3>
+                            <p className="text-primary font-semibold text-xs tracking-widest uppercase">
+                              {member.role || 'Team Member'}
+                            </p>
                           </div>
-                        </motion.div>
-                      </AnimatedElement>
-                    ))}
-                  </motion.div>
-                </div>
 
-                {/* Carousel Controls */}
-                {teamMembers.length > 3 && (
-                  <div className="flex items-center justify-center gap-4 mt-12">
-                    <button
-                      onClick={handleCarouselPrev}
-                      className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110"
-                      aria-label="Previous team member"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
+                          <p className="text-foreground/70 leading-relaxed font-light mb-4 flex-1 text-sm">
+                            {member.bio || ''}
+                          </p>
 
-                    {/* Carousel Indicators */}
-                    <div className="flex gap-2">
-                      {Array.from({ length: Math.ceil(teamMembers.length / 3) }).map((_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setCarouselIndex(i * 3)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            Math.floor(carouselIndex / 3) === i
-                              ? 'bg-primary w-8'
-                              : 'bg-primary/30 hover:bg-primary/50'
-                          }`}
-                          aria-label={`Go to slide ${i + 1}`}
-                        />
-                      ))}
-                    </div>
-
-                    <button
-                      onClick={handleCarouselNext}
-                      className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110"
-                      aria-label="Next team member"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </div>
-                )}
+                          {/* LinkedIn Link */}
+                          {member.linkedInProfile && (
+                            <a
+                              href={member.linkedInProfile}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
+                            >
+                              <Linkedin className="w-4 h-4" />
+                              Connect
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatedElement>
+                ))}
               </div>
             ) : (
               <div className="text-center py-12">
