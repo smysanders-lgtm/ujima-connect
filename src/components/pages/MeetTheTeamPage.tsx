@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Users, Linkedin } from 'lucide-react';
+import { ArrowRight, Sparkles, Users, Linkedin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { TeamMembers } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -51,6 +51,8 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 export default function MeetTheTeamPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMembers[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadTeamMembers();
@@ -65,6 +67,17 @@ export default function MeetTheTeamPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const itemsPerView = 3;
+  const totalSlides = Math.ceil(teamMembers.length / itemsPerView);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -156,7 +169,7 @@ export default function MeetTheTeamPage() {
         </div>
       </section>
 
-      {/* Team Grid Section - Compact */}
+      {/* Team Carousel Section */}
       <section className="relative py-16 md:py-20 bg-white border-t border-gray-200">
         <div className="container mx-auto px-6 max-w-7xl">
           <AnimatedElement>
@@ -175,82 +188,131 @@ export default function MeetTheTeamPage() {
             </div>
           </AnimatedElement>
 
-          <div className="min-h-[400px]">
+          <div className="min-h-[500px]">
             {isLoading ? (
               <div className="flex items-center justify-center py-12">
                 <LoadingSpinner className="text-primary w-8 h-8" />
               </div>
             ) : teamMembers.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {teamMembers.map((member, index) => (
-                  <AnimatedElement key={member._id} delay={index * 100}>
-                    <motion.div 
-                      whileHover={{ y: -4 }}
-                      className="group h-full"
-                    >
-                      <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
-                        {/* Team Member Image */}
-                        <div className="relative overflow-hidden h-72 bg-gradient-to-br from-secondary/20 to-accent/10">
-                          {member.profilePicture ? (
-                            <Image
-                              src={member.profilePicture}
-                              alt={member.name || 'Team member'}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                              <Users className="w-16 h-16 text-primary/20" />
+              <div className="relative">
+                {/* Carousel Container */}
+                <div ref={carouselRef} className="overflow-hidden">
+                  <motion.div
+                    className="flex gap-6"
+                    animate={{ x: -currentIndex * (100 / itemsPerView) + '%' }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  >
+                    {teamMembers.map((member, index) => (
+                      <div
+                        key={member._id}
+                        className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
+                      >
+                        <AnimatedElement delay={index * 50}>
+                          <motion.div 
+                            whileHover={{ y: -4 }}
+                            className="group h-full"
+                          >
+                            <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
+                              {/* Team Member Image */}
+                              <div className="relative overflow-hidden h-72 bg-gradient-to-br from-secondary/20 to-accent/10">
+                                {member.profilePicture ? (
+                                  <Image
+                                    src={member.profilePicture}
+                                    alt={member.name || 'Team member'}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+                                    <Users className="w-16 h-16 text-primary/20" />
+                                  </div>
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                              </div>
+
+                              {/* Team Member Content */}
+                              <div className="p-6 flex-1 flex flex-col">
+                                <div className="mb-4">
+                                  <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
+                                    {member.name || 'Team Member'}
+                                  </h3>
+                                  <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-4">
+                                    {member.role || 'Team Member'}
+                                  </p>
+                                </div>
+
+                                <p className="text-foreground/70 leading-relaxed font-light mb-6 flex-1 text-sm">
+                                  {member.bio || ''}
+                                </p>
+
+                                {/* Skills/Expertise Tags */}
+                                {member.expertise && (
+                                  <div className="flex flex-wrap gap-2 mb-4">
+                                    {member.expertise.split(',').map((skill, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="inline-block px-3 py-1.5 bg-foreground/10 text-foreground text-xs font-semibold rounded-full border border-foreground/20 hover:bg-foreground/15 transition-colors"
+                                      >
+                                        {skill.trim()}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {/* LinkedIn Link */}
+                                {member.linkedInProfile && (
+                                  <a
+                                    href={member.linkedInProfile}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
+                                  >
+                                    <Linkedin className="w-4 h-4" />
+                                    Connect
+                                  </a>
+                                )}
+                              </div>
                             </div>
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        </div>
-
-                        {/* Team Member Content */}
-                        <div className="p-6 flex-1 flex flex-col">
-                          <div className="mb-4">
-                            <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
-                              {member.name || 'Team Member'}
-                            </h3>
-                            <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-4">
-                              {member.role || 'Team Member'}
-                            </p>
-                          </div>
-
-                          <p className="text-foreground/70 leading-relaxed font-light mb-6 flex-1 text-sm">
-                            {member.bio || ''}
-                          </p>
-
-                          {/* Skills/Expertise Tags */}
-                          {member.expertise && (
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {member.expertise.split(',').map((skill, idx) => (
-                                <span
-                                  key={idx}
-                                  className="inline-block px-3 py-1.5 bg-foreground/10 text-foreground text-xs font-semibold rounded-full border border-foreground/20 hover:bg-foreground/15 transition-colors"
-                                >
-                                  {skill.trim()}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          {/* LinkedIn Link */}
-                          {member.linkedInProfile && (
-                            <a
-                              href={member.linkedInProfile}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
-                            >
-                              <Linkedin className="w-4 h-4" />
-                              Connect
-                            </a>
-                          )}
-                        </div>
+                          </motion.div>
+                        </AnimatedElement>
                       </div>
-                    </motion.div>
-                  </AnimatedElement>
-                ))}
+                    ))}
+                  </motion.div>
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="flex items-center justify-between mt-8">
+                  <button
+                    onClick={handlePrev}
+                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110"
+                    aria-label="Previous team members"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+
+                  {/* Dots Indicator */}
+                  <div className="flex gap-2">
+                    {Array.from({ length: totalSlides }).map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentIndex(idx)}
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          idx === currentIndex
+                            ? 'bg-primary w-8'
+                            : 'bg-primary/30 w-2 hover:bg-primary/50'
+                        }`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={handleNext}
+                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110"
+                    aria-label="Next team members"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="text-center py-12">
