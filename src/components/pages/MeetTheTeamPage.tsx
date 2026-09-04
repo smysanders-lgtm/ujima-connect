@@ -169,36 +169,37 @@ export default function MeetTheTeamPage() {
         </div>
       </section>
 
-      {/* Team Carousel Section */}
-      <section className="relative py-16 md:py-20 bg-white border-t border-gray-200">
+      {/* Educators & Mentors Section - Large Carousel */}
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-white to-secondary/5 border-t border-gray-200 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
           <AnimatedElement>
-            <div className="mb-12">
+            <div className="mb-16 text-center">
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-secondary/40 rounded-full">
+                <Users size={16} className="text-primary" />
                 <span className="text-xs text-foreground font-paragraph tracking-[0.1em] uppercase font-semibold">
-                  Our Team
+                  Our Educators & Mentors
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground leading-tight mb-3">
-                Educators & Mentors
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground leading-tight mb-4">
+                Meet Our Educators & Mentors
               </h2>
-              <p className="text-base text-foreground/60 font-light">
+              <p className="text-lg md:text-xl text-foreground/70 font-light max-w-3xl mx-auto">
                 Meet the dedicated professionals shaping futures and inspiring change through education and mentorship.
               </p>
             </div>
           </AnimatedElement>
 
-          <div className="min-h-[500px]">
+          <div className="min-h-[600px]">
             {isLoading ? (
-              <div className="flex items-center justify-center py-12">
+              <div className="flex items-center justify-center py-20">
                 <LoadingSpinner className="text-primary w-8 h-8" />
               </div>
             ) : teamMembers.length > 0 ? (
               <div className="relative">
-                {/* Carousel Container */}
+                {/* Large Carousel Container */}
                 <div ref={carouselRef} className="overflow-hidden">
                   <motion.div
-                    className="flex gap-6"
+                    className="flex gap-8"
                     animate={{ x: -currentIndex * (100 / itemsPerView) + '%' }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   >
@@ -209,48 +210,48 @@ export default function MeetTheTeamPage() {
                       >
                         <AnimatedElement delay={index * 50}>
                           <motion.div 
-                            whileHover={{ y: -4 }}
+                            whileHover={{ y: -8 }}
                             className="group h-full"
                           >
-                            <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
-                              {/* Team Member Image */}
-                              <div className="relative overflow-hidden h-72 bg-gradient-to-br from-secondary/20 to-accent/10">
+                            <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
+                              {/* Team Member Image - Larger */}
+                              <div className="relative overflow-hidden h-96 bg-gradient-to-br from-secondary/20 to-accent/10">
                                 {member.profilePicture ? (
                                   <Image
                                     src={member.profilePicture}
                                     alt={member.name || 'Team member'}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                   />
                                 ) : (
                                   <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                                    <Users className="w-16 h-16 text-primary/20" />
+                                    <Users className="w-24 h-24 text-primary/20" />
                                   </div>
                                 )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                               </div>
 
-                              {/* Team Member Content */}
-                              <div className="p-6 flex-1 flex flex-col">
-                                <div className="mb-4">
-                                  <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
+                              {/* Team Member Content - Enhanced */}
+                              <div className="p-8 flex-1 flex flex-col">
+                                <div className="mb-6">
+                                  <h3 className="text-3xl font-heading font-bold text-foreground mb-2">
                                     {member.name || 'Team Member'}
                                   </h3>
-                                  <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-4">
+                                  <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-4">
                                     {member.role || 'Team Member'}
                                   </p>
                                 </div>
 
-                                <p className="text-foreground/70 leading-relaxed font-light mb-6 flex-1 text-sm">
+                                <p className="text-foreground/70 leading-relaxed font-light mb-6 flex-1 text-base">
                                   {member.bio || ''}
                                 </p>
 
                                 {/* Skills/Expertise Tags */}
                                 {member.expertise && (
-                                  <div className="flex flex-wrap gap-2 mb-4">
+                                  <div className="flex flex-wrap gap-2 mb-6">
                                     {member.expertise.split(',').map((skill, idx) => (
                                       <span
                                         key={idx}
-                                        className="inline-block px-3 py-1.5 bg-foreground/10 text-foreground text-xs font-semibold rounded-full border border-foreground/20 hover:bg-foreground/15 transition-colors"
+                                        className="inline-block px-4 py-2 bg-foreground/10 text-foreground text-xs font-semibold rounded-full border border-foreground/20 hover:bg-foreground/15 transition-colors"
                                       >
                                         {skill.trim()}
                                       </span>
@@ -264,9 +265,9 @@ export default function MeetTheTeamPage() {
                                     href={member.linkedInProfile}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
+                                    className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-6 border-t border-gray-100 w-fit"
                                   >
-                                    <Linkedin className="w-4 h-4" />
+                                    <Linkedin className="w-5 h-5" />
                                     Connect
                                   </a>
                                 )}
@@ -279,26 +280,26 @@ export default function MeetTheTeamPage() {
                   </motion.div>
                 </div>
 
-                {/* Navigation Buttons */}
-                <div className="flex items-center justify-between mt-8">
+                {/* Navigation Buttons - Larger */}
+                <div className="flex items-center justify-between mt-12">
                   <button
                     onClick={handlePrev}
-                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110"
+                    className="p-4 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
                     aria-label="Previous team members"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-7 h-7" />
                   </button>
 
                   {/* Dots Indicator */}
-                  <div className="flex gap-2">
+                  <div className="flex gap-3">
                     {Array.from({ length: totalSlides }).map((_, idx) => (
                       <button
                         key={idx}
                         onClick={() => setCurrentIndex(idx)}
-                        className={`h-2 rounded-full transition-all duration-300 ${
+                        className={`rounded-full transition-all duration-300 ${
                           idx === currentIndex
-                            ? 'bg-primary w-8'
-                            : 'bg-primary/30 w-2 hover:bg-primary/50'
+                            ? 'bg-primary w-10 h-3'
+                            : 'bg-primary/30 w-3 h-3 hover:bg-primary/50'
                         }`}
                         aria-label={`Go to slide ${idx + 1}`}
                       />
@@ -307,16 +308,16 @@ export default function MeetTheTeamPage() {
 
                   <button
                     onClick={handleNext}
-                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110"
+                    className="p-4 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
                     aria-label="Next team members"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-7 h-7" />
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-500 font-light">Team members will appear here. Add team members in the CMS to get started.</p>
+              <div className="text-center py-20">
+                <p className="text-gray-500 font-light text-lg">Team members will appear here. Add team members in the CMS to get started.</p>
               </div>
             )}
           </div>
