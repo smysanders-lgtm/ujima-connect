@@ -150,8 +150,7 @@ export default function MeetTheTeamPage() {
                                     <Users className="w-24 h-24 text-primary/20" />
                                   </div>
                                 )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                
+
                                 {/* Founder Badge */}
                                 {member._id === 'founder-dara-baker' && (
                                   <div className="absolute top-6 right-6 bg-accent text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg">
