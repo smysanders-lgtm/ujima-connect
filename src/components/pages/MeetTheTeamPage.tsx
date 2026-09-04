@@ -110,81 +110,24 @@ export default function MeetTheTeamPage() {
         </div>
       </section>
 
-      {/* Founder Spotlight Section - Compact */}
-      <section className="relative py-16 md:py-20 bg-white border-t border-gray-200">
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
-          <AnimatedElement>
-            <div className="inline-flex items-center gap-2 mb-8 px-3 py-1.5 bg-secondary/40 rounded-full">
-              <span className="text-xs text-foreground font-paragraph tracking-[0.1em] uppercase font-semibold">
-                Founder & Vision
-              </span>
-            </div>
-          </AnimatedElement>
 
-          <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
-            {/* Founder Image */}
-            <AnimatedElement delay={100}>
-              <div className="relative group">
-                <div className="relative overflow-hidden rounded-xl shadow-lg">
-                  <Image
-                    src="https://static.wixstatic.com/media/0538ae_aba9d8c6134b4d398636a60f071f5548~mv2.jpg"
-                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
-                    originWidth={1024}
-                    originHeight={1536}
-                    focalPointX={44.62890625}
-                    focalPointY={36.328125}
-                    alt="Dara Baker, Founder"
-                  />
-                </div>
-              </div>
-            </AnimatedElement>
 
-            {/* Founder Content */}
-            <AnimatedElement delay={200}>
-              <div className="space-y-5">
-                <div>
-                  <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-2 leading-tight">
-                    Dara Baker
-                  </h2>
-                  <p className="text-primary font-semibold text-sm tracking-wide uppercase mb-4">
-                    Founder & Community Leader
-                  </p>
-                </div>
-                
-                <p className="text-base md:text-lg text-foreground/75 leading-relaxed font-light">
-                  Founder of Ujima Creative Writing & Services, Dara Baker is a writer, educator, and creative strategist committed to uplifting communities through storytelling and technology. She holds a BA in Arts from Chicago State University, an MBA in Business Management from the University of Phoenix, a Project Management Certificate from Collin Community College, and a Certificate in Artificial Intelligence: Implications for Business Strategy from Massachusetts Institute of Technology (MIT) Sloan Management School. Dara's work spans creative writing, corporate documentation, and international training with a multi-cultural training program. She has published poems in Grass Roots Magazine, written numerous memorial and obituary poems, authored extensive Standard Operating Procedures across multiple industries, and traveled abroad to train teams on advanced publishing tools and workflow systems.
-                </p>
-
-                <div className="pt-2">
-                  <Link to="/about">
-                    <Button className="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary/90 font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 group text-sm">
-                      Learn More
-                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </AnimatedElement>
-          </div>
-        </div>
-      </section>
-
-      {/* Educators & Mentors Section - Large Carousel */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-white to-secondary/5 border-t border-gray-200 overflow-hidden">
+      {/* Team Carousel Section - Full Width */}
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-white to-secondary/5 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
           <AnimatedElement>
             <div className="mb-16 text-center">
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-secondary/40 rounded-full">
                 <Users size={16} className="text-primary" />
                 <span className="text-xs text-foreground font-paragraph tracking-[0.1em] uppercase font-semibold">
-                  Our Educators & Mentors
+                  Our Team
                 </span>
               </div>
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground leading-tight mb-4">
-                Meet Our Educators & Mentors
+                Meet Our Team
               </h2>
               <p className="text-lg md:text-xl text-foreground/70 font-light max-w-3xl mx-auto">
-                Meet the dedicated professionals shaping futures and inspiring change through education and mentorship.
+                The passionate mentors, educators, and leaders dedicated to empowering communities through education and creative expression.
               </p>
             </div>
           </AnimatedElement>
