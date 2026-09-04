@@ -92,32 +92,6 @@ export default function MeetTheTeamPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-      {/* Hero Section - Compact */}
-      <section className="relative bg-white pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden">
-        <div className="container mx-auto px-6 max-w-6xl relative z-10">
-          <AnimatedElement>
-            <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-secondary/40 rounded-full">
-              <Sparkles size={14} className="text-primary" />
-              <span className="text-xs text-foreground font-paragraph tracking-[0.1em] uppercase font-semibold">
-                Our Leadership
-              </span>
-            </div>
-          </AnimatedElement>
-
-          <AnimatedElement delay={100}>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-4 leading-[1.1] tracking-tight text-foreground">
-              Meet the Team
-            </h1>
-          </AnimatedElement>
-
-          <AnimatedElement delay={200}>
-            <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-3xl font-light">
-              The passionate mentors, educators, and writers behind Ujima's transformative programs, dedicated to empowering communities through education and creative expression.
-            </p>
-          </AnimatedElement>
-        </div>
-      </section>
-
       {/* Team Carousel Section - Full Width */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-white to-secondary/5 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
