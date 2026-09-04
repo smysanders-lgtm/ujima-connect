@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
-import { ExternalLink, Building2, Phone, AlertCircle, BookOpen } from 'lucide-react';
+import { ExternalLink, Building2, Phone, AlertCircle, BookOpen, Search, X } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -122,6 +122,8 @@ export default function ResourcesPage() {
   const [selectedGroup, setSelectedGroup] = useState<string>('Learning & Growth');
   const [selectedTopic, setSelectedTopic] = useState<string>('all');
   const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedResource, setExpandedResource] = useState<string | null>(null);
 
   useEffect(() => {
     loadResources();
@@ -140,9 +142,21 @@ export default function ResourcesPage() {
 
   const currentGroupTopics = CATEGORY_GROUPS[selectedGroup as keyof typeof CATEGORY_GROUPS] || [];
   const topics = ['all', ...currentGroupTopics];
-  const filteredResources = selectedTopic === 'all'
+  
+  let filteredResources = selectedTopic === 'all'
     ? resources.filter(r => currentGroupTopics.includes(r.topic || ''))
     : resources.filter(r => r.topic === selectedTopic);
+  
+  // Apply search filter
+  if (searchQuery.trim()) {
+    const query = searchQuery.toLowerCase();
+    filteredResources = filteredResources.filter(r =>
+      r.resourceTitle?.toLowerCase().includes(query) ||
+      r.description?.toLowerCase().includes(query) ||
+      r.provider?.toLowerCase().includes(query) ||
+      r.contactDetails?.toLowerCase().includes(query)
+    );
+  }
   
   const showBooks = selectedGroup === 'Learning & Growth';
 
@@ -169,24 +183,48 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Category Group Tabs */}
-      <section className="py-8 bg-background border-b border-foreground/10">
+      {/* Search and Filter Section */}
+      <section className="py-12 bg-background border-b border-foreground/10">
         <div className="container mx-auto px-4 max-w-[100rem]">
           <AnimatedElement>
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-              <span className="text-sm font-paragraph text-foreground/60 font-semibold">BROWSE BY:</span>
-              <div className="flex gap-3">
+            {/* Search Bar */}
+            <div className="mb-8">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-foreground/40" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search resources by name, provider, or topic..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-lg border border-foreground/20 focus:outline-none focus:ring-2 focus:ring-foreground/30 font-paragraph text-foreground placeholder-foreground/40"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Category Group Tabs */}
+            <div className="mb-6">
+              <span className="text-xs font-paragraph text-foreground/60 font-semibold uppercase tracking-wide block mb-4">Browse by Category</span>
+              <div className="flex flex-wrap gap-3">
                 {Object.keys(CATEGORY_GROUPS).map((group) => (
                   <button
                     key={group}
                     onClick={() => {
                       setSelectedGroup(group);
                       setSelectedTopic('all');
+                      setSearchQuery('');
                     }}
-                    className={`px-4 py-2 rounded-full font-paragraph text-sm transition-all duration-200 ${
+                    className={`px-5 py-2.5 rounded-full font-paragraph text-sm font-medium transition-all duration-200 ${
                       selectedGroup === group
-                        ? 'bg-foreground text-white'
-                        : 'bg-white text-foreground border border-foreground/20 hover:border-foreground/40'
+                        ? 'bg-foreground text-white shadow-md'
+                        : 'bg-white text-foreground border border-foreground/20 hover:border-foreground/40 hover:shadow-sm'
                     }`}
                   >
                     {group}
@@ -194,34 +232,31 @@ export default function ResourcesPage() {
                 ))}
               </div>
             </div>
+
+            {/* Topic Filter Pills */}
+            {topics.length > 1 && (
+              <div>
+                <span className="text-xs font-paragraph text-foreground/60 font-semibold uppercase tracking-wide block mb-4">Filter by Topic</span>
+                <div className="flex flex-wrap gap-2">
+                  {topics.map((topic) => (
+                    <button
+                      key={topic}
+                      onClick={() => setSelectedTopic(topic)}
+                      className={`px-4 py-2 rounded-full font-paragraph text-xs font-medium transition-all duration-200 ${
+                        selectedTopic === topic
+                          ? 'bg-foreground text-white shadow-md'
+                          : 'bg-white text-foreground border border-foreground/20 hover:border-foreground/40 hover:shadow-sm'
+                      }`}
+                    >
+                      {topic === 'all' ? 'All Topics' : topic}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </AnimatedElement>
         </div>
       </section>
-
-      {/* Category Filter Pills */}
-      {topics.length > 1 && (
-        <section className="py-8 bg-background border-b border-foreground/10">
-          <div className="container mx-auto px-4 max-w-[100rem]">
-            <AnimatedElement>
-              <div className="flex flex-wrap gap-3">
-                {topics.map((topic) => (
-                  <button
-                    key={topic}
-                    onClick={() => setSelectedTopic(topic)}
-                    className={`px-4 py-2 rounded-full font-paragraph text-sm transition-all duration-200 ${
-                      selectedTopic === topic
-                        ? 'bg-foreground text-white'
-                        : 'bg-white text-foreground border border-foreground/20 hover:border-foreground/40'
-                    }`}
-                  >
-                    {topic === 'all' ? 'All' : topic}
-                  </button>
-                ))}
-              </div>
-            </AnimatedElement>
-          </div>
-        </section>
-      )}
 
       {/* Resources Grid */}
       <section className="py-20 bg-background">
@@ -294,69 +329,87 @@ export default function ResourcesPage() {
                 <LoadingSpinner />
               </div>
             ) : filteredResources.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredResources.map((resource, index) => {
-                  const groupKey = Object.entries(CATEGORY_GROUPS).find(([_, topics]) =>
-                    topics.includes(resource.topic || '')
-                  )?.[0] || 'Learning & Growth';
-                  const colorClass = CATEGORY_COLORS[groupKey as keyof typeof CATEGORY_COLORS] || 'bg-primary/10 text-primary';
+              <>
+                <div className="mb-6 flex items-center justify-between">
+                  <p className="text-sm font-paragraph text-foreground/60">
+                    Showing <span className="font-bold text-foreground">{filteredResources.length}</span> resource{filteredResources.length !== 1 ? 's' : ''}
+                  </p>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredResources.map((resource, index) => {
+                    const groupKey = Object.entries(CATEGORY_GROUPS).find(([_, topics]) =>
+                      topics.includes(resource.topic || '')
+                    )?.[0] || 'Learning & Growth';
+                    const colorClass = CATEGORY_COLORS[groupKey as keyof typeof CATEGORY_COLORS] || 'bg-primary/10 text-primary';
 
-                  return (
-                    <AnimatedElement key={resource._id} delay={index * 50}>
-                      <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col">
-                        {resource.topic && (
-                          <span className={`px-3 py-1 ${colorClass} text-xs rounded-full font-bold mb-4 inline-block w-fit`}>
-                            {resource.topic}
-                          </span>
-                        )}
+                    return (
+                      <AnimatedElement key={resource._id} delay={index * 50}>
+                        <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-foreground/10 h-full flex flex-col group">
+                          {/* Header with Topic Badge */}
+                          <div className="flex items-start justify-between gap-3 mb-3">
+                            {resource.topic && (
+                              <span className={`px-3 py-1 ${colorClass} text-xs rounded-full font-bold flex-shrink-0`}>
+                                {resource.topic}
+                              </span>
+                            )}
+                          </div>
 
-                        <h3 className="text-xl font-heading font-bold text-foreground mb-3">
-                          {resource.resourceTitle}
-                        </h3>
+                          {/* Title */}
+                          <h3 className="text-lg font-heading font-bold text-foreground mb-2 line-clamp-2 group-hover:text-foreground/90 transition-colors">
+                            {resource.resourceTitle}
+                          </h3>
 
-                        <p className="text-foreground/70 leading-relaxed mb-4 flex-1">
-                          {resource.description}
-                        </p>
+                          {/* Description */}
+                          <p className="text-foreground/70 leading-relaxed mb-4 flex-1 text-sm line-clamp-2">
+                            {resource.description}
+                          </p>
 
-                        <div className="space-y-2 mb-6">
-                          {resource.contactDetails && (
-                            <div className="flex items-start gap-2 text-sm text-foreground/60">
-                              <Phone size={16} className="text-primary flex-shrink-0 mt-0.5" />
-                              <span>{resource.contactDetails}</span>
-                            </div>
-                          )}
-                          {resource.provider && (
-                            <div className="flex items-start gap-2 text-sm text-foreground/60">
-                              <Building2 size={16} className="text-primary flex-shrink-0 mt-0.5" />
-                              <span>{resource.provider}</span>
-                            </div>
+                          {/* Contact Details */}
+                          <div className="space-y-2 mb-4 text-xs">
+                            {resource.contactDetails && (
+                              <div className="flex items-start gap-2 text-foreground/60">
+                                <Phone size={14} className="text-primary flex-shrink-0 mt-0.5" />
+                                <span className="line-clamp-1">{resource.contactDetails}</span>
+                              </div>
+                            )}
+                            {resource.provider && (
+                              <div className="flex items-start gap-2 text-foreground/60">
+                                <Building2 size={14} className="text-primary flex-shrink-0 mt-0.5" />
+                                <span className="line-clamp-1">{resource.provider}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Action Button */}
+                          {resource.resourceLink && (
+                            <Button
+                              asChild
+                              className="w-full bg-primary text-white hover:bg-primary/90 transition-all duration-200 text-sm h-9"
+                            >
+                              <a
+                                href={resource.resourceLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center"
+                              >
+                                Visit Resource
+                                <ExternalLink size={14} className="ml-2" />
+                              </a>
+                            </Button>
                           )}
                         </div>
-
-                        {resource.resourceLink && (
-                          <Button
-                            asChild
-                            className="w-full bg-primary text-white hover:bg-primary/90 transition-all duration-200"
-                          >
-                            <a
-                              href={resource.resourceLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center"
-                            >
-                              Visit Resource
-                              <ExternalLink size={16} className="ml-2" />
-                            </a>
-                          </Button>
-                        )}
-                      </div>
-                    </AnimatedElement>
-                  );
-                })}
-              </div>
+                      </AnimatedElement>
+                    );
+                  })}
+                </div>
+              </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-foreground/60 text-lg">No resources found in this category.</p>
+                <AlertCircle size={48} className="mx-auto text-foreground/30 mb-4" />
+                <p className="text-foreground/60 text-lg font-paragraph mb-2">No resources found</p>
+                <p className="text-foreground/40 text-sm">
+                  {searchQuery ? 'Try adjusting your search terms' : 'Try selecting a different category or topic'}
+                </p>
               </div>
             )}
           </div>
