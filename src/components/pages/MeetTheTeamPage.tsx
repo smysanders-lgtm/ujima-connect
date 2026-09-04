@@ -83,7 +83,6 @@ export default function MeetTheTeamPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-      
       {/* Hero Section - Compact */}
       <section className="relative bg-white pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden">
         <div className="container mx-auto px-6 max-w-6xl relative z-10">
@@ -109,9 +108,6 @@ export default function MeetTheTeamPage() {
           </AnimatedElement>
         </div>
       </section>
-
-
-
       {/* Founder Spotlight Section */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-secondary/10 to-white overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
@@ -141,8 +137,7 @@ export default function MeetTheTeamPage() {
                         alt="Dara Baker - Founder"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
+
                       {/* Founder Badge */}
                       <div className="absolute top-6 right-6 bg-accent text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg">
                         Founder
@@ -182,7 +177,6 @@ export default function MeetTheTeamPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Team Carousel Section - Full Width */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-white to-secondary/5 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
@@ -337,7 +331,6 @@ export default function MeetTheTeamPage() {
           </div>
         </div>
       </section>
-
       {/* CTA Section - Compact */}
       <section className="relative py-16 md:py-20 bg-gradient-to-br from-foreground via-foreground to-primary text-white overflow-hidden">
         <div className="container mx-auto px-6 max-w-4xl relative z-10">
@@ -374,7 +367,6 @@ export default function MeetTheTeamPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
