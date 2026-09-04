@@ -384,7 +384,7 @@ export default function HomePage() {
 
                             {/* Team Member Content */}
                             <div className="p-6 flex-1 flex flex-col">
-                              <div className="mb-4">
+                              <div className="mb-6">
                                 <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
                                   {member.name || 'Team Member'}
                                 </h3>
@@ -393,22 +393,12 @@ export default function HomePage() {
                                 </p>
                               </div>
 
-                              <p className="text-foreground/70 leading-relaxed font-light mb-4 flex-1 text-sm">
-                                {member.bio || ''}
-                              </p>
-
-                              {/* LinkedIn Link */}
-                              {member.linkedInProfile && (
-                                <a
-                                  href={member.linkedInProfile}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors duration-300 font-semibold text-sm pt-4 border-t border-gray-100"
-                                >
-                                  <Linkedin className="w-4 h-4" />
-                                  Connect
-                                </a>
-                              )}
+                              <Link
+                                to="/team"
+                                className="mt-auto inline-flex items-center justify-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 font-semibold text-sm"
+                              >
+                                Learn More
+                              </Link>
                             </div>
                           </div>
                         </motion.div>
