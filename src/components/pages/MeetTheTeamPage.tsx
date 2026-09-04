@@ -181,8 +181,8 @@ export default function MeetTheTeamPage() {
                 <LoadingSpinner className="text-primary w-8 h-8" />
               </div>
             ) : teamMembers.length > 0 ? (
-              <div className="grid md:grid-cols-2 gap-6">
-                {teamMembers.slice(0, 2).map((member, index) => (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {teamMembers.map((member, index) => (
                   <AnimatedElement key={member._id} delay={index * 100}>
                     <motion.div 
                       whileHover={{ y: -4 }}
@@ -190,7 +190,7 @@ export default function MeetTheTeamPage() {
                     >
                       <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-secondary/50">
                         {/* Team Member Image */}
-                        <div className="relative overflow-hidden aspect-square bg-gradient-to-br from-secondary/20 to-accent/10">
+                        <div className="relative overflow-hidden h-72 bg-gradient-to-br from-secondary/20 to-accent/10">
                           {member.profilePicture ? (
                             <Image
                               src={member.profilePicture}
