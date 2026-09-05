@@ -47,37 +47,16 @@ export default function Header() {
             />
           </Link>
 
-          {/* CTA Button - Desktop */}
-          <div className="hidden md:block">
-            <Button
-              asChild
-              className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 hover:scale-[1.02]"
-            >
-              <Link to="/contact">Get Started</Link>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-foreground hover:text-primary transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Desktop Navigation - Tab Style */}
-        <nav className="hidden md:flex items-center justify-between border-t border-foreground/10">
-          <div className="flex items-center">
+          {/* Desktop Navigation - Tab Style */}
+          <nav className="hidden md:flex items-center gap-1">
             {mainTabs.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-4 py-3 text-sm font-paragraph transition-all duration-200 border-b-2 hover:text-primary ${
+                className={`px-3 py-2 text-sm font-paragraph transition-all duration-200 hover:text-primary ${
                   isActive(link.path)
-                    ? 'text-primary font-medium border-b-primary'
-                    : 'text-foreground border-b-transparent hover:border-b-foreground/30'
+                    ? 'text-primary font-medium'
+                    : 'text-foreground'
                 }`}
               >
                 {link.name}
@@ -87,7 +66,7 @@ export default function Header() {
             {/* Dropdown Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="px-4 py-3 text-sm font-paragraph text-foreground border-b-2 border-b-transparent hover:text-primary hover:border-b-foreground/30 transition-all duration-200 flex items-center gap-1">
+                <button className="px-3 py-2 text-sm font-paragraph text-foreground hover:text-primary transition-all duration-200 flex items-center gap-1">
                   More
                   <ChevronDown size={16} />
                 </button>
@@ -107,8 +86,27 @@ export default function Header() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+          </nav>
+
+          {/* CTA Button - Desktop */}
+          <div className="hidden md:block">
+            <Button
+              asChild
+              className="bg-primary text-white hover:bg-primary/90 transition-all duration-200 hover:scale-[1.02]"
+            >
+              <Link to="/contact">Get Started</Link>
+            </Button>
           </div>
-        </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden text-foreground hover:text-primary transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
