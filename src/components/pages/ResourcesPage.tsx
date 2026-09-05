@@ -166,26 +166,32 @@ export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
       {/* Hero Section */}
-      <section className="relative bg-secondary py-16 md:py-24 lg:py-32">
-        <div className="container mx-auto px-4 max-w-[100rem]">
+      <section className="relative bg-gradient-to-br from-secondary to-white pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
+        <div className="container mx-auto max-w-[100rem] relative z-10">
           <AnimatedElement>
-            <div className="max-w-3xl">
-              <div className="inline-block px-3 py-1 bg-primary text-white rounded-full mb-6 text-xs font-bold tracking-wide">
-                RESOURCES
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="relative">
+
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-foreground mb-6 leading-tight drop-shadow-sm">
+                  Resources for the Whole Person
+                </h1>
+                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-2xl font-paragraph">
+                  Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
+                </p>
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground mb-6">
-                Resources for the Whole Person
-              </h1>
-              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-2xl">
-                Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
-              </p>
+              <div className="hidden lg:flex justify-center items-center relative">
+                <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl opacity-70 animate-pulse-slow"></div>
+                <div className="relative w-80 h-80 bg-foreground/10 rounded-full flex items-center justify-center shadow-2xl border-4 border-foreground/10">
+                  <BookOpen size={120} className="text-foreground/30" />
+                </div>
+              </div>
             </div>
           </AnimatedElement>
         </div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float"></div>
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float animation-delay-2000"></div>
       </section>
-
       {/* Search and Filter Section */}
       <section className="py-12 bg-background border-b border-foreground/10">
         <div className="container mx-auto px-4 max-w-[100rem]">
@@ -275,7 +281,6 @@ export default function ResourcesPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Resources Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-[100rem]">
@@ -408,7 +413,6 @@ export default function ResourcesPage() {
           </div>
         </div>
       </section>
-
       {/* Suggest a Resource Section */}
       <section className="py-16 md:py-20 bg-secondary">
         <div className="container mx-auto px-4 max-w-[100rem]">
@@ -431,7 +435,6 @@ export default function ResourcesPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Newsletter Signup Section */}
       <section className="py-16 md:py-20 bg-foreground text-white">
         <div className="container mx-auto px-4 max-w-[100rem]">
@@ -469,7 +472,6 @@ export default function ResourcesPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* Crisis/Urgent Support Callout */}
       <section className="bg-foreground text-white py-12 md:py-16">
         <div className="container mx-auto px-4 max-w-[100rem]">
@@ -506,7 +508,6 @@ export default function ResourcesPage() {
           </AnimatedElement>
         </div>
       </section>
-
       <Footer />
     </div>
   );
