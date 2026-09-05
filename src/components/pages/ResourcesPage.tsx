@@ -167,30 +167,27 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-background">
       <Header />
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" style={{
-        backgroundImage: 'url(https://static.wixstatic.com/media/0538ae_5bbb79f884414f08b655a4853308b748~mv2.png?originWidth=1280&originHeight=704)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}>
-        {/* Black Overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-        
-        <div className="container mx-auto px-4 max-w-[100rem] relative z-10">
+      <section className="relative bg-gradient-to-br from-secondary to-white pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
+        <div className="container mx-auto max-w-[100rem] relative z-10">
           <AnimatedElement>
-            <div className="max-w-3xl">
-              <div className="inline-block px-3 py-1 bg-primary text-white rounded-full mb-6 text-xs font-bold tracking-wide">
-                RESOURCES
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="relative">
+                <div className="inline-block px-4 py-1.5 bg-primary text-white rounded-full mb-6 text-sm font-bold tracking-wider uppercase shadow-lg">
+                  RESOURCES
+                </div>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-foreground mb-6 leading-tight drop-shadow-sm">
+                  Resources for the Whole Person
+                </h1>
+                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-2xl font-paragraph">
+                  Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
+                </p>
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6">
-                Resources for the Whole Person
-              </h1>
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl font-paragraph">
-                Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
-              </p>
+
             </div>
           </AnimatedElement>
         </div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float"></div>
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float animation-delay-2000"></div>
       </section>
       {/* Search and Filter Section */}
       <section className="py-12 bg-background border-b border-foreground/10">
@@ -288,25 +285,29 @@ export default function ResourcesPage() {
           {showBooks && (
             <div className="mb-12">
               <AnimatedElement>
-                <div className="bg-foreground relative overflow-hidden rounded-lg p-8 md:p-16 lg:p-20">
-                  {/* Decorative subtle pattern */}
-                  <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
-                  
-                  <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-                    <div className="flex-1 max-w-2xl">
-                      <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-tight">
-                        Explore Our <span className="text-accent">Reading</span> Collection
+                <div className="bg-gradient-to-r from-emerald-50 to-emerald-100/50 rounded-xl p-6 md:p-8 border border-emerald-200 overflow-hidden">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex-1">
+                      <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
+                        📚 Featured Reading Collection
                       </h2>
-                      <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light font-paragraph">
-                        Discover a carefully curated selection of books designed to support your learning journey, expand your perspectives, and strengthen your community connections. From writing guides to personal development, find resources that inspire growth.
+                      <p className="text-base text-foreground/70 mb-4">
+                        Explore our curated collection of books to support your learning and growth journey.
                       </p>
+                      <Button
+                        onClick={() => navigate('/reading-collection')}
+                        size="sm"
+                        className="bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
+                      >
+                        View Collection
+                      </Button>
                     </div>
-                    <div className="w-full lg:w-80 h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden flex-shrink-0 shadow-2xl">
+                    <div className="w-full md:w-48 h-32 md:h-40 rounded-lg overflow-hidden flex-shrink-0">
                       <Image
-                        src="https://static.wixstatic.com/media/0538ae_89125f2511404fbe8d337ee30b509b2c~mv2.png?originWidth=320&originHeight=256"
-                        alt="Library shelves with books representing knowledge and learning resources"
-                        width={320}
-                        height={288}
+                        src="https://static.wixstatic.com/media/0538ae_6404cecb22604f6cbec48ae1dbcb157b~mv2.png?originWidth=768&originHeight=576"
+                        alt="Community food drive with volunteers organizing and distributing groceries"
+                        width={200}
+                        height={150}
                         className="w-full h-full object-cover"
                       />
                     </div>
