@@ -167,23 +167,19 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-background">
       <Header />
       {/* Hero Section */}
-      <section className="relative bg-secondary pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
-        <div className="container mx-auto max-w-[100rem] relative z-10">
+      <section className="relative bg-secondary py-16 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 max-w-[100rem]">
           <AnimatedElement>
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="relative">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground mb-6 leading-tight">
-                  Resources for the Whole Person
-                </h1>
-                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-2xl font-paragraph font-light">
-                  Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
-                </p>
+            <div className="max-w-3xl">
+              <div className="inline-block px-3 py-1 bg-primary text-white rounded-full mb-6 text-xs font-bold tracking-wide">
+                RESOURCES
               </div>
-              <div className="hidden lg:flex justify-center items-center relative">
-                <div className="relative w-80 h-80 bg-foreground/5 rounded-full flex items-center justify-center">
-                  <BookOpen size={120} className="text-foreground/20" />
-                </div>
-              </div>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground mb-6">
+                Resources for the Whole Person
+              </h1>
+              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-2xl font-paragraph">
+                Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
+              </p>
             </div>
           </AnimatedElement>
         </div>
