@@ -284,32 +284,25 @@ export default function ResourcesPage() {
           {showBooks && (
             <div className="mb-12">
               <AnimatedElement>
-                <div className="bg-secondary relative overflow-hidden rounded-lg p-8 md:p-12">
+                <div className="bg-foreground relative overflow-hidden rounded-lg p-8 md:p-16 lg:p-20">
                   {/* Decorative subtle pattern */}
-                  <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
+                  <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
                   
-                  <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex-1">
-                      <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
-                        Featured Reading Collection
+                  <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+                    <div className="flex-1 max-w-2xl">
+                      <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-tight">
+                        Explore Our <span className="text-accent">Reading</span> Collection
                       </h2>
-                      <p className="text-lg text-foreground/70 mb-8 leading-relaxed font-light">
-                        Explore our curated collection of books to support your learning and growth journey.
+                      <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light font-paragraph">
+                        Discover a carefully curated selection of books designed to support your learning journey, expand your perspectives, and strengthen your community connections. From writing guides to personal development, find resources that inspire growth.
                       </p>
-                      <Button
-                        onClick={() => navigate('/reading-collection')}
-                        size="lg"
-                        className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
-                      >
-                        View Collection
-                      </Button>
                     </div>
-                    <div className="w-full md:w-64 h-48 md:h-56 rounded-lg overflow-hidden flex-shrink-0 shadow-lg">
+                    <div className="w-full lg:w-80 h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden flex-shrink-0 shadow-2xl">
                       <Image
                         src="https://static.wixstatic.com/media/0538ae_6404cecb22604f6cbec48ae1dbcb157b~mv2.png?originWidth=768&originHeight=576"
                         alt="Community food drive with volunteers organizing and distributing groceries"
-                        width={256}
-                        height={224}
+                        width={320}
+                        height={288}
                         className="w-full h-full object-cover"
                       />
                     </div>
