@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Youtube, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -73,8 +73,28 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Social Media & Bottom Bar */}
         <div className="border-t border-white/10 pt-6">
+          <div className="flex justify-center items-center space-x-6 mb-4">
+            <a
+              href="https://www.youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/80 hover:text-primary transition-colors"
+              aria-label="YouTube"
+            >
+              <Youtube size={20} />
+            </a>
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/80 hover:text-primary transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram size={20} />
+            </a>
+          </div>
           <p className="text-sm text-white/60 text-center">© 2026 Ujima Creative Writing Servces. All rights reserved.</p>
         </div>
       </div>
