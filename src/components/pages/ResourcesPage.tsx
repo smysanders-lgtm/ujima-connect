@@ -281,26 +281,34 @@ export default function ResourcesPage() {
         <div className="container mx-auto px-4 max-w-[100rem]">
           {/* Featured Books Section - Button to Reading Collection Page */}
           {showBooks && (
-            <div className="mb-20">
+            <div className="mb-12">
               <AnimatedElement>
-                <div className="bg-gradient-to-r from-emerald-50 to-emerald-100/50 rounded-2xl p-8 md:p-12 border border-emerald-200">
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="bg-gradient-to-r from-emerald-50 to-emerald-100/50 rounded-xl p-6 md:p-8 border border-emerald-200 overflow-hidden">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex-1">
-                      <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                      <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
                         📚 Featured Reading Collection
                       </h2>
-                      <p className="text-lg text-foreground/70 mb-6">
-                        Explore our curated collection of books to support your learning and growth journey. Discover resources handpicked to inspire and educate.
+                      <p className="text-base text-foreground/70 mb-4">
+                        Explore our curated collection of books to support your learning and growth journey.
                       </p>
                       <Button
                         onClick={() => navigate('/reading-collection')}
-                        size="lg"
+                        size="sm"
                         className="bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
                       >
-                        View Full Collection
+                        View Collection
                       </Button>
                     </div>
-                    <div className="hidden lg:block text-6xl">📚</div>
+                    <div className="w-full md:w-48 h-32 md:h-40 rounded-lg overflow-hidden flex-shrink-0">
+                      <Image
+                        src="https://static.wixstatic.com/media/0538ae_6404cecb22604f6cbec48ae1dbcb157b~mv2.png?originWidth=768&originHeight=576"
+                        alt="Community food drive with volunteers organizing and distributing groceries"
+                        width={200}
+                        height={150}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
               </AnimatedElement>
