@@ -167,17 +167,25 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-background">
       <Header />
       {/* Hero Section */}
-      <section className="relative bg-secondary py-16 md:py-24 lg:py-32">
-        <div className="container mx-auto px-4 max-w-[100rem]">
+      <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" style={{
+        backgroundImage: 'url(https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=1)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
+        {/* Black Overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+        
+        <div className="container mx-auto px-4 max-w-[100rem] relative z-10">
           <AnimatedElement>
             <div className="max-w-3xl">
               <div className="inline-block px-3 py-1 bg-primary text-white rounded-full mb-6 text-xs font-bold tracking-wide">
                 RESOURCES
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground mb-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6">
                 Resources for the Whole Person
               </h1>
-              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-2xl font-paragraph">
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl font-paragraph">
                 Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
               </p>
             </div>
