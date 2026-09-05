@@ -168,7 +168,7 @@ export default function ResourcesPage() {
       <Header />
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" style={{
-        backgroundImage: 'url(https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=1)',
+        backgroundImage: 'url(https://static.wixstatic.com/media/0538ae_5bbb79f884414f08b655a4853308b748~mv2.png?originWidth=1280&originHeight=704)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
@@ -303,8 +303,8 @@ export default function ResourcesPage() {
                     </div>
                     <div className="w-full lg:w-80 h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden flex-shrink-0 shadow-2xl">
                       <Image
-                        src="https://static.wixstatic.com/media/0538ae_6404cecb22604f6cbec48ae1dbcb157b~mv2.png?originWidth=768&originHeight=576"
-                        alt="Community food drive with volunteers organizing and distributing groceries"
+                        src="https://static.wixstatic.com/media/0538ae_89125f2511404fbe8d337ee30b509b2c~mv2.png?originWidth=320&originHeight=256"
+                        alt="Library shelves with books representing knowledge and learning resources"
                         width={320}
                         height={288}
                         className="w-full h-full object-cover"
