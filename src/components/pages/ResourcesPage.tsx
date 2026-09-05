@@ -167,27 +167,53 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-background">
       <Header />
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-secondary to-white pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
+      <section className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
         <div className="container mx-auto max-w-[100rem] relative z-10">
           <AnimatedElement>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="relative">
-                <div className="inline-block px-4 py-1.5 bg-primary text-white rounded-full mb-6 text-sm font-bold tracking-wider uppercase shadow-lg">
-                  RESOURCES
+                <div className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full mb-6 text-xs font-bold tracking-wider uppercase shadow-lg border border-white/20">
+                  COMPREHENSIVE SUPPORT
                 </div>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-foreground mb-6 leading-tight drop-shadow-sm">
-                  Resources for the Whole Person
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white mb-6 leading-tight">
+                  Supporting <span className="text-accent">Growth.</span> Strengthening <span className="text-white">Communities.</span>
                 </h1>
-                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-2xl font-paragraph">
-                  Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
+                <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl font-paragraph">
+                  Education, resources, and technology empowering individuals and communities to learn, develop skills, access opportunities, and confidently navigate an evolving digital world.
                 </p>
+                <div className="flex flex-wrap gap-4 mt-8">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-accent text-white hover:bg-accent/90 transition-all duration-200 font-bold"
+                  >
+                    <a href="#resources">Explore Resources</a>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white/10 transition-all duration-200 font-bold"
+                  >
+                    <a href="/contact">Contact Us</a>
+                  </Button>
+                </div>
               </div>
-
+              <div className="hidden lg:block relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent rounded-2xl blur-2xl"></div>
+                <Image
+                  src="https://static.wixstatic.com/media/0538ae_2d40c43348304324926fc8c7d684d789~mv2.png?originWidth=448&originHeight=384"
+                  alt="Community learning and growth"
+                  width={500}
+                  height={400}
+                  className="relative z-10 rounded-2xl object-cover w-full h-auto"
+                />
+              </div>
             </div>
           </AnimatedElement>
         </div>
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float"></div>
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float animation-delay-2000"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-accent/5 rounded-full mix-blend-multiply opacity-20 blur-3xl animate-float"></div>
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-white/5 rounded-full mix-blend-multiply opacity-20 blur-3xl animate-float animation-delay-2000"></div>
       </section>
       {/* Search and Filter Section */}
       <section className="py-12 bg-background border-b border-foreground/10">
