@@ -1,21 +1,33 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Programs', path: '/programs' },
+  const mainTabs = [
     { name: 'About', path: '/about' },
-    { name: 'Resources', path: '/resources' },
+    { name: 'Programs', path: '/programs' },
     { name: 'Events', path: '/events' },
-    { name: 'Team', path: '/team' },
     { name: 'Get Involved', path: '/get-involved' },
+  ];
+
+  const dropdownLinks = [
+    { name: 'Resources', path: '/resources' },
+    { name: 'Team', path: '/team' },
+    { name: 'Become a Mentor', path: '/become-a-mentor' },
+    { name: 'Volunteer Your Skills', path: '/volunteer-your-skills' },
+    { name: 'Donation', path: '/donation' },
+    { name: 'Spread the Word', path: '/spread-the-word' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -56,27 +68,53 @@ export default function Header() {
         </div>
 
         {/* Desktop Navigation - Tab Style */}
-        <nav className="hidden md:flex items-center border-t border-foreground/10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`px-4 py-3 text-sm font-paragraph transition-all duration-200 border-b-2 hover:text-primary ${
-                isActive(link.path)
-                  ? 'text-primary font-medium border-b-primary'
-                  : 'text-foreground border-b-transparent hover:border-b-foreground/30'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center justify-between border-t border-foreground/10">
+          <div className="flex items-center">
+            {mainTabs.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`px-4 py-3 text-sm font-paragraph transition-all duration-200 border-b-2 hover:text-primary ${
+                  isActive(link.path)
+                    ? 'text-primary font-medium border-b-primary'
+                    : 'text-foreground border-b-transparent hover:border-b-foreground/30'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            
+            {/* Dropdown Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="px-4 py-3 text-sm font-paragraph text-foreground border-b-2 border-b-transparent hover:text-primary hover:border-b-foreground/30 transition-all duration-200 flex items-center gap-1">
+                  More
+                  <ChevronDown size={16} />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {dropdownLinks.map((link) => (
+                  <DropdownMenuItem key={link.path} asChild>
+                    <Link
+                      to={link.path}
+                      className={`cursor-pointer ${
+                        isActive(link.path) ? 'text-primary font-medium' : 'text-foreground'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </nav>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="md:hidden pb-4 border-t border-foreground/10 pt-4">
             <div className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
+              {mainTabs.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -88,6 +126,26 @@ export default function Header() {
                   {link.name}
                 </Link>
               ))}
+              
+              {/* Mobile Dropdown */}
+              <div className="border-t border-foreground/10 pt-4">
+                <div className="text-sm font-paragraph text-foreground mb-2">More</div>
+                <div className="flex flex-col space-y-2 pl-2">
+                  {dropdownLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`text-sm font-paragraph transition-colors hover:text-primary ${
+                        isActive(link.path) ? 'text-primary font-medium' : 'text-foreground'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              
               <Button
                 asChild
                 className="bg-primary text-white hover:bg-primary/90 w-full"
