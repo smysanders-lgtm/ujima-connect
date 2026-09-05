@@ -167,30 +167,26 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-background">
       <Header />
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-secondary to-white pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
+      <section className="relative bg-secondary pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 overflow-hidden px-6 md:px-12">
         <div className="container mx-auto max-w-[100rem] relative z-10">
           <AnimatedElement>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="relative">
-
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-foreground mb-6 leading-tight drop-shadow-sm">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground mb-6 leading-tight">
                   Resources for the Whole Person
                 </h1>
-                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-2xl font-paragraph">
+                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-2xl font-paragraph font-light">
                   Education is one part of the picture. Here you'll also find support for housing, food, health, and career — because growth is easier when your basic needs are met.
                 </p>
               </div>
               <div className="hidden lg:flex justify-center items-center relative">
-                <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl opacity-70 animate-pulse-slow"></div>
-                <div className="relative w-80 h-80 bg-foreground/10 rounded-full flex items-center justify-center shadow-2xl border-4 border-foreground/10">
-                  <BookOpen size={120} className="text-foreground/30" />
+                <div className="relative w-80 h-80 bg-foreground/5 rounded-full flex items-center justify-center">
+                  <BookOpen size={120} className="text-foreground/20" />
                 </div>
               </div>
             </div>
           </AnimatedElement>
         </div>
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float"></div>
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply opacity-30 blur-3xl animate-float animation-delay-2000"></div>
       </section>
       {/* Search and Filter Section */}
       <section className="py-12 bg-background border-b border-foreground/10">
