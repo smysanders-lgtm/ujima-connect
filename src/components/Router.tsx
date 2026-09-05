@@ -7,6 +7,7 @@ import ProgramsPage from '@/components/pages/ProgramsPage';
 import ProgramDetailPage from '@/components/pages/ProgramDetailPage';
 import AboutPage from '@/components/pages/AboutPage';
 import ResourcesPage from '@/components/pages/ResourcesPage';
+import ReadingCollectionPage from '@/components/pages/ReadingCollectionPage';
 import ContactPage from '@/components/pages/ContactPage';
 import CommunityEventsPage from '@/components/pages/CommunityEventsPage';
 import MeetTheTeamPage from '@/components/pages/MeetTheTeamPage';
@@ -65,6 +66,13 @@ const router = createBrowserRouter([
         element: <ResourcesPage />,
         routeMetadata: {
           pageIdentifier: 'resources',
+        },
+      },
+      {
+        path: "reading-collection",
+        element: <ReadingCollectionPage />,
+        routeMetadata: {
+          pageIdentifier: 'reading-collection',
         },
       },
       {

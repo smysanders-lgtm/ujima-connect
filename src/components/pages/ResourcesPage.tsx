@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { MentalHealthResources } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -6,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
-import { ExternalLink, Building2, Phone, AlertCircle, BookOpen, Search, X } from 'lucide-react';
+import { ExternalLink, Building2, Phone, AlertCircle, BookOpen, Search, X, ChevronDown } from 'lucide-react';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -118,12 +119,14 @@ const CRISIS_RESOURCES = [
 ];
 
 export default function ResourcesPage() {
+  const navigate = useNavigate();
   const [resources, setResources] = useState<MentalHealthResources[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedGroup, setSelectedGroup] = useState<string>('Learning & Growth');
   const [selectedTopic, setSelectedTopic] = useState<string>('all');
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isTopicDropdownOpen, setIsTopicDropdownOpen] = useState(false);
 
   useEffect(() => {
     loadResources();
@@ -233,24 +236,39 @@ export default function ResourcesPage() {
               </div>
             </div>
 
-            {/* Topic Filter Pills */}
+            {/* Topic Filter Dropdown */}
             {topics.length > 1 && (
               <div>
                 <span className="text-xs font-paragraph text-foreground/60 font-semibold uppercase tracking-wide block mb-4">Filter by Topic</span>
-                <div className="flex flex-wrap gap-2">
-                  {topics.map((topic) => (
-                    <button
-                      key={topic}
-                      onClick={() => setSelectedTopic(topic)}
-                      className={`px-4 py-2 rounded-full font-paragraph text-xs font-medium transition-all duration-200 ${
-                        selectedTopic === topic
-                          ? 'bg-foreground text-white shadow-md'
-                          : 'bg-white text-foreground border border-foreground/20 hover:border-foreground/40 hover:shadow-sm'
-                      }`}
-                    >
-                      {topic === 'all' ? 'All Topics' : topic}
-                    </button>
-                  ))}
+                <div className="relative w-full sm:w-64">
+                  <button
+                    onClick={() => setIsTopicDropdownOpen(!isTopicDropdownOpen)}
+                    className="w-full px-4 py-2.5 rounded-lg font-paragraph text-sm font-medium transition-all duration-200 bg-white text-foreground border border-foreground/20 hover:border-foreground/40 flex items-center justify-between"
+                  >
+                    <span>{selectedTopic === 'all' ? 'All Topics' : selectedTopic}</span>
+                    <ChevronDown size={18} className={`transition-transform duration-200 ${isTopicDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {isTopicDropdownOpen && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-foreground/20 rounded-lg shadow-lg z-10">
+                      {topics.map((topic) => (
+                        <button
+                          key={topic}
+                          onClick={() => {
+                            setSelectedTopic(topic);
+                            setIsTopicDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2.5 font-paragraph text-sm transition-all duration-200 first:rounded-t-lg last:rounded-b-lg ${
+                            selectedTopic === topic
+                              ? 'bg-foreground text-white'
+                              : 'text-foreground hover:bg-foreground/5'
+                          }`}
+                        >
+                          {topic === 'all' ? 'All Topics' : topic}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -261,67 +279,31 @@ export default function ResourcesPage() {
       {/* Resources Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-[100rem]">
-          {/* Featured Books Section - Always visible in Learning & Growth */}
+          {/* Featured Books Section - Button to Reading Collection Page */}
           {showBooks && (
             <div className="mb-20">
               <AnimatedElement>
-                <div className="mb-12">
-                  <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
-                    📚 Featured Reading Collection
-                  </h2>
-                  <p className="text-lg text-foreground/70">
-                    Curated books to support your learning and growth journey
-                  </p>
+                <div className="bg-gradient-to-r from-emerald-50 to-emerald-100/50 rounded-2xl p-8 md:p-12 border border-emerald-200">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="flex-1">
+                      <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                        📚 Featured Reading Collection
+                      </h2>
+                      <p className="text-lg text-foreground/70 mb-6">
+                        Explore our curated collection of books to support your learning and growth journey. Discover resources handpicked to inspire and educate.
+                      </p>
+                      <Button
+                        onClick={() => navigate('/reading-collection')}
+                        size="lg"
+                        className="bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
+                      >
+                        View Full Collection
+                      </Button>
+                    </div>
+                    <div className="hidden lg:block text-6xl">📚</div>
+                  </div>
                 </div>
               </AnimatedElement>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                {BOOKS.map((book, index) => (
-                  <AnimatedElement key={`book-${index}`} delay={index * 50}>
-                    <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
-                      {/* Book Cover Image */}
-                      <div className="relative w-full h-48 bg-foreground/5 overflow-hidden">
-                        <Image
-                          src={book.coverImage}
-                          alt={`${book.title} cover`}
-                          width={300}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      
-                      {/* Reading Tag and Content Container */}
-                      <div className="px-6 pt-4 pb-6 flex flex-col flex-1">
-                        <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit mb-4">
-                          Reading
-                        </span>
-
-                        {/* Book Title and Author */}
-                        <h3 className="text-lg font-heading font-bold text-foreground mb-1 flex-1">
-                          {book.title}
-                        </h3>
-                        <p className="text-sm text-foreground/60 mb-4">
-                          by {book.author}
-                        </p>
-                        <Button
-                          asChild
-                          className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
-                        >
-                          <a
-                            href={book.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center"
-                          >
-                            View on Amazon
-                            <ExternalLink size={16} className="ml-2" />
-                          </a>
-                        </Button>
-                      </div>
-                    </div>
-                  </AnimatedElement>
-                ))}
-              </div>
             </div>
           )}
 
