@@ -23,8 +23,8 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-foreground/10">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <Image
@@ -35,22 +35,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-sm font-paragraph transition-colors hover:text-primary ${
-                  isActive(link.path) ? 'text-primary font-medium' : 'text-foreground'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* CTA Button */}
+          {/* CTA Button - Desktop */}
           <div className="hidden md:block">
             <Button
               asChild
@@ -70,9 +55,26 @@ export default function Header() {
           </button>
         </div>
 
+        {/* Desktop Navigation - Tab Style */}
+        <nav className="hidden md:flex items-center border-t border-foreground/10">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`px-4 py-3 text-sm font-paragraph transition-all duration-200 border-b-2 hover:text-primary ${
+                isActive(link.path)
+                  ? 'text-primary font-medium border-b-primary'
+                  : 'text-foreground border-b-transparent hover:border-b-foreground/30'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-foreground/10 pt-4">
+          <nav className="md:hidden pb-4 border-t border-foreground/10 pt-4">
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <Link
