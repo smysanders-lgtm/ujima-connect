@@ -230,7 +230,6 @@ export default function BecomeAMentorPage() {
   return (
     <div className="min-h-screen bg-background font-paragraph text-foreground selection:bg-primary/30">
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-[#151615] text-white overflow-hidden min-h-[60vh] flex items-center">
         <div className="absolute inset-0 w-full h-full lg:w-[60%] lg:left-auto lg:right-0 z-0">
@@ -246,15 +245,15 @@ export default function BecomeAMentorPage() {
         <div className="container mx-auto px-6 relative z-20 py-20">
           <div className="max-w-2xl">
             <AnimatedElement>
-              <Link to="/get-involved" className="inline-flex items-center gap-2 text-primary/90 hover:text-primary transition-colors mb-6">
-                <ArrowLeft className="w-4 h-4" />
-                <span className="text-sm font-paragraph">Back to Get Involved</span>
+              <Link to="/get-involved" className="inline-flex items-center gap-2 hover:text-primary transition-colors mb-6 text-background">
+                <ArrowLeft className="w-4 h-4 fill-background" />
+                <span className="text-sm font-paragraph text-background">Back to Get Involved</span>
               </Link>
             </AnimatedElement>
 
             <AnimatedElement delay={100}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-[1.1] tracking-tight">
-                Become a <span className="text-primary">Mentor</span>
+                Become a <span className="text-accent">Mentor</span>
               </h1>
             </AnimatedElement>
 
@@ -266,7 +265,6 @@ export default function BecomeAMentorPage() {
           </div>
         </div>
       </section>
-
       {/* Benefits Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -325,7 +323,6 @@ export default function BecomeAMentorPage() {
           </div>
         </div>
       </section>
-
       {/* Application Form Section */}
       <section className="py-24 bg-secondary">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -569,7 +566,6 @@ export default function BecomeAMentorPage() {
           </AnimatedElement>
         </div>
       </section>
-
       {/* FAQ Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -617,7 +613,6 @@ export default function BecomeAMentorPage() {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );
