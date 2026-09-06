@@ -281,7 +281,7 @@ export default function CommunityEventsPage() {
               </p>
               
               <Button
-                className="bg-primary text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300"
+                className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 bg-background"
               >
                 Subscribe Now
               </Button>

@@ -202,8 +202,8 @@ export default function ResourcesPage() {
               <div className="hidden lg:block relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent rounded-2xl blur-2xl"></div>
                 <Image
-                  src="https://static.wixstatic.com/media/0538ae_2d40c43348304324926fc8c7d684d789~mv2.png?originWidth=448&originHeight=384"
-                  alt="Community learning and growth"
+                  src="https://static.wixstatic.com/media/0538ae_9c57e88fac58420cae8130431af2d3fe~mv2.png?originWidth=448&originHeight=384"
+                  alt="Stack of books"
                   width={500}
                   height={400}
                   className="relative z-10 rounded-2xl object-cover w-full h-auto"
