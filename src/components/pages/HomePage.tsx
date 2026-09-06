@@ -253,15 +253,6 @@ export default function HomePage() {
                 <p className="mt-6 text-lg text-foreground/80 leading-relaxed font-light">
                   Discover our diverse range of programs crafted to empower learners and strengthen communities through creativity, education, and technology.
                 </p>
-                <div className="mt-12">
-                  <Button
-                    onClick={() => navigate('/programs')}
-                    size="lg"
-                    className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-full tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
-                  >
-                    VIEW ALL PROGRAMS
-                  </Button>
-                </div>
               </div>
             </AnimatedElement>
 
@@ -274,7 +265,10 @@ export default function HomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {displayPrograms.slice(0, 4).map((program, index) => (
                     <AnimatedElement key={program._id || index} delay={index * 100}>
-                      <div className="bg-white p-8 h-full border border-gray-100 rounded-lg shadow-md hover:border-primary/50 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex flex-col items-center justify-center text-center">
+                      <button
+                        onClick={() => navigate(`/programs/${program._id}`)}
+                        className="bg-white p-8 h-full border border-gray-100 rounded-lg shadow-md hover:border-primary/50 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex flex-col items-center justify-center text-center cursor-pointer w-full"
+                      >
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         
                         <div className="relative z-10 mb-4">
@@ -293,7 +287,7 @@ export default function HomePage() {
                             {program.shortDescription}
                           </p>
                         </div>
-                      </div>
+                      </button>
                     </AnimatedElement>
                   ))}
                 </div>
