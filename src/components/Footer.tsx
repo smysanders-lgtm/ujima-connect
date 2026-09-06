@@ -77,7 +77,7 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-6">
           <div className="flex justify-center items-center space-x-6 mb-4">
             <a
-              href="https://www.youtube.com"
+              href="https://youtube.com/@ujima_creativewriting?si=LOVJ9vGyYTKhxS8c"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/80 hover:text-primary transition-colors"
@@ -86,7 +86,7 @@ export default function Footer() {
               <Youtube size={20} />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/poetic_justice_pecola?utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/80 hover:text-primary transition-colors"
