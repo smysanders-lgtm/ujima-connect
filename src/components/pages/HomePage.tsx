@@ -500,7 +500,7 @@ export default function HomePage() {
                     <Youtube className="w-6 h-6" />
                   </a>
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/poetic_justice_pecola?utm_source=qr"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
