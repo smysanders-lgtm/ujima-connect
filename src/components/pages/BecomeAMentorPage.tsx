@@ -237,8 +237,8 @@ export default function BecomeAMentorPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#151615] via-[#151615]/80 to-transparent z-10 hidden lg:block" />
           <div className="absolute inset-0 bg-[#151615]/60 lg:hidden z-10" />
           <Image
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=1000&fit=crop&auto=format"
-            alt="Become a mentor"
+            src="https://static.wixstatic.com/media/0538ae_9f3ef6417cfc4e399fd877b8e8fe030a~mv2.png?originWidth=1600&originHeight=960"
+            alt="Diverse mentors and mentees in collaborative learning"
             className="w-full h-full object-cover object-center opacity-70 lg:opacity-100"
           />
         </div>
