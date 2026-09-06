@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms, TeamMembers } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Instagram, Youtube } from 'lucide-react';
+import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Instagram, Youtube, Linkedin } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { motion } from 'framer-motion';
 import Header from '@/components/Header';
@@ -492,7 +492,7 @@ export default function HomePage() {
                 
                 <div className="flex flex-wrap gap-4 mb-8">
                   <a
-                    href="https://youtube.com"
+                    href="https://youtube.com/@ujima_creativewriting?si=LOVJ9vGyYTKhxS8c"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
