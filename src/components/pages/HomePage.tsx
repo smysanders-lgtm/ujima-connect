@@ -265,31 +265,31 @@ export default function HomePage() {
               </div>
             </AnimatedElement>
 
-            <div className="min-h-[400px] relative">
+            <div className="min-h-[600px] relative">
               {isLoading ? (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <LoadingSpinner className="text-primary w-8 h-8" />
                 </div>
               ) : (
-                <div className="grid gap-6">
-                  {displayPrograms.map((program, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {displayPrograms.slice(0, 4).map((program, index) => (
                     <AnimatedElement key={program._id || index} delay={index * 100}>
-                      <div className="bg-white p-8 lg:p-10 h-full border border-gray-100 rounded-lg shadow-md hover:border-primary/50 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex items-start">
+                      <div className="bg-white p-8 h-full border border-gray-100 rounded-lg shadow-md hover:border-primary/50 hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex flex-col items-center justify-center text-center">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         
-                        <div className="relative z-10 flex-shrink-0 mr-6 mt-1">
-                          <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors duration-300">
-                            <span className="text-xl font-heading font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                        <div className="relative z-10 mb-4">
+                          <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors duration-300 mx-auto">
+                            <span className="text-2xl font-heading font-bold text-primary group-hover:scale-110 transition-transform duration-300">
                               {String(index + 1)}
                             </span>
                           </div>
                         </div>
                         
-                        <div className="relative z-10 flex-grow">
-                          <h3 className="text-2xl font-heading font-bold text-foreground mb-2 leading-snug">
+                        <div className="relative z-10">
+                          <h3 className="text-xl font-heading font-bold text-foreground mb-3 leading-snug">
                             {program.programName}
                           </h3>
-                          <p className="text-gray-600 leading-relaxed font-light">
+                          <p className="text-gray-600 leading-relaxed font-light text-sm">
                             {program.shortDescription}
                           </p>
                         </div>
