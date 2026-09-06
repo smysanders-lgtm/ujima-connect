@@ -174,6 +174,27 @@ export interface ProgramSchedules {
 
 
 /**
+ * Collection ID: readingcollectionbooks
+ * Interface for ReadingCollectionBooks
+ */
+export interface ReadingCollectionBooks {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  title?: string;
+  /** @wixFieldType text */
+  author?: string;
+  /** @wixFieldType url */
+  amazonLink?: string;
+  /** @wixFieldType text */
+  description?: string;
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
+  coverImage?: string;
+}
+
+
+/**
  * Collection ID: teammembers
  * Interface for TeamMembers
  */

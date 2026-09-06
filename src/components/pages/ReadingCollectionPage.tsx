@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
 import { ExternalLink, ArrowLeft } from 'lucide-react';
+import { BaseCrudService } from '@/integrations';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -90,8 +91,34 @@ const BOOKS = [
   }
 ];
 
+interface Book {
+  _id: string;
+  title?: string;
+  author?: string;
+  amazonLink?: string;
+  coverImage?: string;
+  description?: string;
+}
+
 export default function ReadingCollectionPage() {
   const navigate = useNavigate();
+  const [books, setBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const result = await BaseCrudService.getAll<Book>('readingcollectionbooks');
+        setBooks(result.items);
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -126,60 +153,74 @@ export default function ReadingCollectionPage() {
       {/* Books Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-[100rem]">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {BOOKS.map((book, index) => (
-              <AnimatedElement key={`book-${index}`} delay={index * 50}>
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
-                  {/* Book Cover Image */}
-                  <div className="relative w-full h-64 bg-foreground/5 overflow-hidden">
-                    <Image
-                      src={book.coverImage}
-                      alt={`${book.title} cover`}
-                      width={300}
-                      height={400}
-                      className="w-full h-full object-cover"
-                    />
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="text-foreground/60">Loading books...</div>
+            </div>
+          ) : books.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {books.map((book, index) => (
+                <AnimatedElement key={book._id} delay={index * 50}>
+                  <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
+                    {/* Book Cover Image */}
+                    <div className="relative w-full h-64 bg-foreground/5 overflow-hidden">
+                      {book.coverImage && (
+                        <Image
+                          src={book.coverImage}
+                          alt={`${book.title} cover`}
+                          width={300}
+                          height={400}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                    </div>
+                    
+                    {/* Content Container */}
+                    <div className="px-6 pt-6 pb-6 flex flex-col flex-1">
+                      <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit mb-4">
+                        Reading
+                      </span>
+
+                      {/* Book Title and Author */}
+                      <h3 className="text-xl font-heading font-bold text-foreground mb-2 flex-1">
+                        {book.title}
+                      </h3>
+                      <p className="text-sm text-foreground/60 mb-4">
+                        by {book.author}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-sm text-foreground/70 leading-relaxed mb-6 flex-1">
+                        {book.description}
+                      </p>
+
+                      {/* Action Button */}
+                      {book.amazonLink && (
+                        <Button
+                          asChild
+                          className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
+                        >
+                          <a
+                            href={book.amazonLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center"
+                          >
+                            View on Amazon
+                            <ExternalLink size={16} className="ml-2" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                  
-                  {/* Content Container */}
-                  <div className="px-6 pt-6 pb-6 flex flex-col flex-1">
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full font-bold inline-block w-fit mb-4">
-                      Reading
-                    </span>
-
-                    {/* Book Title and Author */}
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-2 flex-1">
-                      {book.title}
-                    </h3>
-                    <p className="text-sm text-foreground/60 mb-4">
-                      by {book.author}
-                    </p>
-
-                    {/* Description */}
-                    <p className="text-sm text-foreground/70 leading-relaxed mb-6 flex-1">
-                      {book.description}
-                    </p>
-
-                    {/* Action Button */}
-                    <Button
-                      asChild
-                      className="w-full bg-foreground text-white hover:bg-foreground/90 transition-all duration-200"
-                    >
-                      <a
-                        href={book.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center"
-                      >
-                        View on Amazon
-                        <ExternalLink size={16} className="ml-2" />
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </AnimatedElement>
-            ))}
-          </div>
+                </AnimatedElement>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-foreground/60">No books available yet.</p>
+            </div>
+          )}
         </div>
       </section>
 
