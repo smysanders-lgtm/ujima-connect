@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { EducationalPrograms, TeamMembers } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Linkedin } from 'lucide-react';
+import { BookOpen, Users, Heart, ArrowRight, Shield, CheckCircle2, Leaf, Lightbulb, Zap, Sparkles, Target, Linkedin, Facebook, Instagram, Twitter } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { motion } from 'framer-motion';
 import Header from '@/components/Header';
@@ -474,6 +474,76 @@ export default function HomePage() {
           </AnimatedElement>
         </div>
       </section>
+      {/* Social Media CTA Section */}
+      <section className="py-32 bg-secondary relative overflow-hidden">
+         {/* Decorative subtle pattern */}
+         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
+         
+         <div className="container mx-auto px-6 relative z-10">
+           <AnimatedElement>
+             <div className="max-w-3xl mx-auto text-center">
+               <div className="w-12 h-12 mx-auto mb-8 flex items-center justify-center">
+                 <Sparkles className="w-8 h-8 text-primary" />
+               </div>
+               
+               <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
+                 Connect With Us
+               </h2>
+               
+               <p className="text-lg text-foreground/70 mb-12 leading-relaxed font-light">
+                 Follow our journey and stay updated on programs, events, and community stories. Join our growing community on social media.
+               </p>
+               
+               <div className="flex flex-wrap justify-center gap-6 mb-12">
+                 <a
+                   href="https://facebook.com"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                 >
+                   <Facebook className="w-6 h-6" />
+                 </a>
+                 <a
+                   href="https://instagram.com"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                 >
+                   <Instagram className="w-6 h-6" />
+                 </a>
+                 <a
+                   href="https://twitter.com"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                 >
+                   <Twitter className="w-6 h-6" />
+                 </a>
+                 <a
+                   href="https://linkedin.com"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                 >
+                   <Linkedin className="w-6 h-6" />
+                 </a>
+               </div>
+               
+               <p className="text-sm text-foreground/60 font-light mb-8">
+                 Don't miss out on the latest updates and exclusive content
+               </p>
+               
+               <Button
+                 onClick={() => navigate('/contact')}
+                 size="lg"
+                 className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
+               >
+                 LEARN MORE
+               </Button>
+             </div>
+           </AnimatedElement>
+         </div>
+       </section>
       <Footer />
     </div>
   );
