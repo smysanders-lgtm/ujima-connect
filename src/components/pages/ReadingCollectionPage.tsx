@@ -5,7 +5,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
 import { ExternalLink, ArrowLeft } from 'lucide-react';
-import { BaseCrudService } from '@/integrations';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -50,49 +49,48 @@ const BOOKS = [
   {
     title: 'Afro-Futuristic Adventures with Granville T. Woods',
     author: 'Letta S. Baker Mason',
-    link: 'https://www.amazon.com/s?k=Afro-Futuristic+Adventures+Granville+Woods',
+    amazonLink: 'https://www.amazon.com/s?k=Afro-Futuristic+Adventures+Granville+Woods',
     coverImage: 'https://static.wixstatic.com/media/0538ae_86ff6d8b541d4a2581c18f580b02d408~mv2.png?originWidth=448&originHeight=576',
     description: 'An inspiring exploration of innovation and African American history through the lens of inventor Granville T. Woods and futuristic storytelling.'
   },
   {
     title: 'Sankofa, Sankofa',
     author: 'Letta S. Baker Mason',
-    link: 'https://www.amazon.com/s?k=Sankofa+Sankofa+Letta+Baker+Mason',
+    amazonLink: 'https://www.amazon.com/s?k=Sankofa+Sankofa+Letta+Baker+Mason',
     coverImage: 'https://static.wixstatic.com/media/0538ae_d4025d06b8a24c04b72ab73bce1fb2ac~mv2.png?originWidth=448&originHeight=576',
     description: 'A powerful narrative exploring cultural heritage and the importance of looking back to move forward with purpose and wisdom.'
   },
   {
     title: 'I Know Why the Caged Bird Sings',
     author: 'Maya Angelou',
-    link: 'https://www.amazon.com/Know-Why-Caged-Bird-Sings/dp/0345514408',
+    amazonLink: 'https://www.amazon.com/Know-Why-Caged-Bird-Sings/dp/0345514408',
     coverImage: 'https://static.wixstatic.com/media/0538ae_f8fcdae6e29048d9adb73648a3267786~mv2.png?originWidth=448&originHeight=576',
     description: 'A transformative autobiography about resilience, self-discovery, and the power of finding your voice after trauma and silence.'
   },
   {
     title: 'Letter from Birmingham Jail',
     author: 'Martin Luther King Jr.',
-    link: 'https://www.amazon.com/Letter-Birmingham-Jail-Martin-Luther/dp/0143039616',
+    amazonLink: 'https://www.amazon.com/Letter-Birmingham-Jail-Martin-Luther/dp/0143039616',
     coverImage: 'https://static.wixstatic.com/media/0538ae_5998e4f2bcf2435a89a0d51a41101f3a~mv2.png?originWidth=448&originHeight=576',
     description: 'A seminal work of civil rights literature that articulates the moral imperative for justice and nonviolent resistance.'
   },
   {
     title: 'Selected Poems',
     author: 'Gwendolyn Brooks',
-    link: 'https://www.amazon.com/Selected-Poems-Gwendolyn-Brooks/dp/0060085843',
+    amazonLink: 'https://www.amazon.com/Selected-Poems-Gwendolyn-Brooks/dp/0060085843',
     coverImage: 'https://static.wixstatic.com/media/0538ae_56cc39e5b3954ac8b25bfcce5ede5efe~mv2.png?originWidth=448&originHeight=576',
     description: 'A collection of powerful poetry that captures the African American experience with lyrical beauty and social consciousness.'
   },
   {
     title: 'Who Was Cesar Chavez?',
     author: 'Dana Meachen Rau & Who HQ (Illustrator: Ted Hammond)',
-    link: 'https://www.amazon.com/Who-Was-Cesar-Chavez-Meachen/dp/0448479656',
+    amazonLink: 'https://www.amazon.com/Who-Was-Cesar-Chavez-Meachen/dp/0448479656',
     coverImage: 'https://static.wixstatic.com/media/0538ae_8e809154f09a41beaef657efe0115cdf~mv2.png?originWidth=448&originHeight=576',
     description: 'An accessible biography of the legendary labor leader and civil rights activist who fought for farmworkers\' rights and dignity.'
   }
 ];
 
 interface Book {
-  _id: string;
   title?: string;
   author?: string;
   amazonLink?: string;
@@ -102,23 +100,7 @@ interface Book {
 
 export default function ReadingCollectionPage() {
   const navigate = useNavigate();
-  const [books, setBooks] = useState<Book[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const result = await BaseCrudService.getAll<Book>('readingcollectionbooks');
-        setBooks(result.items);
-      } catch (error) {
-        console.error('Error fetching books:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBooks();
-  }, []);
+  const books = BOOKS;
 
   return (
     <div className="min-h-screen bg-background">
@@ -153,14 +135,10 @@ export default function ReadingCollectionPage() {
       {/* Books Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-[100rem]">
-          {isLoading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="text-foreground/60">Loading books...</div>
-            </div>
-          ) : books.length > 0 ? (
+          {books.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {books.map((book, index) => (
-                <AnimatedElement key={book._id} delay={index * 50}>
+                <AnimatedElement key={index} delay={index * 50}>
                   <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/5 h-full flex flex-col overflow-hidden">
                     {/* Book Cover Image */}
                     <div className="relative w-full h-64 bg-foreground/5 overflow-hidden">
