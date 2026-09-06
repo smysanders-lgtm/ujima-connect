@@ -443,107 +443,96 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* CTA Section */}
+      {/* Combined CTA Section - Ready to Get Started & Connect With Us */}
       <section className="py-32 bg-secondary relative overflow-hidden">
         {/* Decorative subtle pattern */}
         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
         
-        <div className="container mx-auto px-6 relative z-10">
-          <AnimatedElement>
-            <div className="max-w-2xl mx-auto text-center">
-              <div className="w-12 h-12 mx-auto mb-8 flex items-center justify-center">
-                <Leaf className="w-8 h-8 text-primary" />
+        <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            {/* Ready to Get Started Card */}
+            <AnimatedElement>
+              <div className="bg-white rounded-lg p-12 shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary/30 flex flex-col justify-center h-full">
+                <div className="w-12 h-12 mb-8 flex items-center justify-center">
+                  <Leaf className="w-8 h-8 text-primary" />
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">
+                  Ready to Get Started?
+                </h2>
+                
+                <p className="text-lg text-foreground/70 mb-10 leading-relaxed font-light">
+                  Reach out today to learn how our programs can support your family or community. No family is ever turned away due to financial need.
+                </p>
+                
+                <Button
+                  onClick={() => navigate('/contact')}
+                  size="lg"
+                  className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent w-full"
+                >
+                  GET IN TOUCH
+                </Button>
               </div>
-              
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-                Ready to Get Started?
-              </h2>
-              
-              <p className="text-lg text-foreground/70 mb-10 leading-relaxed font-light">
-                Reach out today to learn how our programs can support your family or community. No family is ever turned away due to financial need.
-              </p>
-              
-              <Button
-                onClick={() => navigate('/contact')}
-                size="lg"
-                className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
-              >
-                GET IN TOUCH
-              </Button>
-            </div>
-          </AnimatedElement>
+            </AnimatedElement>
+
+            {/* Connect With Us Card */}
+            <AnimatedElement delay={100}>
+              <div className="bg-white rounded-lg p-12 shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary/30 flex flex-col justify-center h-full">
+                <div className="w-12 h-12 mb-8 flex items-center justify-center">
+                  <Sparkles className="w-8 h-8 text-primary" />
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">
+                  Connect With Us
+                </h2>
+                
+                <p className="text-lg text-foreground/70 mb-10 leading-relaxed font-light">
+                  Follow our journey and stay updated on programs, events, and community stories. Join our growing community on social media.
+                </p>
+                
+                <div className="flex flex-wrap gap-4 mb-8">
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                  >
+                    <Facebook className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                  >
+                    <Instagram className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://twitter.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                  >
+                    <Twitter className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                  </a>
+                </div>
+                
+                <p className="text-sm text-foreground/60 font-light">
+                  Don't miss out on the latest updates and exclusive content
+                </p>
+              </div>
+            </AnimatedElement>
+          </div>
         </div>
       </section>
-      {/* Social Media CTA Section */}
-      <section className="py-32 bg-secondary relative overflow-hidden">
-         {/* Decorative subtle pattern */}
-         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1A4D2E_1px,transparent_1px)] [background-size:20px_20px]" />
-         
-         <div className="container mx-auto px-6 relative z-10">
-           <AnimatedElement>
-             <div className="max-w-3xl mx-auto text-center">
-               <div className="w-12 h-12 mx-auto mb-8 flex items-center justify-center">
-                 <Sparkles className="w-8 h-8 text-primary" />
-               </div>
-               
-               <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-                 Connect With Us
-               </h2>
-               
-               <p className="text-lg text-foreground/70 mb-12 leading-relaxed font-light">
-                 Follow our journey and stay updated on programs, events, and community stories. Join our growing community on social media.
-               </p>
-               
-               <div className="flex flex-wrap justify-center gap-6 mb-12">
-                 <a
-                   href="https://facebook.com"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
-                 >
-                   <Facebook className="w-6 h-6" />
-                 </a>
-                 <a
-                   href="https://instagram.com"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
-                 >
-                   <Instagram className="w-6 h-6" />
-                 </a>
-                 <a
-                   href="https://twitter.com"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
-                 >
-                   <Twitter className="w-6 h-6" />
-                 </a>
-                 <a
-                   href="https://linkedin.com"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="group flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white hover:bg-accent transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
-                 >
-                   <Linkedin className="w-6 h-6" />
-                 </a>
-               </div>
-               
-               <p className="text-sm text-foreground/60 font-light mb-8">
-                 Don't miss out on the latest updates and exclusive content
-               </p>
-               
-               <Button
-                 onClick={() => navigate('/contact')}
-                 size="lg"
-                 className="text-[#151615] hover:bg-primary/90 font-semibold px-10 py-7 rounded-none tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-accent"
-               >
-                 LEARN MORE
-               </Button>
-             </div>
-           </AnimatedElement>
-         </div>
-       </section>
       <Footer />
     </div>
   );
